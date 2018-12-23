@@ -121,3 +121,35 @@ body {
   text-align: center;
   color: white;
 }
+
+/* CSS PAUSED screen */
+
+@keyframes blinking {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+.crt-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: 'Press Start 2P';
+  color: whitesmoke;
+}
+
+.crt-content>p {
+  font-size: 80px;
+}
+
+.crt-content>p:last-child{
+  font-size: 30px;
+}
+
+.blink {
+  animation: blinking 1s infinite;
+}

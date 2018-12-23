@@ -60,6 +60,7 @@
   animation: flicker 0.15s infinite;
   border-radius: 10px;
 }
+
 .crt::before {
   content: " ";
   display: block;
@@ -74,6 +75,7 @@
   pointer-events: none;
   border-radius: 10px;
 }
+
 .crt {
   animation: textShadow 1.6s infinite;
   border-radius: 10px;

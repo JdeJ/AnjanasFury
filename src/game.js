@@ -1,7 +1,7 @@
 class Game{
-  constructor (){
-    this.canvas = document.getElementById('canvas');
-    this.ctx = canvas.getContext('2d');
+  constructor (canvas, ctx){
+    this.canvas = canvas;
+    this.ctx = ctx;
     this.minX = 300;
     this.maxX = 700;
     this.minY = 400;
@@ -10,19 +10,19 @@ class Game{
     this.characters = [];
     this.controlsPressed = [];
     this.fps = undefined;
+    this.pause = undefined;
+    this.resume = undefined;
   }
 
-  gameStart (){
-    this.generateControls();
+  gameStart (pause, resume){
+    this.pause = pause;
+    this.resume = resume;
+    //this.generateControls();
     this.characters.push(this.player);
     this.characters.push(new Enemy(80,80));
-    this.fps = setInterval(this.refresh.bind(this), 20);
-  }
-
-  refresh (){
-    this.generateControls();
-    this.clear();
-    this.characters.forEach((character) => this.drawCharacter(character));
+    //this.fps = setInterval(this.refresh.bind(this), 70);
+    //this.fps = window.requestAnimationFrame(this.refresh.bind(this));
+    this.refresh();
   }
 
   clear (){
@@ -34,9 +34,25 @@ class Game{
     this.ctx.fillRect(character.x, character.y, character.width, character.height);
   }
 
-  gamePause(){
-    clearInterval(this.fps);
-    this.fps = undefined;
+  refresh (){
+    this.generateControls();
+    this.clear();
+    this.characters.forEach((character) => this.drawCharacter(character));
+    this.fps = window.requestAnimationFrame(this.refresh.bind(this));
+  }
+
+  gamePause (){
+    // clearInterval(this.fps);
+    // this.fps = undefined;
+    //generateControls();
+    this.fps = window.cancelAnimationFrame(this.fps);
+    this.pause();
+  }
+
+  gameResume (){
+    //this.fps = setInterval(this.refresh.bind(this), 70);
+    this.resume();
+    //this.refresh();
   }
 
   gameOver (){
@@ -44,13 +60,22 @@ class Game{
   }
 
   generateControls (){
-    document.onkeydown = (e) => {
-      console.log(e.keyCode)
-    };
 
+    //Tengo que controlar el pause así, con window.addEventListener no me funciona
+    document.onkeydown = (e) => {
+      if (e.keyCode === 32){
+        if (this.fps){
+          this.gamePause();
+        }else{
+          this.gameResume();
+          this.refresh();
+        }
+      }
+    };
 
     window.addEventListener('keydown', (pressed) => {
       this.controlsPressed[pressed.keyCode] = true;
+      console.log (pressed.keyCode);
     });
 
     window.addEventListener('keyup', (pressed) => {
@@ -83,7 +108,11 @@ class Game{
       console.log('Launch');
     }
     if (this.controlsPressed[32]) {
-      console.log('START');
+      if (this.fps){
+        console.log('Paused');
+      }else{
+        console.log('Resumed');
+      }
     }
   }
 
