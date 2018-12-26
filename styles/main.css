@@ -146,8 +146,18 @@ body {
   font-size: 80px;
 }
 
-.crt-content>p:last-child{
+.crt-content .options-btn{
   font-size: 30px;
+  padding: 10px;
+  background-color: black;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.options p:hover{
+  animation: blinking 1s infinite;
 }
 
 .blink {
