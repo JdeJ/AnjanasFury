@@ -10,11 +10,8 @@ class Game{
     this.characters = []; //array de characteres en pantalla
     this.controlsPressed = [];
     this.fps = undefined; //guarda el id de la animacion del canvas
-    this.pause = undefined; //cb de main a ejecutar en la pausa
-    this.resume = undefined; //cb de main a ejecutar en el resume
-    this.over = undefined; //cb del main a ejecutar en gameover
     this.state = 'stopped'; //estado del programa: [stopped, running, paused]
-    this.cb = {pause: undefined, resume: undefined, gameOver: undefined};
+    this.cb = {pause: undefined, resume: undefined, gameOver: undefined}; //objeto que guardará los callbacks del main.js
   }
 
   gameStart (pause, resume, gameOver){
@@ -24,7 +21,6 @@ class Game{
     this.cb.gameOver = gameOver;
     this.characters.push(this.player);
     this.characters.push(new Enemy(80,80));
-    this.generateControls();
     this.refresh();
   }
 
@@ -40,12 +36,12 @@ class Game{
   refresh (){
     this.clear();
     this.characters.forEach((character) => this.drawCharacter(character));
+    this.generateControls();
     this.fps = window.requestAnimationFrame(this.refresh.bind(this));
   }
 
   gamePause (){
     this.state = 'paused';
-    this.removeControls();
     //detengo el canvas
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
@@ -57,14 +53,12 @@ class Game{
     //llamo al cb de main.js para que borre la pantalla de pause del DOM
     this.cb.resume();
     this.state = 'running';
-    this.generateControls();
     //arranco el canvas de nuevo
     this.refresh();
   }
 
   gameOver (){
     this.state = 'stopped';
-    this.removeControls();
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
     this.cb.gameOver();
@@ -72,7 +66,7 @@ class Game{
 
   generateControls (){
     if(this.state === 'running'){
-      //Controlando la PAUSA con document.onkeydown
+      // Controlando la PAUSA con document.onkeydown
       document.onkeydown = (e) => {
         if (e.keyCode === 32){
           if (this.fps){
@@ -82,16 +76,14 @@ class Game{
           }
         }
       };
-  
-      window.addEventListener('keydown', this.onKeydown.bind(this),false);
-      window.addEventListener('keyup', this.onKeyup.bind(this), false);
-    }
-  }
 
-  onKeydown (pressed){
-    if (this.state === 'running'){
-      this.controlsPressed[pressed.keyCode] = true;
-      console.log ('pressed: ', pressed.keyCode);
+      window.addEventListener('keydown', (pressed) => {
+        this.controlsPressed[pressed.keyCode] = true;
+      });
+  
+      window.addEventListener('keyup', (pressed) => {
+        this.controlsPressed[pressed.keyCode] = false;
+      });
   
       if (this.controlsPressed[87]) {
         this.player.moveUp();
@@ -118,25 +110,8 @@ class Game{
       }
       if (this.controlsPressed[73]) {
         console.log('Trhow');
-      }
-      //Esto no funciona, tengo que usar document.onkeydown para controlar el pause/resume
-      // if (this.controlsPressed[32]) {
-      //   if (this.fps){
-      //     this.gamePause();
-      //   }else{
-      //     this.gameResume();
-      //     this.refresh();
-      //   }
-      // }  
+      } 
     }
   }
 
-  onKeyup (pressed){
-    this.controlsPressed[pressed.keyCode] = false;
-  }
-
-  removeControls(){
-    window.removeEventListener('keydown', this.onKeydown.bind(this),false);
-    window.removeEventListener('keyup', this.onKeyup.bind(this), false);
-  }
 }

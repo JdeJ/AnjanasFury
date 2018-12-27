@@ -20,7 +20,7 @@ document.onload = function () {
     pauseDiv.setAttribute('class', 'crt-content');
     pauseDiv.innerHTML = `
                             <p>PAUSED</p>
-                            <p class='options'>Press <span class="blink">START</span> when ready...</p>
+                            <p class='paused'>Press <span class="blink">START</span> when ready...</p>
                           `;
   
     crt.appendChild(pauseDiv);
@@ -51,8 +51,8 @@ document.onload = function () {
     selected.style = 'animation: blinking 1s infinite';
 
     //controles para hacer click en las opciones en lugar de usar teclado o mando
-    // document.getElementById('continue-btn').addEventListener('click', gameInit);
-    // document.getElementById('retry-btn').addEventListener('click', gameInit);
+    document.getElementById('continue-btn').addEventListener('click', gameInit);
+    document.getElementById('retry-btn').addEventListener('click', gameInit);
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){

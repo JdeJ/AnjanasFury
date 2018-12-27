@@ -7,8 +7,8 @@ class Player{
     this.height = height;
     this.x = 50;
     this.y = 400;
-    this.speedX = 10;
-    this.speedY = 10;
+    this.speedX = 20;
+    this.speedY = 20;
     this.color = 'green';
     this.img = new Image();
   }
