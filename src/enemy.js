@@ -26,7 +26,7 @@ class Enemy{
   }
 
   moveDown(){
-    return this.strength;
+    return this.speedY;
   }
 
   attack (){

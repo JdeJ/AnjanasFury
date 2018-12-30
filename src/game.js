@@ -2,16 +2,17 @@ class Game{
   constructor (canvas, ctx){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.minX = 300;
-    this.maxX = 700;
-    this.minY = 400;
-    this.maxY= 600;
-    this.player = new Player(100, 100);
-    this.characters = []; //array de characteres en pantalla
+    this.minX = 300; //scenario movement X bound
+    this.maxX = 700; //scenario movement X bound
+    this.minY = 400; //scenario movement Y bound
+    this.maxY= 600; //scenario movement Y bound
+    this.player = new Player('Cody', 'img/cody.png', 100, 50, 10);
+    this.enemies = []; //enemies array in screen
+    this.objects = []; //objects array in screen
     this.controlsPressed = [];
-    this.fps = undefined; //guarda el id de la animacion del canvas
-    this.state = 'stopped'; //estado del programa: [stopped, running, paused]
-    this.cb = {pause: undefined, resume: undefined, gameOver: undefined}; //objeto que guardará los callbacks del main.js
+    this.fps = undefined; //canvas animation id
+    this.state = 'stopped'; //game state: [stopped, running, paused]
+    this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
   }
 
   gameStart (pause, resume, gameOver){
@@ -19,8 +20,6 @@ class Game{
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
-    this.characters.push(this.player);
-    this.characters.push(new Enemy(80,80));
     this.refresh();
   }
 
@@ -28,14 +27,23 @@ class Game{
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  drawCharacter (character){
-    this.ctx.fillStyle = character.color;
-    this.ctx.fillRect(character.x, character.y, character.width, character.height);
+  drawElements (){
+
+    //drawStage
+    st1F1l0.drawSprite(this.ctx, 0, 0);
+    st1F1l1.drawSprite(this.ctx, 0, 0);
+
+    //drawPlayer
+    this.player.still(this.ctx);
+
+    //drawEnemies
+
+    //drawObjects
   }
 
   refresh (){
     this.clear();
-    this.characters.forEach((character) => this.drawCharacter(character));
+    this.drawElements();
     this.generateControls();
     this.fps = window.requestAnimationFrame(this.refresh.bind(this));
   }
@@ -83,33 +91,32 @@ class Game{
   
       window.addEventListener('keyup', (pressed) => {
         this.controlsPressed[pressed.keyCode] = false;
+        this.player.still(this.ctx);
       });
   
       if (this.controlsPressed[87]) {
-        this.player.moveUp();
+        this.player.moveUp(this.ctx);
       }
       if (this.controlsPressed[83]) {
-        this.player.moveDown();
+        this.player.moveDown(this.ctx);
       }
       if (this.controlsPressed[65]) {
-        this.player.moveLeft();
+        this.player.moveLeft(this.ctx);
       }
       if (this.controlsPressed[68]) {
-        this.player.moveRight();
+        this.player.moveRight(this.ctx);
       }
       if (this.controlsPressed[74]) {
         console.log('Punch');
-        //pruebo la pantalla de gameover la pulsar punch (J)
-        this.gameOver();
       }
       if (this.controlsPressed[75]) {
         console.log('Kick');
       }
-      if (this.controlsPressed[76]) {
-        console.log('Take');
+      if (this.controlsPressed[85]) {
+        console.log('Hook');
       }
       if (this.controlsPressed[73]) {
-        console.log('Trhow');
+        console.log('Take');
       } 
     }
   }

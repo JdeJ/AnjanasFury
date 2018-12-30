@@ -10,6 +10,7 @@ document.onload = function () {
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
     const game = new Game(canvas, ctx);
+    statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this));
   }
 
@@ -78,10 +79,43 @@ document.onload = function () {
     }
   }
 
+  function statistics(){
+    //Añado la pantalla 'statistics' al DOM
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'stats');
+    auxDiv.innerHTML = `
+                      <div class="record"><p>JDJ  1957834</p></div>
+                      <div class="score">
+                        <div class="player">
+                          <div class="mini-player"><img src="img/cody-player.png" alt=""></div>
+                          <div class="player-stats">
+                            <div>
+                              <div class="lives"> <p>CODY</p><p>= 3</p> </div>
+                              <div class="points"> <p>43562</p> </div>
+                            </div>
+                            <div class="health"></div>
+                          </div>
+                        </div>
+                        <div class="time">
+                          <div><p>TIME</p></div>
+                          <div class="chrono"><p>26</p></div>
+                        </div>
+                      </div>
+                      `;
+    crt.appendChild(auxDiv);
+  }
+
   function cleanContainer (){
-    let content = document.querySelector('.crt-content')
+    let content = document.querySelector('.crt-content');
     if (content){
       crt.removeChild (content);
+    }
+  }
+
+  function cleanStats (){
+    let stats = document.querySelector('.stats');
+    if(stats){
+      crt.removeChild (stats);
     }
   }
   
