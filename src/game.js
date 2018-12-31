@@ -7,6 +7,7 @@ class Game{
     this.minY = 400; //scenario movement Y bound
     this.maxY= 600; //scenario movement Y bound
     this.player = new Player('Cody', 'img/cody.png', 100, 50, 10);
+    this.stage = new Stage('Slum', [st1P1, st1P2, st1P3], this.ctx);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -30,8 +31,7 @@ class Game{
   drawElements (){
 
     //drawStage
-    st1F1l0.drawSprite(this.ctx, 0, 0);
-    st1F1l1.drawSprite(this.ctx, 0, 0);
+    this.stage.drawStage(this.ctx);
 
     //drawPlayer
     this.player.still(this.ctx);
@@ -112,7 +112,7 @@ class Game{
       if (this.controlsPressed[75]) {
         console.log('Kick');
       }
-      if (this.controlsPressed[85]) {
+      if (this.controlsPressed[76]) {
         console.log('Hook');
       }
       if (this.controlsPressed[73]) {
