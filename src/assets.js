@@ -25,11 +25,11 @@ var st2P1l1 = new Sprite('img/stage2.png',{x:0,y:272},{width:2512, height:142},{
 var st2P2l0 = new Sprite('img/stage2.png',{x:0,y:426},{width:2400, height:255},{width:5647, height:600},0, 0, true);
 
 //Phases
-var st1P1 = new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2918}, {minY: 548, maxY: 600});
-var st1P2 = new Phase(1426, [st1P2l0], {minX: 46, maxX: 1380}, {minY: 551, maxY: 600});
-var st1P3 = new Phase(2212, [st1P3l0, st1P3l1], {minX: 116, maxX: 2077}, {minY: 548, maxY: 600});
-var st2P1 = new Phase(5888, [st2P1l0, st2P1l1], {minX: 124, maxX: 5868}, {minY: 543, maxY: 600});
-var st2P2 = new Phase(5647, [st2P2l0], {minX: 39, maxX: 5591}, {minY: 537, maxY: 600});
+var st1P1 = new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2918}, {minY: 465, maxY: 592}, 880);
+var st1P2 = new Phase(1426, [st1P2l0], {minX: 46, maxX: 1380}, {minY: 467, maxY: 592}, 954);
+var st1P3 = new Phase(2212, [st1P3l0, st1P3l1], {minX: 116, maxX: 2077}, {minY: 512, maxY: 592}, 865);
+var st2P1 = new Phase(5888, [st2P1l0, st2P1l1], {minX: 124, maxX: 5908}, {minY: 423, maxY: 592}, 944);
+var st2P2 = new Phase(5647, [st2P2l0], {minX: 39, maxX: 5667}, {minY: 452, maxY: 592}, 944);
 
 //Objects array
 var objectsArray = [];

@@ -2,12 +2,6 @@ class Player{
 
   constructor (name, img,  health, strength, vel){
     this.name = name;
-    this.health = health;
-    this.strength = strength;
-    this.vel = vel;
-    this.x = 50; //default x position on canvas
-    this.y = 400; //default y position on canvas
-    this.direction = 'right'; //default direction
     this.stillRight = new Sprite(img,{x:0,y:0},{width:54, height:93},{width:129, height:222},0,1,true);
     this.stillLeft = new Sprite(img,{x:0,y:104},{width:54, height:93},{width:129, height:222},0,1,true);
     this.goRight = new Sprite(img,{x:56,y:0},{width:62, height:96},{width:145, height:222},50,10,false);
@@ -24,9 +18,15 @@ class Player{
     this.damageLeft = new Sprite(img,{x:396,y:526},{width:55, height:84},{width:148, height:222},50,4,false);
     this.takeRight = new Sprite(img,{x:453,y:441},{width:54, height:84},{width:148, height:222},0,1,true);
     this.takeLeft = new Sprite(img,{x:453,y:526},{width:54, height:84},{width:148, height:222},0,1,true);
+    this.health = health;
+    this.strength = strength;
+    this.vel = vel;
+    this.x = 50; //default x position on canvas
+    this.y = 300; //default y position on canvas
+    this.direction = 'right'; //default direction
   }
 
-  still (ctx){
+  still (ctx, stage){
     if (this.direction === 'right'){
       this.stillRight.drawSprite(ctx, this.x, this.y);
     }else{
@@ -34,37 +34,57 @@ class Player{
     }
   }
 
-  moveRight (ctx){
-    this.x+=this.vel;
-    this.direction = 'right';
-    this.goRight.drawSprite(ctx, this.x, this.y);
-  }
-
-  moveLeft (ctx){
-    this.x-=this.vel;
-    this.direction = 'left';
-    this.goLeft.drawSprite(ctx, this.x, this.y);
-  }
-
-  moveUp (ctx){
-    this.y-=this.vel;
-    if (this.direction === 'right'){
+  moveRight (ctx, stage){
+    let x = this.x + this.vel;
+    if(stage.canMoveX(x, this.goRight)){
+      this.x += this.vel;
+      this.direction = 'right';
       this.goRight.drawSprite(ctx, this.x, this.y);
-    }else{
+    }
+  }
+
+  moveLeft (ctx, stage){
+    let x = this.x - this.vel;
+    if(stage.canMoveX(x, this.goLeft)){
+      this.x -= this.vel;
+      this.direction = 'left';
       this.goLeft.drawSprite(ctx, this.x, this.y);
     }
   }
 
-  moveDown(ctx){
-    this.y+=this.vel;
+  moveUp (ctx, stage){
+    let y = this.y - this.vel;
+
     if (this.direction === 'right'){
-      this.goRight.drawSprite(ctx, this.x, this.y);
+      if(stage.canMoveY(y, this.goRight)){
+        this.y -= this.vel;
+        this.goRight.drawSprite(ctx, this.x, this.y);
+      }
     }else{
-      this.goLeft.drawSprite(ctx, this.x, this.y);
+      if(stage.canMoveY(y, this.goLeft)){
+        this.y -= this.vel;
+        this.goLeft.drawSprite(ctx, this.x, this.y);
+      }
     }
   }
 
-  punch (ctx){
+  moveDown(ctx, stage){
+    let y = this.y + this.vel;
+
+    if (this.direction === 'right'){
+      if(stage.canMoveY(y, this.goRight)){
+        this.y+=this.vel;
+        this.goRight.drawSprite(ctx, this.x, this.y);
+      }
+    }else{
+      if(stage.canMoveY(y, this.goLeft)){
+        this.y+=this.vel;
+        this.goLeft.drawSprite(ctx, this.x, this.y);
+      }
+    }
+  }
+
+  punch (ctx, stage){
     if (this.direction === 'right'){
       this.punchRight.drawSprite(ctx, this.x, this.y);
     }else{
@@ -76,11 +96,11 @@ class Player{
     this.health -= damage;
   }
 
-  death (ctx){
+  death (ctx, stage){
     if (this.direction === 'right'){
-      this.dieRight.drawSprite(ctx, this.x, this.y);
+      this.dieRight.drawSprite(ctx, this.x + 50, this.y + 50);
     }else{
-      this.dieLeft.drawSprite(ctx, this.x, this.y);
+      this.dieLeft.drawSprite(ctx, this.x + 50, this.y + 50);
     }
   }
 

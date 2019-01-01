@@ -2,12 +2,8 @@ class Game{
   constructor (canvas, ctx){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.minX = 300; //scenario movement X bound
-    this.maxX = 700; //scenario movement X bound
-    this.minY = 400; //scenario movement Y bound
-    this.maxY= 600; //scenario movement Y bound
     this.player = new Player('Cody', 'img/cody.png', 100, 50, 10);
-    this.stage = new Stage('Slum', [st1P1, st1P2, st1P3], this.ctx);
+    this.stage = new Stage('Slum', [st1P1, st1P2, st1P3]);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -95,16 +91,16 @@ class Game{
       });
   
       if (this.controlsPressed[87]) {
-        this.player.moveUp(this.ctx);
+        this.player.moveUp(this.ctx, this.stage);
       }
       if (this.controlsPressed[83]) {
-        this.player.moveDown(this.ctx);
+        this.player.moveDown(this.ctx, this.stage);
       }
       if (this.controlsPressed[65]) {
-        this.player.moveLeft(this.ctx);
+        this.player.moveLeft(this.ctx, this.stage);
       }
       if (this.controlsPressed[68]) {
-        this.player.moveRight(this.ctx);
+        this.player.moveRight(this.ctx, this.stage);
       }
       if (this.controlsPressed[74]) {
         console.log('Punch');
