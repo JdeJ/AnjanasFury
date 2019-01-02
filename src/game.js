@@ -1,8 +1,8 @@
 class Game{
-  constructor (canvas, ctx, name){
+  constructor (canvas, ctx, playerName){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.name = name; //Name of the player
+    this.playerName = playerName; //Name of the player
     this.player = undefined;
     this.stage = undefined;
     this.enemies = []; //enemies array in screen
@@ -19,7 +19,7 @@ class Game{
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
     this.stage = this.newStageCB(1);
-    this.player = this.newPlayer(this.name);
+    this.player = this.newPlayer(this.playerName);
     this.refresh();
   }
 
@@ -33,7 +33,7 @@ class Game{
     this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
     //drawPlayer
-    this.player.still(this.ctx);
+    this.player.drawPlayer(this.ctx);
 
     //drawEnemies
 
@@ -90,38 +90,40 @@ class Game{
   
       window.addEventListener('keyup', (pressed) => {
         this.controlsPressed[pressed.keyCode] = false;
-        this.player.still(this.ctx);
+        this.player.stopSpriteAnimation();
+        this.player.still();
       });
   
       if (this.controlsPressed[87]) {
-        this.player.moveUp(this.ctx, this.stage);
+        this.player.moveUp(this.stage);
       }
       if (this.controlsPressed[83]) {
-        this.player.moveDown(this.ctx, this.stage);
+        this.player.moveDown(this.stage);
       }
       if (this.controlsPressed[65]) {
-        this.player.moveLeft(this.ctx, this.stage);
+        this.player.moveLeft(this.stage);
         this.stage.parallax(this.player.x, this.player.vel);
       }
       if (this.controlsPressed[68]) {
-        this.player.moveRight(this.ctx, this.stage);
+        this.player.moveRight(this.stage);
         this.stage.parallax (this.player.x, this.player.vel);
       }
       if (this.controlsPressed[65] && this.controlsPressed[68]){
-        //doing nothing
+        this.player.stopSpriteAnimation();
+        this.player.still();
       }
 
       if (this.controlsPressed[74]) {
-        console.log('Punch');
+        this.player.punch();
       }
       if (this.controlsPressed[75]) {
-        console.log('Kick');
+        this.player.kick();
       }
       if (this.controlsPressed[76]) {
-        console.log('Hook');
+        this.player.hook();;
       }
       if (this.controlsPressed[73]) {
-        console.log('Take');
+        this.player.take();
       } 
     }
   }
@@ -140,14 +142,14 @@ class Game{
     return stage;
   }
 
-  newPlayer (name){ //name of the player
+  newPlayer (playerName){
     let player;
-    switch (name){
+    switch (playerName){
       case 'cody':
-        player = new Player('cody', 'img/cody.png', 100, 50, 10, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('cody', 100, 50, 10, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
       case 'haggar':
-        player = new Player('haggar', 'img/haggar.png', 100, 70, 5, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('haggar', 100, 70, 5, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
     }
     return player;

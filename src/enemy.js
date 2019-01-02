@@ -13,32 +13,5 @@ class Enemy{
     this.speedY = 10;
   }
 
-  moveRight (){
-    this.x+=this.speedX;
-  }
-
-  moveLeft (){
-    this.x-=this.speedX;
-  }
-
-  moveUp (){
-    this.y+=this.speedY;
-  }
-
-  moveDown(){
-    return this.speedY;
-  }
-
-  attack (){
-    return this.strength;
-  }
-
-  receiveDamage (damage){
-    this.health -= damage;
-  }
-
-  death (){
-
-  }
 
 }
