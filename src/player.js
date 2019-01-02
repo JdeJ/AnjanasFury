@@ -1,6 +1,6 @@
 class Player{
 
-  constructor (name, img,  health, strength, vel){
+  constructor (name, img,  health, strength, vel, x, y){
     this.name = name;
     this.stillRight = new Sprite(img,{x:0,y:0},{width:54, height:93},{width:129, height:222},0,1,true);
     this.stillLeft = new Sprite(img,{x:0,y:104},{width:54, height:93},{width:129, height:222},0,1,true);
@@ -21,12 +21,12 @@ class Player{
     this.health = health;
     this.strength = strength;
     this.vel = vel;
-    this.x = 50; //default x position on canvas
-    this.y = 300; //default y position on canvas
+    this.x = x; //x position on canvas
+    this.y = y; //y position on canvas
     this.direction = 'right'; //default direction
   }
 
-  still (ctx, stage){
+  still (ctx){
     if (this.direction === 'right'){
       this.stillRight.drawSprite(ctx, this.x, this.y);
     }else{

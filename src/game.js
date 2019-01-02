@@ -1,9 +1,10 @@
 class Game{
-  constructor (canvas, ctx){
+  constructor (canvas, ctx, name){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.player = new Player('Cody', 'img/cody.png', 100, 50, 10);
-    this.stage = new Stage('Slum', [st1P1, st1P2, st1P3]);
+    this.name = name; //Name of the player
+    this.player = undefined;
+    this.stage = undefined;
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -12,11 +13,13 @@ class Game{
     this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
   }
 
-  gameStart (pause, resume, gameOver){
+  gameStart (pause, resume, gameOver){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
+    this.stage = this.newStageCB(1);
+    this.player = this.newPlayer(this.name);
     this.refresh();
   }
 
@@ -27,7 +30,7 @@ class Game{
   drawElements (){
 
     //drawStage
-    this.stage.drawStage(this.ctx);
+    this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
     //drawPlayer
     this.player.still(this.ctx);
@@ -98,10 +101,16 @@ class Game{
       }
       if (this.controlsPressed[65]) {
         this.player.moveLeft(this.ctx, this.stage);
+        this.stage.parallax(this.player.x, this.player.vel);
       }
       if (this.controlsPressed[68]) {
         this.player.moveRight(this.ctx, this.stage);
+        this.stage.parallax (this.player.x, this.player.vel);
       }
+      if (this.controlsPressed[65] && this.controlsPressed[68]){
+        //doing nothing
+      }
+
       if (this.controlsPressed[74]) {
         console.log('Punch');
       }
@@ -115,6 +124,33 @@ class Game{
         console.log('Take');
       } 
     }
+  }
+
+  newStageCB (stageNumber){
+    let stage;
+    switch (stageNumber){
+      case 1:
+        stage = new Stage('Slum', [st1P1, st1P2, st1P3], this.newStageCB);
+        break;
+      case 2:
+        stage = new Stage('Subway', [st2P1, st2P2], this.newStageCB);
+        break;
+    }
+
+    return stage;
+  }
+
+  newPlayer (name){ //name of the player
+    let player;
+    switch (name){
+      case 'cody':
+        player = new Player('cody', 'img/cody.png', 100, 50, 10, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        break;
+      case 'haggar':
+        player = new Player('haggar', 'img/haggar.png', 100, 70, 5, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        break;
+    }
+    return player;
   }
 
 }

@@ -9,7 +9,7 @@ document.onload = function () {
   function gameInit(){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
-    const game = new Game(canvas, ctx);
+    const game = new Game(canvas, ctx, 'cody');
     statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this));
   }
