@@ -1,22 +1,18 @@
 class Stage{
-  constructor (name, phases, newStageCB){
+  constructor (name, phases){
     this.name = name;
     this.phases = phases; //Array with his phases
-    this.currentPhase = 2;
-    this.newStageCB = newStageCB;
+    this.currentPhase = 0;
     this.x = 0;
     this.y = 0;
   }
 
   
   drawStage (ctx){
-
+    this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
     if (this.phases[this.currentPhase].sprites.length > 1){
-      this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
+      this.phases[this.currentPhase].sprites[1].drawSprite(ctx, this.x, this.y);
     }
-    
-    this.phases[this.currentPhase].sprites[1].drawSprite(ctx, this.x, this.y);
-  
   }
 
   parallax (playerX, vel){

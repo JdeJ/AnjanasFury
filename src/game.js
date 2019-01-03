@@ -18,7 +18,7 @@ class Game{
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
-    this.stage = this.newStageCB(1);
+    this.stage = this.newStageCB(2);
     this.player = this.newPlayer(this.playerName);
     this.refresh();
   }
@@ -90,7 +90,6 @@ class Game{
   
       window.addEventListener('keyup', (pressed) => {
         this.controlsPressed[pressed.keyCode] = false;
-        this.player.stopSpriteAnimation();
         this.player.still();
       });
   
@@ -109,7 +108,6 @@ class Game{
         this.stage.parallax (this.player.x, this.player.vel);
       }
       if (this.controlsPressed[65] && this.controlsPressed[68]){
-        this.player.stopSpriteAnimation();
         this.player.still();
       }
 
@@ -132,10 +130,10 @@ class Game{
     let stage;
     switch (stageNumber){
       case 1:
-        stage = new Stage('Slum', [st1P1, st1P2, st1P3], this.newStageCB);
+        stage = new Stage('Slum', [st1P1, st1P2, st1P3]);
         break;
       case 2:
-        stage = new Stage('Subway', [st2P1, st2P2], this.newStageCB);
+        stage = new Stage('Subway', [st2P1, st2P2]);
         break;
     }
 

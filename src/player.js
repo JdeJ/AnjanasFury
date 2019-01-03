@@ -23,10 +23,6 @@ class Player{
     this.sprite = this.sprites[newSprite];
   }
 
-  stopSpriteAnimation (){
-    this.sprite.stop();
-  }
-
   still (){
     this.changeSprite('still');
   }
@@ -83,16 +79,17 @@ class Player{
     this.changeSprite('take');
   }
 
-  receiveDamage (damage){
-    this.health -= damage;
+  receiveDamage (){
+    this.changeSprite('damage');
   }
 
-  death (ctx, stage){
-    if (this.direction === 'right'){
-      this.dieRight.drawSprite(ctx, this.x + 50, this.y + 50);
-    }else{
-      this.dieLeft.drawSprite(ctx, this.x + 50, this.y + 50);
-    }
+  death (){
+    this.changeSprite('die');
+    // if (this.direction === 'right'){
+    //   this.dieRight.drawSprite(ctx, this.x + 50, this.y + 50);
+    // }else{
+    //   this.dieLeft.drawSprite(ctx, this.x + 50, this.y + 50);
+    // }
   }
 
 }
