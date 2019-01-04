@@ -3,8 +3,9 @@ class Game{
     this.canvas = canvas;
     this.ctx = ctx;
     this.playerName = playerName; //Name of the player
-    this.player = undefined;
-    this.stage = undefined;
+    this.stage = new Stage('slum'); //default stage
+    this.player = this.newPlayer(this.playerName);
+    this.timer = new Timer(13);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -13,13 +14,13 @@ class Game{
     this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
   }
 
-  gameStart (pause, resume, gameOver){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
-    this.stage = this.newStageCB(2);
-    this.player = this.newPlayer(this.playerName);
+    this.cb.updateStats = updateStats;
+    this.timer.start();
     this.refresh();
   }
 
@@ -38,6 +39,11 @@ class Game{
     //drawEnemies
 
     //drawObjects
+
+    //drawTimer
+
+    //updateStats
+    this.cb.updateStats(2, 2341, this.timer.timeLeft);
   }
 
   refresh (){
@@ -52,6 +58,8 @@ class Game{
     //detengo el canvas
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
+    //detengo el timer
+    this.timer.stop();
     //llamo al cb de main.js para que añada la pantalla de pausa al DOM
     this.cb.pause();
   }
@@ -60,14 +68,18 @@ class Game{
     //llamo al cb de main.js para que borre la pantalla de pause del DOM
     this.cb.resume();
     this.state = 'running';
+    //
     //arranco el canvas de nuevo
     this.refresh();
+    //arranco el timer
+    this.timer.start();
   }
 
   gameOver (){
     this.state = 'stopped';
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
+    this.timer.stop();
     this.cb.gameOver();
   }
 
@@ -124,20 +136,6 @@ class Game{
         this.player.take();
       } 
     }
-  }
-
-  newStageCB (stageNumber){
-    let stage;
-    switch (stageNumber){
-      case 1:
-        stage = new Stage('Slum', [st1P1, st1P2, st1P3]);
-        break;
-      case 2:
-        stage = new Stage('Subway', [st2P1, st2P2]);
-        break;
-    }
-
-    return stage;
   }
 
   newPlayer (playerName){

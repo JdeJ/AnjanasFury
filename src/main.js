@@ -11,7 +11,7 @@ document.onload = function () {
     cleanContainer();
     const game = new Game(canvas, ctx, 'cody');
     statistics();
-    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this));
+    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
   }
 
   //Función callback Pause que se ejecutará desde game.js cuando se pause el juego
@@ -103,6 +103,22 @@ document.onload = function () {
                       </div>
                       `;
     crt.appendChild(auxDiv);
+  }
+
+  function updateStatisticsCB(lives, points, time){
+    let timeElement = document.querySelector('.score .time .chrono > p');
+    let livesElement = document.querySelector('.score .player-stats .lives>p:last-child');
+    let pointsElement = document.querySelector('.score .player-stats .points>p');
+
+    if(time<10){
+      time = '0'+time;
+      timeElement.style = 'animation: blinking .5s infinite';
+    }
+    timeElement.innerText = time;
+    livesElement.innerText = lives;
+    pointsElement.innerText = points;
+
+    //vaciar barra energia player
   }
 
   function cleanContainer (){
