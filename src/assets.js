@@ -12,7 +12,8 @@ function generateImagesObject() {
 //Images Object
 const images = generateImagesObject('img/stage1.png', 'img/stage2.png',
                                     'img/cody.png','img/haggar.png',
-                                    'img/cody-player.png', 'img/cody-select.png'); 
+                                    'img/cody-player.png', 'img/cody-select.png',
+                                    'img/haggar-player.png', 'img/haggar-select.png'); 
 
 
 
@@ -61,6 +62,24 @@ var playerSprites = {
     damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
     damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
   },
+  haggar: {
+    stillRight: new Sprite('img/haggar.png',{x:0,y:0},{width:81, height:93},{width:193, height:222},0,1,false),
+    stillLeft: new Sprite('img/haggar.png',{x:0,y:100},{width:81, height:93},{width:193, height:222},0,1,false),
+    goRight: new Sprite('img/haggar.png',{x:81,y:0},{width:85, height:100},{width:189, height:222},4,8,true),
+    goLeft: new Sprite('img/haggar.png',{x:81,y:100},{width:85, height:100},{width:189, height:222},4,8,true),
+    punchRight: new Sprite('img/haggar.png',{x:0,y:200},{width:113, height:86},{width:291, height:222},4,2,true),
+    punchLeft: new Sprite('img/haggar.png',{x:0,y:286},{width:113, height:86},{width:291, height:222},4,2,true),
+    kickRight: new Sprite('img/haggar.png',{x:0,y:398},{width:123, height:93},{width:294, height:222},4,3,true),
+    kickLeft: new Sprite('img/haggar.png',{x:0,y:491},{width:123, height:93},{width:294, height:222},4,3,true),
+    hookRight: new Sprite('img/haggar.png',{x:226,y:200},{width:110, height:99},{width:247, height:222},4,4,true),
+    hookLeft: new Sprite('img/haggar.png',{x:226,y:299},{width:110, height:99},{width:247, height:222},4,4,true),
+    takeRight: new Sprite('img/haggar.png',{x:369,y:398},{width:81, height:93},{width:193, height:222},5,1,false),
+    takeLeft: new Sprite('img/haggar.png',{x:369,y:491},{width:81, height:93},{width:193, height:222},5,1,false),
+    dieRight: new Sprite('img/haggar.png',{x:75,y:584},{width:133, height:96},{width:308, height:222},5,2,false),
+    dieLeft: new Sprite('img/haggar.png',{x:75,y:680},{width:133, height:96},{width:308, height:222},5,2,false),
+    damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
+    damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
+  },
 };
 
 //Objects array
@@ -74,32 +93,3 @@ var timeouts ={
   stage1:{phase1: 60, phase2: 40, phase3: 60},
   stage2:{phase1: 99, phase2: 99},
 };
-
-// Timer class
-class Timer{
-
-  constructor (time){
-    this.id = undefined;
-    this.phaseTime = time;
-    this.timeLeft = time;
-  }
-
-  start (){
-    this.id = setInterval(function(){
-      this.timeLeft--;
-      if(this.timeLeft <= 0){
-        this.stop(this.id);
-      }
-    }.bind(this),1000);
-  }
-
-  stop (){
-    clearInterval(this.id);
-  }
-
-  reset (){
-    this.stop();
-    this.timeLeft = this.phaseTime;
-  }
-
-}
