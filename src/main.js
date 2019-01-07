@@ -3,17 +3,92 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit();
+  playerSelect();
 
   //Inicio el juego pasandole los callbacks
-  function gameInit(){
+  function gameInit(player){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
-    const game = new Game(canvas, ctx, 'cody');
+    const game = new Game(canvas, ctx, player);
     statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
   }
 
+  //funcion que manipula el DOM para seleccionar el jugador
+  function playerSelect (){
+    //Añado la pantalla 'player select' al DOM
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'player-select');
+    auxDiv.innerHTML = `
+                        <div id="cody" class="player-stats">
+                          <div><span class="player-title">CODY</span></div>
+                          <div class="img-container">
+                            <div class="player-img"><img src="img/cody-select.png" alt=""></div>
+                          </div>
+                          <div class="player-desc">
+                            <span>Altura...1.90m</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Peso......90Kg</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Fuerza......</span><span>50</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Velocidad...</span><span>10</span>
+                          </div>
+                          
+                        </div>
+                        <div id="haggar" class="player-stats">
+                          <div><p class="player-title">HAGGAR</p></div>
+                          <div class="img-container">
+                            <div class="player-img"><img src="img/haggar-select.png" alt=""></div>
+                          </div>
+                          <div class="player-desc">
+                            <span>Altura...1.90m</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Peso......90Kg</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Fuerza......</span><span>50</span>
+                          </div>
+                          <div class="player-desc">
+                            <span>Velocidad...</span><span>10</span>
+                          </div>
+                        </div>      
+                      `;
+    crt.appendChild(auxDiv);
+  
+    //Por defecto cody seleccionado
+    const options = document.querySelectorAll('.player-img');
+    let selected = options[0];
+    //selected.style = 'background-color: rgb(94,132,199)';
+    let player = 'cody';
+  
+    //controles para hacer click en los players en lugar de usar teclado o mando
+    document.getElementById('cody').addEventListener('click', function (){ player = 'cody'});
+    document.getElementById('haggar').addEventListener('click', ()=> player = 'haggar');
+    
+    document.onkeydown = (e) => {
+      if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
+        //Si pulso cualquier tecla o boton de accion (puño, patada....) retorno el player
+        gameInit(player);
+      }else if(e.keyCode === 68){
+        //Si pulso 'right' desactivo la animacion actual y activo la segunda opcion
+        selected.style = 'background-color: none';
+        selected = options[1];
+        selected.style = 'background-color: rgb(94,132,199)';
+        player = 'haggar';
+      }else if(e.keyCode === 65){
+        //Si pulso 'left' desactivo la animacion actual y activo la primera opcion
+        selected.style = 'background-color: none';
+        selected = options[0];
+        selected.style = 'background-color: rgb(94,132,199)';
+        player = 'cody';
+      }     
+    }
+  }
   
 
   //Función callback Pause que se ejecutará desde game.js cuando se pause el juego
@@ -137,6 +212,11 @@ document.onload = function () {
       crt.removeChild (stats);
     }
 
+    //remove all player-select class items
+    let selected = document.querySelector('.player-select');
+    if(selected){
+      crt.removeChild (selected);
+    }
     
   }
   

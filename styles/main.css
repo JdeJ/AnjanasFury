@@ -22,6 +22,8 @@ body {
   justify-content: space-evenly;
   background-color: rgb(78,79,83);
   padding: 10px 0;
+  align-content: center;
+  align-items: stretch;
 }
 
 .keysettings{
@@ -121,6 +123,50 @@ body {
   text-align: center;
   color: white;
 }
+
+/* PLAYER SELECT */
+
+.player-select {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P';
+  font-size: 20px;
+  color: rgb(190, 33, 29);
+  background: black;
+  border-radius: 10px;
+}
+
+.player-stats{
+  padding: 0 40px;
+  text-align: center;
+}
+
+.player-stats .player-title{
+  font-size: 35px;
+}
+
+.player-stats .img-container{
+  padding: 10px;
+}
+
+.player-stats .player-desc{
+  padding: 5px 0;
+}
+
+.player-stats .img-container .player-img>img{
+  width: 200px;
+  padding: 20px;
+}
+
+.player-stats .img-container .player-img>img:hover{
+  background-color: rgb(94,132,199);
+}
+
 
 /* PAUSED / GAME OVER screen */
 
@@ -261,59 +307,3 @@ body {
   color: #ff0000;
   padding-left: 12.5px;
 }
-
-
-
-
-
-
-function playerSelect (){
-  //Añado la pantalla 'gameOver' al DOM
-  let auxDiv = document.createElement('div');
-  auxDiv.setAttribute('class', 'crt-content');
-  auxDiv.innerHTML = `
-
-  
-                      
-                    `;
-  crt.appendChild(auxDiv);
-
-  //Seleccionar Continue o Retry
-  const options = document.querySelectorAll('.options-btn');
-  let selected = options[0];
-  selected.style = 'animation: blinking 1s infinite';
-
-  //controles para hacer click en las opciones en lugar de usar teclado o mando
-  document.getElementById('continue-btn').addEventListener('click', gameInit);
-  document.getElementById('retry-btn').addEventListener('click', gameInit);
-  
-  document.onkeydown = (e) => {
-    if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
-      //Si pulso cualquier tecla o boton de accion (puño, patada....)
-      if (selected.innerText === 'CONTINUE'){
-        //Si tengo seleccionado 'continue' borro la pantalla gameOver y voy a la pantalla de inicio
-        crt.removeChild (document.querySelector('.crt-content'));
-        gameInit();
-      }else{
-        //si tengo seleccionado 'retry' reinicio el Stage
-      }
-    }else if(e.keyCode === 83){
-      //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
-      selected.style = 'animation: none';
-      selected = options[1];
-      selected.style = 'animation: blinking 1s infinite';
-    }else if(e.keyCode === 87){
-      //Si pulso 'up' desactivo la animacion actual y activo la primera opcion
-      selected.style = 'animation: none';
-      selected = options[0];
-      selected.style = 'animation: blinking 1s infinite';
-    }     
-  }
-}
-
-
-//remove all player-select class items
-    let selected = document.querySelector('.player-select');
-    if(selected){
-      crt.removeChild (selected);
-    }
