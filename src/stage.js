@@ -5,8 +5,8 @@ class Stage{
     this.currentPhase = 0;
     this.x = 0;
     this.y = 0;
+    this.item = new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
   }
-
   
   drawStage (ctx){
     this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
@@ -16,10 +16,12 @@ class Stage{
   }
 
   parallax (playerX, vel){
-    if (playerX >=600 && this.x > -(this.phases[this.currentPhase].x.maxX - canvas.width)){
-      this.x -= vel;
-    }else if (playerX <= 300 && this.x < 0){
-      this.x += vel;
+    if (playerX >=700 && this.x > -(this.phases[this.currentPhase].x.maxX - canvas.width)){
+      this.x -= vel/1.5;
+      this.item.x -= vel/1.5;
+    }else if (playerX <= 250 && this.x < 0){
+      this.x += vel/1.5;
+      this.item.x += vel/1.5;
     }
   }
 

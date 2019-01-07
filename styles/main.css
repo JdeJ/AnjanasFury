@@ -261,3 +261,59 @@ body {
   color: #ff0000;
   padding-left: 12.5px;
 }
+
+
+
+
+
+
+function playerSelect (){
+  //Añado la pantalla 'gameOver' al DOM
+  let auxDiv = document.createElement('div');
+  auxDiv.setAttribute('class', 'crt-content');
+  auxDiv.innerHTML = `
+
+  
+                      
+                    `;
+  crt.appendChild(auxDiv);
+
+  //Seleccionar Continue o Retry
+  const options = document.querySelectorAll('.options-btn');
+  let selected = options[0];
+  selected.style = 'animation: blinking 1s infinite';
+
+  //controles para hacer click en las opciones en lugar de usar teclado o mando
+  document.getElementById('continue-btn').addEventListener('click', gameInit);
+  document.getElementById('retry-btn').addEventListener('click', gameInit);
+  
+  document.onkeydown = (e) => {
+    if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
+      //Si pulso cualquier tecla o boton de accion (puño, patada....)
+      if (selected.innerText === 'CONTINUE'){
+        //Si tengo seleccionado 'continue' borro la pantalla gameOver y voy a la pantalla de inicio
+        crt.removeChild (document.querySelector('.crt-content'));
+        gameInit();
+      }else{
+        //si tengo seleccionado 'retry' reinicio el Stage
+      }
+    }else if(e.keyCode === 83){
+      //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
+      selected.style = 'animation: none';
+      selected = options[1];
+      selected.style = 'animation: blinking 1s infinite';
+    }else if(e.keyCode === 87){
+      //Si pulso 'up' desactivo la animacion actual y activo la primera opcion
+      selected.style = 'animation: none';
+      selected = options[0];
+      selected.style = 'animation: blinking 1s infinite';
+    }     
+  }
+}
+
+
+//remove all player-select class items
+    let selected = document.querySelector('.player-select');
+    if(selected){
+      crt.removeChild (selected);
+    }

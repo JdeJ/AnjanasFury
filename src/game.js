@@ -4,8 +4,8 @@ class Game{
     this.ctx = ctx;
     this.playerName = playerName; //Name of the player
     this.stage = new Stage('slum'); //default stage
-    this.player = this.newPlayer(this.playerName);
-    this.timer = new Timer(13);
+    this.player = this.createPlayer(this.playerName);
+    this.timer = new Timer(44);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -24,6 +24,24 @@ class Game{
     this.refresh();
   }
 
+  gameStatus(){
+    //time and player health check
+    if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
+      this.gameOver();
+    }else{
+
+      //game state check
+
+      
+      //item check
+      this.stage.item.checkStatus();
+  
+      //collision checks
+      this.refresh();
+    }
+
+  }
+
   clear (){
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
@@ -39,8 +57,9 @@ class Game{
     //drawEnemies
 
     //drawObjects
-
-    //drawTimer
+    if (this.stage.item){
+      this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
+    }
 
     //updateStats
     this.cb.updateStats(2, 2341, this.timer.timeLeft);
@@ -50,7 +69,7 @@ class Game{
     this.clear();
     this.drawElements();
     this.generateControls();
-    this.fps = window.requestAnimationFrame(this.refresh.bind(this));
+    this.fps = window.requestAnimationFrame(this.gameStatus.bind(this));
   }
 
   gamePause (){
@@ -70,7 +89,7 @@ class Game{
     this.state = 'running';
     //
     //arranco el canvas de nuevo
-    this.refresh();
+    this.gameStatus();
     //arranco el timer
     this.timer.start();
   }
@@ -79,7 +98,8 @@ class Game{
     this.state = 'stopped';
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
-    this.timer.stop();
+    this.clear();
+    this.timer.stop(); 
     this.cb.gameOver();
   }
 
@@ -138,7 +158,7 @@ class Game{
     }
   }
 
-  newPlayer (playerName){
+  createPlayer (playerName){
     let player;
     switch (playerName){
       case 'cody':

@@ -9,10 +9,12 @@ document.onload = function () {
   function gameInit(){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
-    const game = new Game(canvas, ctx, 'haggar');
+    const game = new Game(canvas, ctx, 'cody');
     statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
   }
+
+  
 
   //Función callback Pause que se ejecutará desde game.js cuando se pause el juego
   function pauseCB (){
@@ -34,6 +36,7 @@ document.onload = function () {
   }
 
   function gameOverCB (){
+    cleanContainer();
     //Añado la pantalla 'gameOver' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
@@ -122,17 +125,19 @@ document.onload = function () {
   }
 
   function cleanContainer (){
+    //remove all crt-content class items
     let content = document.querySelector('.crt-content');
     if (content){
       crt.removeChild (content);
     }
-  }
 
-  function cleanStats (){
+    //remove all stats class items
     let stats = document.querySelector('.stats');
     if(stats){
       crt.removeChild (stats);
     }
+
+    
   }
   
 }();
