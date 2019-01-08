@@ -48,15 +48,17 @@ class Game{
     //drawStage
     this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
-    //drawPlayer
-    this.player.drawPlayer(this.ctx);
-
-    //drawEnemies
-
     //drawObjects
     if (this.stage.item){
       this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     }
+  
+    //drawEnemies
+
+    
+
+    //drawPlayer
+    this.player.drawPlayer(this.ctx);
 
     //updateStats
     this.cb.updateStats(2, 2341, this.timer.timeLeft);
@@ -170,18 +172,28 @@ class Game{
 
   checkItemCollisions(player, item){
     if (player.x < item.x + item.sprite.dSize.width && player.x + player.sprite.dSize.width > item.x && player.y < item.y + item.sprite.dSize.height && player.y + player.sprite.dSize.height > item.y) {
-        
-      player.x = item.x - player.sprite.dSize.width;
-      if (player.sprite === player.sprites.punchRight ||
-        player.sprite === player.sprites.punchLeft ||
-        player.sprite === player.sprites.kickRight ||
-        player.sprite === player.sprites.kickLeft ||
-        player.sprite === player.sprites.hookRight ||
-        player.sprite === player.sprites.hookLeft){
-        
-        item.receiveDamage (player.strength);            
+      //detengo el avance de player  
+      player.x = item.x - player.sprite.dSize.width+1;
 
+      //controlo si es un obstacle o una reward
+      if (item.sprite === item.rewardSprite){
+        if (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft){
+          //borrar item
+          //actualizar player stats
         }
+      }else{
+        //controlo que solo pueda romper el objeto si hago punch, kick o hook
+        if (player.sprite === player.sprites.punchRight ||
+          player.sprite === player.sprites.punchLeft ||
+          player.sprite === player.sprites.kickRight ||
+          player.sprite === player.sprites.kickLeft ||
+          player.sprite === player.sprites.hookRight ||
+          player.sprite === player.sprites.hookLeft){
+        
+            item.receiveDamage (player.strength);            
+        }
+
+      }
     }
   }
 
