@@ -6,11 +6,12 @@ class Item{
     this.obstacleSprite = this.randomSprite(obstaclesSprites); 
     this.rewardSprite = this.randomSprite(rewardsSprites);
     this.sprite = this.obstacleSprite; //Sprite drawed in canvas
-    this.x = undefined; //object random x position
-    this.y = undefined; //Object random y position
-    this.health = 100;
-    this.randomPosition();
-    this.updatePosition();
+    this.x = 500; //object random x position
+    this.y = 300; //Object random y position
+    this.health = 5000;
+    // this.randomPosition();
+    // this.updatePosition();
+    this.changed = false;
   }
 
   //random obstacle sprite
@@ -33,6 +34,8 @@ class Item{
 
   receiveDamage (damage){
     this.health -= damage;
+    console.log(this.health);
+    this.checkStatus();
   }
 
   //checks if item has to change sprite to reward
@@ -40,6 +43,12 @@ class Item{
     if (this.health <= 0){
       this.sprite = this.rewardSprite;
       this.updatePosition();
+    }else {
+      if(this.health <= (this.health / 2) && !this.changed){
+        this.sprite.changeSprite();
+        this.updatePosition();
+      }
+      
     }
   }
 

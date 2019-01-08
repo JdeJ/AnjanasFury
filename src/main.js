@@ -3,12 +3,14 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  playerSelect();
+  gameInit('cody')
+  // playerSelect();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
+    removePlayerStats();
     const game = new Game(canvas, ctx, player);
     statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
@@ -89,7 +91,6 @@ document.onload = function () {
       }     
     }
   }
-  
 
   //Función callback Pause que se ejecutará desde game.js cuando se pause el juego
   function pauseCB (){
@@ -112,6 +113,7 @@ document.onload = function () {
 
   function gameOverCB (){
     cleanContainer();
+    removePlayerStats();
     //Añado la pantalla 'gameOver' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
@@ -139,7 +141,7 @@ document.onload = function () {
         if (selected.innerText === 'CONTINUE'){
           //Si tengo seleccionado 'continue' borro la pantalla gameOver y voy a la pantalla de inicio
           crt.removeChild (document.querySelector('.crt-content'));
-          gameInit();
+          playerSelect();
         }else{
           //si tengo seleccionado 'retry' reinicio el Stage
         }
@@ -206,18 +208,19 @@ document.onload = function () {
       crt.removeChild (content);
     }
 
-    //remove all stats class items
-    let stats = document.querySelector('.stats');
-    if(stats){
-      crt.removeChild (stats);
-    }
-
     //remove all player-select class items
     let selected = document.querySelector('.player-select');
     if(selected){
       crt.removeChild (selected);
     }
-    
+  }
+
+  function removePlayerStats (){
+    //remove all stats class items
+    let stats = document.querySelector('.stats');
+    if(stats){
+      crt.removeChild (stats);
+    }
   }
   
 }();

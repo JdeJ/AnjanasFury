@@ -96,9 +96,9 @@ var rewardsSprites = {
 };
 
 var obstaclesSprites = {
-  bidon: new Sprite('img/items.png',{x:30,y:177},{width:32, height:62},{width:115, height:222},0,1,false),
+  bidon: new Sprite('img/items.png',{x:30,y:177},{width:32, height:62},{width:115, height:222},0,2,false),
   tyres: new Sprite('img/items.png',{x:122,y:178},{width:34, height:52},{width:146, height:222},0,1,false),
-  box: new Sprite('img/items.png',{x:197,y:172},{width:48, height:80},{width:133, height:222},0,1,false),
+  box: new Sprite('img/items.png',{x:197,y:172},{width:48, height:80},{width:133, height:222},0,2,false),
 };
 
 //Rewards array

@@ -13,16 +13,24 @@ class Sprite {
   }
 
   updateSprite () {
-    this.framesCount++;
-    if (this.framesCount > this.speed) {
-      this.framesCount = 0;
-      // If the current frame index is in range
-      if (this.currentFrame < this.frames - 1) {	
-          // Go to the next frame
-          this.currentFrame++;
-      } else if(this.loop){
-          this.currentFrame = 0;
+    if (this.frames > 0){
+      this.framesCount++;
+      if (this.framesCount > this.speed) {
+        this.framesCount = 0;
+        // If the current frame index is in range
+        if (this.currentFrame < this.frames - 1) {	
+            // Go to the next frame
+            this.currentFrame++;
+        } else if(this.loop){
+            this.currentFrame = 0;
+        }
       }
+    }
+  }
+
+  changeSprite (){
+    if (this.frames > 1){
+      this.currentFrame = (this.currentFrame === 0) ? 1 : 0; 
     }
   }
 

@@ -5,7 +5,7 @@ class Game{
     this.playerName = playerName; //Name of the player
     this.stage = new Stage('slum'); //default stage
     this.player = this.createPlayer(this.playerName);
-    this.timer = new Timer(44);
+    this.timer = new Timer(66);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -27,11 +27,8 @@ class Game{
   gameStatus(){
     //time and player health check
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
-      this.gameOver();
+      this.cb.gameOver();
     }else{
-
-      //game state check
-
       
       //item check
       this.stage.item.checkStatus();
@@ -67,6 +64,7 @@ class Game{
 
   refresh (){
     this.clear();
+    this.checkItemCollisions(this.player, this.stage.item);
     this.drawElements();
     this.generateControls();
     this.fps = window.requestAnimationFrame(this.gameStatus.bind(this));
@@ -87,11 +85,10 @@ class Game{
     //llamo al cb de main.js para que borre la pantalla de pause del DOM
     this.cb.resume();
     this.state = 'running';
-    //
-    //arranco el canvas de nuevo
-    this.gameStatus();
     //arranco el timer
     this.timer.start();
+    //arranco el canvas de nuevo
+    this.gameStatus();
   }
 
   gameOver (){
@@ -169,6 +166,23 @@ class Game{
         break;
     }
     return player;
+  }
+
+  checkItemCollisions(player, item){
+    if (player.x < item.x + item.sprite.dSize.width && player.x + player.sprite.dSize.width > item.x && player.y < item.y + item.sprite.dSize.height && player.y + player.sprite.dSize.height > item.y) {
+        
+      player.x = item.x - player.sprite.dSize.width;
+      if (player.sprite === player.sprites.punchRight ||
+        player.sprite === player.sprites.punchLeft ||
+        player.sprite === player.sprites.kickRight ||
+        player.sprite === player.sprites.kickLeft ||
+        player.sprite === player.sprites.hookRight ||
+        player.sprite === player.sprites.hookLeft){
+        
+        item.receiveDamage (player.strength);            
+
+        }
+    }
   }
 
 }
