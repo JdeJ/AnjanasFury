@@ -6,9 +6,9 @@ class Item{
     this.obstacleSprite = this.randomSprite(obstaclesSprites); 
     this.rewardSprite = this.randomSprite(rewardsSprites);
     this.sprite = this.obstacleSprite; //Sprite drawed in canvas
-    this.x = 500; //object random x position
+    this.x = 575; //object random x position
     this.y = undefined; //Object random y position
-    this.health = 5000;
+    this.health = 250;
     this.randomPosition();
     // this.updatePosition();
     this.changed = false;
@@ -22,7 +22,7 @@ class Item{
 
   //random obstacle position
   randomPosition (){
-    this.x = Math.floor(Math.random() * (this.phaseXLimits.x.maxX - this.phaseXLimits.x.minX + 1)) + this.phaseXLimits.x.minX;
+    //this.x = Math.floor(Math.random() * (this.phaseXLimits.x.maxX - this.phaseXLimits.x.minX + 1)) + this.phaseXLimits.x.minX;
     //this.y = Math.floor(Math.random() * (this.phaseYLimits.y.maxY - this.phaseYLimits.y.minY + 1)) + this.phaseYLimits.y.minY;
     this.y = this.phaseYLimits.y.minY - this.sprite.dSize.height;
   }

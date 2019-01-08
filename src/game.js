@@ -172,8 +172,12 @@ class Game{
 
   checkItemCollisions(player, item){
     if (player.x < item.x + item.sprite.dSize.width && player.x + player.sprite.dSize.width > item.x && player.y < item.y + item.sprite.dSize.height && player.y + player.sprite.dSize.height > item.y) {
-      //detengo el avance de player  
-      player.x = item.x - player.sprite.dSize.width+1;
+      //detengo el avance de player sólo si estoy enfrente del obstaculo
+      let playerFoots = player.y + player.sprite.dSize.height;
+      let itemBottom = item.y + item.sprite.dSize.height + 10;
+      if(playerFoots <= itemBottom){
+        player.x = item.x - player.sprite.dSize.width+1; //Sumo 1px para que no se quede justo pegado y poder seguir rompiendolo
+      }
 
       //controlo si es un obstacle o una reward
       if (item.sprite === item.rewardSprite){
