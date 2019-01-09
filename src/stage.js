@@ -1,8 +1,7 @@
 class Stage{
   constructor (name, phasesSprites){
     this.name = name;
-    this.phases = phasesSprites;
-    // this.phases = phasesSprites[this.name]; //Array with his phases
+    this.phases = phasesSprites;//Array with his phases
     this.currentPhase = 0;
     this.x = 0;
     this.y = 0;

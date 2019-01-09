@@ -7,11 +7,7 @@ class Player{
     this.vel = vel;
     this.x = x; //x position on canvas
     this.y = y; //y position on canvas
-
-    this.sprites = sprites;
-
-
-    // this.sprites = playerSprites[this.name] //object with all player sprites
+    this.sprites = sprites; //object with all player sprites
     this.direction = 'right'; //default direction
     this.sprite = this.sprites.stillRight; // default sprite
   }
