@@ -5,7 +5,7 @@ class Game{
     this.playerName = playerName; //Name of the player
     this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(this.playerName);
-    this.timer = new Timer(66);
+    this.timer = new Timer(this.stage.timeout);
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -27,7 +27,7 @@ class Game{
   gameStatus(){
     //time and player health check
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
-      this.cb.gameOver();
+      this.gameOver();
     }else{
       
       //item check
@@ -184,7 +184,7 @@ class Game{
      
      
      
-      }else if (playerTotalWitdh > item.x && player.x < itemTotalWitdh && player.y < item.itemBottom){ //estoy debajo
+      }else if (playerTotalWitdh > item.x && player.x < itemTotalWitdh && player.y < itemBottom){ //estoy debajo
         console.log('estoy debajo');
         player.y = itemBottom - player.sprite.dSize.height;
       }
@@ -286,9 +286,9 @@ class Game{
         
         phasesSprites = [
           new Phase(5888, [st2P1l0], {minX: 270, maxX: 5880}, {minY: 453, maxY: 592}, 870,false),
-          //var st2P1 = new Phase(5888, [st2P1l0, st2P1l1], {minX: 400, maxX: 5908}, {minY: 453, maxY: 592}, 944,false);
+          //new Phase(5888, [st2P1l0, st2P1l1], {minX: 400, maxX: 5908}, {minY: 453, maxY: 592}, 944,false)
           new Phase(5647, [st2P2l0], {minX: 39, maxX: 5600}, {minY: 452, maxY: 592}, 870,false)
-        ]
+        ];
         break;
     }
 

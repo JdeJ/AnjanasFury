@@ -26,6 +26,6 @@ var enemiesArray = [];
 
 //Stage timeouts object
 var timeouts ={
-  stage1:{phase1: 60, phase2: 40, phase3: 60},
-  stage2:{phase1: 99, phase2: 99},
+  'slum':{0: 60, 1: 30, 2: 40},
+  'subway':{0: 75, 1: 99},
 };

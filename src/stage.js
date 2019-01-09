@@ -2,10 +2,11 @@ class Stage{
   constructor (name, phasesSprites){
     this.name = name;
     this.phases = phasesSprites;//Array with his phases
-    this.currentPhase = 0;
+    this.currentPhase = 2;
     this.x = 0;
     this.y = 0;
     this.item = new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
+    this.timeout = timeouts[this.name][this.currentPhase];
   }
   
   drawStage (ctx){
@@ -51,4 +52,5 @@ class Stage{
     
     return false;
   }
+
 }

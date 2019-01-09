@@ -6,4 +6,5 @@ class Phase {
     this.y = y; //Object with minY and maxY from the top
     this.maxCanvasX = maxCanvasX; // maximum x position on canvas
   }
+
 }
