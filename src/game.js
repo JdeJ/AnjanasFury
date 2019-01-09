@@ -3,7 +3,7 @@ class Game{
     this.canvas = canvas;
     this.ctx = ctx;
     this.playerName = playerName; //Name of the player
-    this.stage = new Stage('slum'); //default stage
+    this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(this.playerName);
     this.timer = new Timer(66);
     this.enemies = []; //enemies array in screen
@@ -258,6 +258,30 @@ class Game{
     return player;
   }
 
-  //
+  //Instancio el stage actual
+
+  createStage (stageName){
+    let phasesSprites;
+    
+    switch (stageName) {
+      case 'slum':
+        phasesSprites = [
+          new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2880}, {minY: 465, maxY: 592}, 860,false),
+          new Phase(1426, [st1P2l0], {minX: 60, maxX: 1380}, {minY: 450, maxY: 592}, 900,false),
+          new Phase(2212, [st1P3l0, st1P3l1], {minX: 220, maxX: 2077}, {minY: 470, maxY: 592}, 780,false)
+        ];
+        break;
+    
+      case 'subway':
+        phasesSprites = [
+          new Phase(5888, [st2P1l0], {minX: 270, maxX: 5880}, {minY: 453, maxY: 592}, 870,false),
+          //var st2P1 = new Phase(5888, [st2P1l0, st2P1l1], {minX: 400, maxX: 5908}, {minY: 453, maxY: 592}, 944,false);
+          new Phase(5647, [st2P2l0], {minX: 39, maxX: 5600}, {minY: 452, maxY: 592}, 870,false)
+        ]
+        break;
+    }
+
+    return new Stage (stageName, phasesSprites);
+  }
 
 }
