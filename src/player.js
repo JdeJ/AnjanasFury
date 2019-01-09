@@ -1,13 +1,17 @@
 class Player{
 
-  constructor (name,  health, strength, vel, x, y){
+  constructor (name,  health, strength, vel, sprites, x, y){
     this.name = name;
     this.health = health;
     this.strength = strength;
     this.vel = vel;
     this.x = x; //x position on canvas
     this.y = y; //y position on canvas
-    this.sprites = playerSprites[this.name] //object with all player sprites
+
+    this.sprites = sprites;
+
+
+    // this.sprites = playerSprites[this.name] //object with all player sprites
     this.direction = 'right'; //default direction
     this.sprite = this.sprites.stillRight; // default sprite
   }

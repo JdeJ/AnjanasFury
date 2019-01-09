@@ -157,26 +157,36 @@ class Game{
     }
   }
 
-  createPlayer (playerName){
-    let player;
-    switch (playerName){
-      case 'cody':
-        player = new Player('cody', 100, 50, 10, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
-        break;
-      case 'haggar':
-        player = new Player('haggar', 100, 70, 5, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
-        break;
-    }
-    return player;
-  }
+  
 
   checkItemCollisions(player, item){
-    if (player.x < item.x + item.sprite.dSize.width && player.x + player.sprite.dSize.width > item.x && player.y < item.y + item.sprite.dSize.height && player.y + player.sprite.dSize.height > item.y) {
-      //detengo el avance de player sólo si estoy enfrente del obstaculo
-      let playerFoots = player.y + player.sprite.dSize.height;
-      let itemBottom = item.y + item.sprite.dSize.height + 10;
-      if(playerFoots <= itemBottom){
-        player.x = item.x - player.sprite.dSize.width+1; //Sumo 1px para que no se quede justo pegado y poder seguir rompiendolo
+    //calculo donde tiene los pies el player y la parte inferior del obstaculo
+    let playerTotalWitdh = player.x + player.sprite.dSize.width;
+    let itemTotalWitdh = item.x + item.sprite.dSize.width;
+    let playerFoots = player.y + player.sprite.dSize.height;
+    let itemBottom = item.y + item.sprite.dSize.height + 10;
+
+    if ((player.x < item.x + item.sprite.dSize.width && playerFoots <= itemBottom) && 
+        (player.x + player.sprite.dSize.width > item.x && playerFoots <= itemBottom) &&
+        (player.y < itemBottom)){
+
+          console.log('PlayerFoots: ' + playerFoots + ", itemBottom " + itemBottom);
+
+      //controlo si estoy a la derecha, la izquiera o debajo del obstaculo y detengo el avance del player
+      if (playerTotalWitdh > item.x && playerTotalWitdh < itemTotalWitdh && playerFoots <= itemBottom){ //estoy a la izquierda
+        console.log('estoy a la izquierda');
+        player.x = item.x - player.sprite.dSize.width+2; //Sumo 1px para que no se quede justo pegado y poder seguir rompiendolo
+     
+     
+      }else if (player.x < itemTotalWitdh && playerTotalWitdh > itemTotalWitdh && playerFoots <= itemBottom){ //estoy a la derecha
+        console.log('estoy a la derecha');
+        player.x = item.x + item.sprite.dSize.width-1; //Resto 1px para que no se quede justo pegado y poder seguir rompiendolo
+     
+     
+     
+      }else if (playerTotalWitdh > item.x && player.x < itemTotalWitdh && player.y < item.itemBottom){ //estoy debajo
+        console.log('estoy debajo');
+        player.y = itemBottom - player.sprite.dSize.height;
       }
 
       //controlo si es un obstacle o una reward
@@ -187,18 +197,67 @@ class Game{
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
-        if (player.sprite === player.sprites.punchRight ||
-          player.sprite === player.sprites.punchLeft ||
-          player.sprite === player.sprites.kickRight ||
-          player.sprite === player.sprites.kickLeft ||
-          player.sprite === player.sprites.hookRight ||
-          player.sprite === player.sprites.hookLeft){
+        if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+          player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
+          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
         
             item.receiveDamage (player.strength);            
+        
         }
-
       }
     }
   }
+
+  //Instancio el player seleccionado en el DOM
+  createPlayer (playerName){
+    let player, playerSprites;
+    switch (playerName){
+      case 'cody':
+        playerSprites = {
+          stillRight: new Sprite('img/cody.png',{x:0,y:0},{width:54, height:93},{width:129, height:222},0,1,false),
+          stillLeft: new Sprite('img/cody.png',{x:0,y:95},{width:54, height:93},{width:129, height:222},0,1,false),
+          goRight: new Sprite('img/cody.png',{x:54,y:0},{width:62, height:95},{width:145, height:222},3,10,true),
+          goLeft: new Sprite('img/cody.png',{x:54,y:95},{width:62, height:95},{width:145, height:222},3,10,true),
+          punchRight: new Sprite('img/cody.png',{x:0,y:190},{width:85, height:90},{width:210, height:222},3,2,true),
+          punchLeft: new Sprite('img/cody.png',{x:0,y:280},{width:85, height:90},{width:210, height:222},3,2,true),
+          kickRight: new Sprite('img/cody.png',{x:502,y:190},{width:65, height:88},{width:164, height:222},3,3,true),
+          kickLeft: new Sprite('img/cody.png',{x:502,y:278},{width:65, height:88},{width:164, height:222},3,3,true),
+          hookRight: new Sprite('img/cody.png',{x:170,y:190},{width:83, height:111},{width:166, height:222},3,4,true),
+          hookLeft: new Sprite('img/cody.png',{x:170,y:301},{width:83, height:111},{width:166, height:222},3,4,true),
+          takeRight: new Sprite('img/cody.png',{x:443,y:412},{width:54, height:93},{width:129, height:222},5,1,false),
+          takeLeft: new Sprite('img/cody.png',{x:443,y:505},{width:54, height:93},{width:129, height:222},5,1,false),
+          dieRight: new Sprite('img/cody.png',{x:0,y:412},{width:97, height:96},{width:225, height:222},5,4,false),
+          dieLeft: new Sprite('img/cody.png',{x:0,y:508},{width:97, height:96},{width:225, height:222},5,4,false),
+          damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
+          damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
+        };
+        player = new Player('cody', 100, 50, 10, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        break;
+      case 'haggar':
+        playerSprites = { 
+          stillRight: new Sprite('img/haggar.png',{x:0,y:0},{width:81, height:93},{width:193, height:222},0,1,false),
+          stillLeft: new Sprite('img/haggar.png',{x:0,y:100},{width:81, height:93},{width:193, height:222},0,1,false),
+          goRight: new Sprite('img/haggar.png',{x:81,y:0},{width:85, height:100},{width:189, height:222},4,8,true),
+          goLeft: new Sprite('img/haggar.png',{x:81,y:100},{width:85, height:100},{width:189, height:222},4,8,true),
+          punchRight: new Sprite('img/haggar.png',{x:0,y:200},{width:113, height:86},{width:291, height:222},4,2,true),
+          punchLeft: new Sprite('img/haggar.png',{x:0,y:286},{width:113, height:86},{width:291, height:222},4,2,true),
+          kickRight: new Sprite('img/haggar.png',{x:0,y:398},{width:123, height:93},{width:294, height:222},4,3,true),
+          kickLeft: new Sprite('img/haggar.png',{x:0,y:491},{width:123, height:93},{width:294, height:222},4,3,true),
+          hookRight: new Sprite('img/haggar.png',{x:226,y:200},{width:110, height:99},{width:247, height:222},4,4,true),
+          hookLeft: new Sprite('img/haggar.png',{x:226,y:299},{width:110, height:99},{width:247, height:222},4,4,true),
+          takeRight: new Sprite('img/haggar.png',{x:369,y:398},{width:81, height:93},{width:193, height:222},5,1,false),
+          takeLeft: new Sprite('img/haggar.png',{x:369,y:491},{width:81, height:93},{width:193, height:222},5,1,false),
+          dieRight: new Sprite('img/haggar.png',{x:75,y:584},{width:133, height:96},{width:308, height:222},5,2,false),
+          dieLeft: new Sprite('img/haggar.png',{x:75,y:680},{width:133, height:96},{width:308, height:222},5,2,false),
+          damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
+          damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
+        };
+        player = new Player('haggar', 100, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        break;
+    }
+    return player;
+  }
+
+  //
 
 }
