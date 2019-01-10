@@ -169,6 +169,7 @@ class Game{
     let playerAxis = player.x + Math.floor(player.sprite.dSize.width / 2);
     let itemTotalWitdh = item.x + item.sprite.dSize.width;
     let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
+    let touchable = true;
 
 
     if (player.x < itemTotalWitdh && 
@@ -177,17 +178,17 @@ class Game{
         playerTotalHeight > item.y + 200){
       
       if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
-        console.log('estoy debajo');
-        player.y = item.y + 30;
+        player.y = item.y + 35;
+        touchable = false;
       }else if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && (playerTotalHeight <= (itemTotalHeight - 20))){ //estoy encima
-        console.log('estoy encima');
         player.y = item.y - 30;
+        touchable = false;
       }else if ((playerTotalWitdh > item.x) && (playerTotalWitdh < itemTotalWitdh)){ //estoy a la izquierda
-        console.log('Estoy a la izda')
         player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
+        touchable = true;
       }else if ((player.x < itemTotalWitdh) && (playerTotalWitdh > itemTotalWitdh)){ //estoy a la derecha
-        console.log('estoy a la drcha')
         player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo      
+        touchable = true;
       }
 
       //controlo si es un obstacle o una reward
@@ -198,12 +199,11 @@ class Game{
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
-        if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+        if ((touchable) && (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
           player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
-          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
+          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft)){
         
-            item.receiveDamage (player.strength);            
-        
+          item.receiveDamage (player.strength);            
         }
       }
     }
