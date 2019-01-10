@@ -173,15 +173,15 @@ class Game{
 
     if (player.x < itemTotalWitdh && 
         playerTotalWitdh > item.x && 
-        player.y < itemTotalHeight &&
-        playerTotalHeight > item.y){
+        player.y + 200 < itemTotalHeight &&
+        playerTotalHeight > item.y + 200){
       
       if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
         console.log('estoy debajo');
-        player.y = item.y + 10;
+        player.y = item.y + 30;
       }else if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && (playerTotalHeight <= (itemTotalHeight - 20))){ //estoy encima
         console.log('estoy encima');
-        player.y = item.y - 20;
+        player.y = item.y - 30;
       }else if ((playerTotalWitdh > item.x) && (playerTotalWitdh < itemTotalWitdh)){ //estoy a la izquierda
         console.log('Estoy a la izda')
         player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
