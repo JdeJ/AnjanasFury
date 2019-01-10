@@ -163,10 +163,6 @@ body {
   padding: 20px;
 }
 
-.player-stats .img-container .player-img>img:hover{
-  background-color: rgb(94,132,199);
-}
-
 
 /* PAUSED / GAME OVER screen */
 
@@ -206,10 +202,6 @@ body {
 
 .crt-content .paused {
   font-size: 35px;
-}
-
-.options p:hover{
-  animation: blinking 1s infinite;
 }
 
 .blink {

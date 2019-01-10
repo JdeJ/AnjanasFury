@@ -27,10 +27,10 @@ class Player{
     this.changeSprite('still');
   }
 
-  moveRight (stage){
+  moveRight (stage, delta){
     let x = this.x + this.vel;
     if(stage.canMoveX(x, this.sprite)){
-      this.x += this.vel;
+      this.x += this.vel * delta / 16.6;
       this.direction = 'right';
       this.changeSprite('go');
     }

@@ -65,6 +65,9 @@ class Game{
   }
 
   refresh (){
+    this.currentTs = new Date();
+    this.delta = (this.currentTs - (this.lastTs || this.currentTs)) || 16.6;
+    this.lastTs = this.currentTs;
     this.clear();
     this.checkItemCollisions(this.player, this.stage.item);
     this.drawElements();
@@ -135,7 +138,7 @@ class Game{
         this.stage.parallax(this.player.x, this.player.vel);
       }
       if (this.controlsPressed[68]) {
-        this.player.moveRight(this.stage);
+        this.player.moveRight(this.stage, this.delta);
         this.stage.parallax (this.player.x, this.player.vel);
       }
       if (this.controlsPressed[65] && this.controlsPressed[68]){
@@ -162,31 +165,29 @@ class Game{
   checkItemCollisions(player, item){
     //calculo donde tiene los pies el player y la parte inferior del obstaculo
     let playerTotalWitdh = player.x + player.sprite.dSize.width;
+    let playerTotalHeight = player.y + player.sprite.dSize.height;
+    let playerAxis = player.x + Math.floor(player.sprite.dSize.width / 2);
     let itemTotalWitdh = item.x + item.sprite.dSize.width;
-    let playerFoots = player.y + player.sprite.dSize.height;
-    let itemBottom = item.y + item.sprite.dSize.height + 10;
+    let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
 
-    if ((player.x < item.x + item.sprite.dSize.width && playerFoots <= itemBottom) && 
-        (player.x + player.sprite.dSize.width > item.x && playerFoots <= itemBottom) &&
-        (player.y < itemBottom)){
 
-          console.log('PlayerFoots: ' + playerFoots + ", itemBottom " + itemBottom);
-
-      //controlo si estoy a la derecha, la izquiera o debajo del obstaculo y detengo el avance del player
-      if (playerTotalWitdh > item.x && playerTotalWitdh < itemTotalWitdh && playerFoots <= itemBottom){ //estoy a la izquierda
-        console.log('estoy a la izquierda');
-        player.x = item.x - player.sprite.dSize.width+2; //Sumo 1px para que no se quede justo pegado y poder seguir rompiendolo
-     
-     
-      }else if (player.x < itemTotalWitdh && playerTotalWitdh > itemTotalWitdh && playerFoots <= itemBottom){ //estoy a la derecha
-        console.log('estoy a la derecha');
-        player.x = item.x + item.sprite.dSize.width-1; //Resto 1px para que no se quede justo pegado y poder seguir rompiendolo
-     
-     
-     
-      }else if (playerTotalWitdh > item.x && player.x < itemTotalWitdh && player.y < itemBottom){ //estoy debajo
+    if (player.x < itemTotalWitdh && 
+        playerTotalWitdh > item.x && 
+        player.y < itemTotalHeight &&
+        playerTotalHeight > item.y){
+      
+      if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
         console.log('estoy debajo');
-        player.y = itemBottom - player.sprite.dSize.height;
+        player.y = item.y + 10;
+      }else if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && (playerTotalHeight <= (itemTotalHeight - 20))){ //estoy encima
+        console.log('estoy encima');
+        player.y = item.y - 20;
+      }else if ((playerTotalWitdh > item.x) && (playerTotalWitdh < itemTotalWitdh)){ //estoy a la izquierda
+        console.log('Estoy a la izda')
+        player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
+      }else if ((player.x < itemTotalWitdh) && (playerTotalWitdh > itemTotalWitdh)){ //estoy a la derecha
+        console.log('estoy a la drcha')
+        player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo      
       }
 
       //controlo si es un obstacle o una reward

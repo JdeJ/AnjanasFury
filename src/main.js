@@ -3,8 +3,8 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit('cody')
-  // playerSelect();
+  //gameInit('cody')
+  playerSelect();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
@@ -69,8 +69,8 @@ document.onload = function () {
     let player = 'cody';
   
     //controles para hacer click en los players en lugar de usar teclado o mando
-    document.getElementById('cody').addEventListener('click', function (){ player = 'cody'});
-    document.getElementById('haggar').addEventListener('click', ()=> player = 'haggar');
+    // document.getElementById('cody').addEventListener('click', function (){ player = 'cody'});
+    // document.getElementById('haggar').addEventListener('click', ()=> player = 'haggar');
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
@@ -132,8 +132,8 @@ document.onload = function () {
     selected.style = 'animation: blinking 1s infinite';
 
     //controles para hacer click en las opciones en lugar de usar teclado o mando
-    document.getElementById('continue-btn').addEventListener('click', gameInit);
-    document.getElementById('retry-btn').addEventListener('click', gameInit);
+    // document.getElementById('continue-btn').addEventListener('click', gameInit);
+    // document.getElementById('retry-btn').addEventListener('click', gameInit);
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){

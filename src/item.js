@@ -7,9 +7,9 @@ class Item{
     this.rewardSprite = this.randomSprite(rewardsArray);
     this.sprite = this.obstacleSprite; //Sprite default drawed in canvas
     this.x = 575; //object random x position
-    this.y = undefined; //Object random y position
-    this.health = 500;
-    this.randomPosition();
+    this.y = 293; //Object random y position
+    this.health = 300;
+    //this.randomPosition();
     // this.updatePosition();
     this.changed = false;
   }

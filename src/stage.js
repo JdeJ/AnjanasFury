@@ -2,7 +2,7 @@ class Stage{
   constructor (name, phasesSprites){
     this.name = name;
     this.phases = phasesSprites;//Array with his phases
-    this.currentPhase = 2;
+    this.currentPhase = 0;
     this.x = 0;
     this.y = 0;
     this.item = new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
