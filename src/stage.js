@@ -53,4 +53,9 @@ class Stage{
     return false;
   }
 
+  //removes item after takeLeft or takeRight event
+  removesItem(){
+    this.item = undefined;
+  }
+
 }

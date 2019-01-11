@@ -195,8 +195,11 @@ class Game{
       //controlo si es un obstacle o una reward
       if (item.sprite === item.rewardSprite){
         if (touchable && (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft)){
-          //borrar item
-          //actualizar player stats
+          //update player stats
+          
+          //remove item
+          item.removeItem();
+          
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
