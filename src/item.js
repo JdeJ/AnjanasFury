@@ -8,68 +8,76 @@ class Item{
     this.sprite = this.obstacleSprite; //Sprite default drawed in canvas
     this.x = undefined; //object random x position
     this.y = undefined; //Object random y position
-    this.health = 300;
+    this.health = 2000;
     this.randomPosition();
-    // this.updatePosition();
     this.changed = false;
+    this.rewardPoints = 0;
+    this.rewardHealth = 0;
   }
 
-  //random obstacle sprite
+  //random item sprite
   randomSprite (itemArray){
 
     let item = itemArray[Math.floor(Math.random() * itemArray.length)];
 
     switch (item){
       case 'radio':
-        return new Sprite('img/items.png',{x:115,y:7},{width:29, height:16},{width:69, height:38},0,1,false);
+        this.rewardPoints = 1000;
+        return new Sprite('img/items.png',{x:0,y:0},{width:69, height:222},{width:69, height:222},0,1,false);
         break;
       case 'dollar':
-      return new Sprite('img/items.png',{x:164,y:7},{width:32, height:11},{width:63, height:22},0,1,false);
+        this.rewardPoints = 3000;
+        return new Sprite('img/items.png',{x:69,y:0},{width:63, height:222},{width:63, height:222},0,1,false);
         break;
       case 'gold':
-        return new Sprite('img/items.png',{x:9,y:7},{width:32, height:12},{width:69, height:26},0,1,false);
+        this.rewardPoints = 10000;
+        return new Sprite('img/items.png',{x:132,y:0},{width:69, height:222},{width:69, height:222},0,1,false);
         break;
       case 'hat':
-        return new Sprite('img/items.png',{x:56,y:7},{width:24, height:13},{width:57, height:34},0,1,false);
+        this.rewardPoints = 1000;
+        return new Sprite('img/items.png',{x:201,y:0},{width:57, height:222},{width:57, height:222},0,1,false);
         break;
       case 'hamburguer':
-        return new Sprite('img/items.png',{x:164,y:33},{width:31, height:15},{width:55, height:26},0,1,false);
+        this.rewardPoints = 5000;
+        this.rewardHealth = 1000;
+        return new Sprite('img/items.png',{x:0,y:222},{width:55, height:222},{width:55, height:222},0,1,false);
         break;
       case 'barbeque':
-        return new Sprite('img/items.png',{x:115,y:33},{width:32, height:22},{width:49, height:34},0,1,false);
+        this.rewardPoints = 10000;
+        this.rewardHealth = 2500;
+        return new Sprite('img/items.png',{x:55,y:222},{width:49, height:222},{width:49, height:222},0,1,false);
         break;
       case 'pizza':
-        return new Sprite('img/items.png',{x:9,y:33},{width:30, height:14},{width:62, height:29},0,1,false);
+        this.rewardPoints = 5000;
+        this.rewardHealth = 1000;
+        return new Sprite('img/items.png',{x:104,y:222},{width:62, height:222},{width:62, height:222},0,1,false);
         break;
       case 'pineapple':
-        return new Sprite('img/items.png',{x:56,y:33},{width:32, height:16},{width:55, height:28},0,1,false);
+        this.rewardPoints = 3000;
+        this.rewardHealth = 500;
+        return new Sprite('img/items.png',{x:166,y:222},{width:55, height:222},{width:55, height:222},0,1,false);
         break;
       case 'bidon':
-        return new Sprite('img/items.png',{x:30,y:177},{width:32, height:62},{width:115, height:222},0,2,false);
+        this.rewardPoints = 1000;
+        return new Sprite('img/items.png',{x:0,y:444},{width:115, height:222},{width:115, height:222},0,2,false);
         break;
       case 'tyres':
-        return new Sprite('img/items.png',{x:122,y:178},{width:34, height:52},{width:146, height:222},0,1,false);
+        this.rewardPoints = 1000;
+        return new Sprite('img/items.png',{x:220,y:444},{width:146, height:222},{width:146, height:222},0,1,false);
         break;
       case 'box':
-        return new Sprite('img/items.png',{x:197,y:172},{width:48, height:80},{width:133, height:222},0,2,false);
+        this.rewardPoints = 1000;
+        return new Sprite('img/items.png',{x:376,y:444},{width:133, height:222},{width:133, height:222},0,2,false);
         break;
       }
 
   }
 
-  //random obstacle position
+  //random item position
   randomPosition (){
-    const max = this.phaseXLimits.x.maxX - this.sprite.dSize.height;
-
-    this.x = Math.floor(Math.random() * ( max - this.phaseXLimits.x.minX + 1)) + this.phaseXLimits.x.minX;
+    this.x = Math.floor(Math.random() * ( (this.phaseXLimits.x.maxX - this.sprite.dSize.height) - this.phaseXLimits.x.minX + 1)) + this.phaseXLimits.x.minX;
     //this.y = Math.floor(Math.random() * (this.phaseYLimits.y.maxY - this.phaseYLimits.y.minY + 1)) + this.phaseYLimits.y.minY;
     this.y = this.phaseYLimits.y.minY - this.sprite.dSize.height;
-  }
-
-  //updates item position based on his sprite width
-  updatePosition (){
-    this.x -= this.sprite.dSize.width;
-    this.y -= this.sprite.dSize.height;
   }
 
   receiveDamage (damage){
@@ -82,11 +90,11 @@ class Item{
   checkStatus (){
     if (this.health <= 0){
       this.sprite = this.rewardSprite;
-      this.updatePosition();
+      this.changed = false;
     }else {
       if(this.health <= (this.health / 2) && !this.changed){
         this.sprite.changeSprite();
-        this.updatePosition();
+        this.changed = true;
       }
       
     }

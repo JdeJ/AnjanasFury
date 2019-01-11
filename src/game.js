@@ -128,13 +128,13 @@ class Game{
       });
   
       if (this.controlsPressed[87]) {
-        this.player.moveUp(this.stage);
+        this.player.moveUp(this.stage, this.delta);
       }
       if (this.controlsPressed[83]) {
-        this.player.moveDown(this.stage);
+        this.player.moveDown(this.stage, this.delta);
       }
       if (this.controlsPressed[65]) {
-        this.player.moveLeft(this.stage);
+        this.player.moveLeft(this.stage, this.delta);
         this.stage.parallax(this.player.x, this.player.vel);
       }
       if (this.controlsPressed[68]) {
@@ -160,17 +160,14 @@ class Game{
     }
   }
 
-  
-
   checkItemCollisions(player, item){
-    //calculo donde tiene los pies el player y la parte inferior del obstaculo
     let playerTotalWitdh = player.x + player.sprite.dSize.width;
     let playerTotalHeight = player.y + player.sprite.dSize.height;
-    let playerAxis = player.x + Math.floor(player.sprite.dSize.width / 2);
+    let playerAxis = player.x + Math.floor(player.sprite.dSize.width / 2); //Player sprite center axis
     let itemTotalWitdh = item.x + item.sprite.dSize.width;
     let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
-    let touchable = true;
-
+    let touchable = true; //flag para comprobar que no estoy encima o debajo del objeto y dejar que lo golpee
+    let collisionBorder = undefined; //controlo por donde estoy colisionando con el objeto
 
     if (player.x < itemTotalWitdh && 
         playerTotalWitdh > item.x && 
@@ -180,26 +177,30 @@ class Game{
       if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
         player.y = item.y + 35;
         touchable = false;
+        collisionBorder = 'under';
       }else if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && (playerTotalHeight <= (itemTotalHeight - 20))){ //estoy encima
         player.y = item.y - 30;
         touchable = false;
+        collisionBorder = 'over';
       }else if ((playerTotalWitdh > item.x) && (playerTotalWitdh < itemTotalWitdh)){ //estoy a la izquierda
         player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
         touchable = true;
+        collisionBorder = 'left';
       }else if ((player.x < itemTotalWitdh) && (playerTotalWitdh > itemTotalWitdh)){ //estoy a la derecha
         player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo      
         touchable = true;
+        collisionBorder = 'right';
       }
 
       //controlo si es un obstacle o una reward
       if (item.sprite === item.rewardSprite){
-        if (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft){
+        if (touchable && (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft)){
           //borrar item
           //actualizar player stats
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
-        if ((touchable) && (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+        if (touchable && (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
           player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
           player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft)){
         
@@ -232,7 +233,7 @@ class Game{
           damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
           damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
         };
-        player = new Player('cody', 100, 50, 10, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('cody', 5000, 50, 10, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
       case 'haggar':
         playerSprites = { 
@@ -253,7 +254,7 @@ class Game{
           damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
           damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
         };
-        player = new Player('haggar', 100, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('haggar', 5000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
     }
     return player;
