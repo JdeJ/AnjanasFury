@@ -12,6 +12,7 @@ class Game{
     this.fps = undefined; //canvas animation id
     this.state = 'stopped'; //game state: [stopped, running, paused]
     this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
+    this.taked = false; //flag controls if reward has been taken
   }
 
   gameStart (pause, resume, gameOver, updateStats){ //cb of main
@@ -30,8 +31,11 @@ class Game{
       this.gameOver();
     }else{
       //item check
-      if (this.stage.item)
+      if (this.stage.item){
         this.stage.item.checkStatus();
+        if (this.taked)
+          this.stage.item = undefined;
+      }
   
       //refresh animation
       this.refresh();
@@ -66,7 +70,8 @@ class Game{
     this.delta = (this.currentTs - (this.lastTs || this.currentTs)) || 16.6;
     this.lastTs = this.currentTs;
     this.clear();
-    this.checkItemCollisions(this.player, this.stage.item);
+    if (!this.taked)
+      this.checkItemCollisions(this.player, this.stage.item);
     this.drawElements();
     this.generateControls();
     this.fps = window.requestAnimationFrame(this.gameStatus.bind(this));
@@ -165,7 +170,7 @@ class Game{
     let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
     let touchable = true; //flag para comprobar que no estoy encima o debajo del objeto y dejar que lo golpee
     let collisionBorder = undefined; //controlo por donde estoy colisionando con el objeto
-    let taked = false;
+
 
     if (player.x < itemTotalWitdh && 
         playerTotalWitdh > item.x && 
@@ -195,8 +200,8 @@ class Game{
         if (touchable && (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft)){
           //update player stats
           if (!this.taked){
-            this.player.score += item.rewardPoints;
             this.taked = true;
+            this.player.score += item.rewardPoints;
           }
           
         }

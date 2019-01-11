@@ -19,10 +19,12 @@ class Stage{
   parallax (playerX, vel){
     if (playerX >=700 && this.x > -(this.phases[this.currentPhase].x.maxX - canvas.width)){
       this.x -= vel/1.5;
-      this.item.x -= vel/1.5;
+      if (this.item)
+        this.item.x -= vel/1.5;
     }else if (playerX <= 250 && this.x < 0){
       this.x += vel/1.5;
-      this.item.x += vel/1.5;
+      if (this.item)
+        this.item.x += vel/1.5;
     }
   }
 
