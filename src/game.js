@@ -202,6 +202,7 @@ class Game{
           if (!this.taked){
             this.taked = true;
             this.player.score += item.rewardPoints;
+            this.player.health += item.rewardHealth;
           }
           
         }
