@@ -29,11 +29,11 @@ class Game{
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
       this.gameOver();
     }else{
-      
       //item check
-      this.stage.item.checkStatus();
+      if (this.stage.item)
+        this.stage.item.checkStatus();
   
-      //collision checks
+      //refresh animation
       this.refresh();
     }
 
@@ -44,24 +44,21 @@ class Game{
   }
 
   drawElements (){
-
     //drawStage
     this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
     //drawObjects
-    if (this.stage.item){
+    if (this.stage.item)
       this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
-    }
-  
+    
     //drawEnemies
-
     
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
 
     //updateStats
-    this.cb.updateStats(2, 2341, this.timer.timeLeft);
+    this.cb.updateStats(this.player.lives, this.player.score, this.timer.timeLeft);
   }
 
   refresh (){
@@ -168,6 +165,7 @@ class Game{
     let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
     let touchable = true; //flag para comprobar que no estoy encima o debajo del objeto y dejar que lo golpee
     let collisionBorder = undefined; //controlo por donde estoy colisionando con el objeto
+    let taked = false;
 
     if (player.x < itemTotalWitdh && 
         playerTotalWitdh > item.x && 
@@ -196,9 +194,10 @@ class Game{
       if (item.sprite === item.rewardSprite){
         if (touchable && (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft)){
           //update player stats
-          
-          //remove item
-          item.removeItem();
+          if (!this.taked){
+            this.player.score += item.rewardPoints;
+            this.taked = true;
+          }
           
         }
       }else{

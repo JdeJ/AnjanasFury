@@ -10,6 +10,8 @@ class Player{
     this.sprites = sprites; //object with all player sprites
     this.direction = 'right'; //default direction
     this.sprite = this.sprites.stillRight; // default sprite
+    this.lives = 3; //default lives
+    this.score = 0; //default score
   }
 
   drawPlayer (ctx){

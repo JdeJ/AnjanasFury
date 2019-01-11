@@ -3,6 +3,8 @@ class Item{
   constructor (phaseXLimits, phaseYLimits){
     this.phaseXLimits = phaseXLimits; //Object with the min and max X position of the phase
     this.phaseYLimits = phaseYLimits; //Object with the min and max Y position of the phase
+    this.rewardPoints = 0;
+    this.rewardHealth = 0;
     this.obstacleSprite = this.randomSprite(obstaclesArray); 
     this.rewardSprite = this.randomSprite(rewardsArray);
     this.sprite = this.obstacleSprite; //Sprite default drawed in canvas
@@ -11,8 +13,6 @@ class Item{
     this.health = 2000;
     this.randomPosition();
     this.changed = false;
-    this.rewardPoints = 0;
-    this.rewardHealth = 0;
   }
 
   //random item sprite
@@ -96,8 +96,7 @@ class Item{
         this.sprite.changeSprite();
         this.changed = true;
       }
-      
-    }
+    } 
   }
 
 }

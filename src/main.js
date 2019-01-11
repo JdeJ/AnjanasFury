@@ -170,7 +170,7 @@ document.onload = function () {
                           <div class="mini-player"><img src="img/cody-player.png" alt=""></div>
                           <div class="player-stats">
                             <div>
-                              <div class="lives"> <p>CODY</p><p>= 3</p> </div>
+                              <div class="lives"> <p>CODY= </p><p>3</p> </div>
                               <div class="points"> <p>43562</p> </div>
                             </div>
                             <div class="health"></div>
