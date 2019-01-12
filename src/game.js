@@ -240,18 +240,25 @@ class Game{
         playerSprites = {
           stillRight: new Sprite('img/cody.png',{x:0,y:0},{width:54, height:93},{width:129, height:222},0,1,false),
           stillLeft: new Sprite('img/cody.png',{x:0,y:95},{width:54, height:93},{width:129, height:222},0,1,false),
+          
           goRight: new Sprite('img/cody.png',{x:54,y:0},{width:62, height:95},{width:145, height:222},3,10,true),
           goLeft: new Sprite('img/cody.png',{x:54,y:95},{width:62, height:95},{width:145, height:222},3,10,true),
+          
           punchRight: new Sprite('img/cody.png',{x:0,y:190},{width:85, height:90},{width:210, height:222},3,2,true),
           punchLeft: new Sprite('img/cody.png',{x:0,y:280},{width:85, height:90},{width:210, height:222},3,2,true),
+          
           kickRight: new Sprite('img/cody.png',{x:502,y:190},{width:65, height:88},{width:164, height:222},3,3,true),
           kickLeft: new Sprite('img/cody.png',{x:502,y:278},{width:65, height:88},{width:164, height:222},3,3,true),
+          
           hookRight: new Sprite('img/cody.png',{x:170,y:190},{width:83, height:111},{width:166, height:222},3,4,true),
           hookLeft: new Sprite('img/cody.png',{x:170,y:301},{width:83, height:111},{width:166, height:222},3,4,true),
+          
           takeRight: new Sprite('img/cody.png',{x:443,y:412},{width:54, height:93},{width:129, height:222},5,1,false),
           takeLeft: new Sprite('img/cody.png',{x:443,y:505},{width:54, height:93},{width:129, height:222},5,1,false),
+          
           dieRight: new Sprite('img/cody.png',{x:0,y:412},{width:97, height:96},{width:225, height:222},5,4,false),
           dieLeft: new Sprite('img/cody.png',{x:0,y:508},{width:97, height:96},{width:225, height:222},5,4,false),
+          
           damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
           damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
         };
@@ -261,18 +268,25 @@ class Game{
         playerSprites = { 
           stillRight: new Sprite('img/haggar.png',{x:0,y:0},{width:81, height:93},{width:193, height:222},0,1,false),
           stillLeft: new Sprite('img/haggar.png',{x:0,y:100},{width:81, height:93},{width:193, height:222},0,1,false),
+          
           goRight: new Sprite('img/haggar.png',{x:81,y:0},{width:85, height:100},{width:189, height:222},4,8,true),
           goLeft: new Sprite('img/haggar.png',{x:81,y:100},{width:85, height:100},{width:189, height:222},4,8,true),
+          
           punchRight: new Sprite('img/haggar.png',{x:0,y:200},{width:113, height:86},{width:291, height:222},4,2,true),
           punchLeft: new Sprite('img/haggar.png',{x:0,y:286},{width:113, height:86},{width:291, height:222},4,2,true),
+          
           kickRight: new Sprite('img/haggar.png',{x:0,y:398},{width:123, height:93},{width:294, height:222},4,3,true),
           kickLeft: new Sprite('img/haggar.png',{x:0,y:491},{width:123, height:93},{width:294, height:222},4,3,true),
+          
           hookRight: new Sprite('img/haggar.png',{x:226,y:200},{width:110, height:99},{width:247, height:222},4,4,true),
           hookLeft: new Sprite('img/haggar.png',{x:226,y:299},{width:110, height:99},{width:247, height:222},4,4,true),
+          
           takeRight: new Sprite('img/haggar.png',{x:369,y:398},{width:81, height:93},{width:193, height:222},5,1,false),
           takeLeft: new Sprite('img/haggar.png',{x:369,y:491},{width:81, height:93},{width:193, height:222},5,1,false),
+          
           dieRight: new Sprite('img/haggar.png',{x:75,y:584},{width:133, height:96},{width:308, height:222},5,2,false),
           dieLeft: new Sprite('img/haggar.png',{x:75,y:680},{width:133, height:96},{width:308, height:222},5,2,false),
+          
           damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
           damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
         };
@@ -356,6 +370,22 @@ class Game{
           damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
         };
         enemy = new Enemy('j', 3000, 30, 11, enemySprites);
+        break;
+      case 'oriber':
+        enemySprites = {
+          goRight: new Sprite('img/oriber.png',{x:0,y:0},{width:77, height:92},{width:185, height:222},3,4,true),
+          goLeft: new Sprite('img/oriber.png',{x:0,y:92},{width:77, height:92},{width:185, height:222},3,4,true),
+
+          punchRight: new Sprite('img/oriber.png',{x:0,y:184},{width:89, height:93},{width:235, height:222},3,3,true),
+          punchLeft: new Sprite('img/oriber.png',{x:0,y:277},{width:89, height:93},{width:235, height:222},3,3,true),
+
+          kickRight: new Sprite('img/oriber.png',{x:308,y:0},{width:103, height:97},{width:235, height:222},3,2,true),
+          kickLeft: new Sprite('img/oriber.png',{x:308,y:97},{width:103, height:97},{width:235, height:222},3,2,true),
+
+          damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
+          damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
+        };
+        enemy = new Enemy('oriber', 3000, 30, 11, enemySprites);
         break;
     }
 
