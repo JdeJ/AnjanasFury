@@ -340,7 +340,23 @@ class Game{
         };
         enemy = new Enemy('axel', 4000, 40, 9, enemySprites);
         break;
+      
+      case 'j':
+        enemySprites = {
+          goRight: new Sprite('img/j.png',{x:0,y:0},{width:64, height:92},{width:154, height:222},3,4,true),
+          goLeft: new Sprite('img/j.png',{x:0,y:92},{width:64, height:92},{width:154, height:222},3,4,true),
 
+          punchRight: new Sprite('img/j.png',{x:256,y:0},{width:88, height:88},{width:222, height:222},3,1,true),
+          punchLeft: new Sprite('img/j.png',{x:256,y:88},{width:88, height:88},{width:222, height:222},3,1,true),
+
+          kickRight: new Sprite('img/j.png',{x:344,y:0},{width:96, height:91},{width:233, height:222},3,2,true),
+          kickLeft: new Sprite('img/j.png',{x:344,y:91},{width:96, height:91},{width:233, height:222},3,2,true),
+
+          damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,1,false),
+          damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
+        };
+        enemy = new Enemy('j', 3000, 30, 11, enemySprites);
+        break;
     }
 
     return enemy;
