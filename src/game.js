@@ -326,14 +326,17 @@ class Game{
     switch('axel'){
       case 'axel':
         enemySprites = {
-          goRight: new Sprite('img/enemies.png',{x:0,y:0},{width:71, height:99},{width:159, height:222},3,6,true),
-          goLeft: new Sprite('img/enemies.png',{x:0,y:99},{width:71, height:99},{width:159, height:222},3,6,true),
-        //   punchRight: new Sprite('img/enemies.png',{x:0,y:190},{width:85, height:90},{width:210, height:222},3,2,true),
-        //   punchLeft: new Sprite('img/enemies.png',{x:0,y:280},{width:85, height:90},{width:210, height:222},3,2,true),
-        //   kickRight: new Sprite('img/enemies.png',{x:502,y:190},{width:65, height:88},{width:164, height:222},3,3,true),
-        //   kickLeft: new Sprite('img/enemies.png',{x:502,y:278},{width:65, height:88},{width:164, height:222},3,3,true),
-        //   damageRight: new Sprite('img/enemies.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
-        //   damageLeft: new Sprite('img/enemies.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
+          goRight: new Sprite('img/axel.png',{x:0,y:0},{width:71, height:99},{width:159, height:222},3,6,true),
+          goLeft: new Sprite('img/axel.png',{x:0,y:99},{width:71, height:99},{width:159, height:222},3,6,true),
+
+          punchRight: new Sprite('img/axel.png',{x:426,y:0},{width:98, height:116},{width:187, height:222},3,3,true),
+          punchLeft: new Sprite('img/axel.png',{x:426,y:116},{width:98, height:116},{width:187, height:222},3,3,true),
+
+          kickRight: new Sprite('img/axel.png',{x:0,y:198},{width:99, height:94},{width:233, height:222},3,3,true),
+          kickLeft: new Sprite('img/axel.png',{x:0,y:292},{width:99, height:94},{width:233, height:222},3,3,true),
+
+          damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,1,false),
+          damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,1,false),
         };
         enemy = new Enemy('axel', 4000, 40, 9, enemySprites);
         break;
