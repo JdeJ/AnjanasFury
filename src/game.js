@@ -6,6 +6,7 @@ class Game{
     this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(this.playerName);
     this.timer = new Timer(this.stage.timeout);
+    this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
     this.enemies = []; //enemies array in screen
     this.objects = []; //objects array in screen
     this.controlsPressed = [];
@@ -22,6 +23,7 @@ class Game{
     this.cb.gameOver = gameOver;
     this.cb.updateStats = updateStats;
     this.timer.start();
+    this.newEnemyTimer.start();
     this.refresh();
   }
 
@@ -35,6 +37,17 @@ class Game{
         this.stage.item.checkStatus();
         if (this.taked)
           this.stage.item = undefined;
+      }
+
+      //new enemy check
+      if (this.newEnemyTimer.timeLeft <= 0){
+        if(this.stage.totalEnemiesLeft > 0){
+          let aux = this.createEnemy();
+          this.enemies.push(aux);
+          this.newEnemyTimer.reset();
+        }else{
+          this.newEnemyTimer.stop();
+        }
       }
   
       //refresh animation
@@ -56,7 +69,8 @@ class Game{
       this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     
     //drawEnemies
-    
+    if (this.enemies.length > 0)
+      this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -303,6 +317,30 @@ class Game{
     }
 
     return new Stage (stageName, phasesSprites);
+  }
+
+  createEnemy (){
+    let enemy, enemySprites;
+    //let randomEnemy = enemiesArray[Math.floor(Math.random() * enemiesArray.length)];
+
+    switch('axel'){
+      case 'axel':
+        enemySprites = {
+          goRight: new Sprite('img/enemies.png',{x:0,y:0},{width:71, height:99},{width:159, height:222},3,6,true),
+          goLeft: new Sprite('img/enemies.png',{x:0,y:99},{width:71, height:99},{width:159, height:222},3,6,true),
+        //   punchRight: new Sprite('img/enemies.png',{x:0,y:190},{width:85, height:90},{width:210, height:222},3,2,true),
+        //   punchLeft: new Sprite('img/enemies.png',{x:0,y:280},{width:85, height:90},{width:210, height:222},3,2,true),
+        //   kickRight: new Sprite('img/enemies.png',{x:502,y:190},{width:65, height:88},{width:164, height:222},3,3,true),
+        //   kickLeft: new Sprite('img/enemies.png',{x:502,y:278},{width:65, height:88},{width:164, height:222},3,3,true),
+        //   damageRight: new Sprite('img/enemies.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
+        //   damageLeft: new Sprite('img/enemies.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
+        };
+        enemy = new Enemy('axel', 4000, 40, 9, enemySprites);
+        break;
+
+    }
+
+    return enemy;
   }
 
 }

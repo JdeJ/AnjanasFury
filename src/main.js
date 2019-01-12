@@ -3,8 +3,8 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  //gameInit('cody')
-  playerSelect();
+  gameInit('cody')
+  //playerSelect();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){

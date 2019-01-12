@@ -7,6 +7,7 @@ class Stage{
     this.y = 0;
     this.item = new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
     this.timeout = timeouts[this.name][this.currentPhase];
+    this.totalEnemiesLeft = availableEnemies[this.name][this.currentPhase]; //lefting enemies
   }
   
   drawStage (ctx){

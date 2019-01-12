@@ -14,18 +14,25 @@ const images = generateImagesObject('img/stage1.png', 'img/stage2.png',
                                     'img/cody.png','img/haggar.png',
                                     'img/cody-player.png', 'img/cody-select.png',
                                     'img/haggar-player.png', 'img/haggar-select.png',
-                                    'img/items.png'); 
+                                    'img/items.png', 
+                                    'img/enemies.png'); 
 
 //Items arrays
-var rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
+const rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
 
-var obstaclesArray = ['bidon', 'tyres', 'box'];
+const obstaclesArray = ['bidon', 'tyres', 'box'];
 
 //Enemies array
-var enemiesArray = [];
+const enemiesArray = ['axel'];
 
 //Stage timeouts object
-var timeouts ={
+const timeouts ={
   'slum':{0: 99, 1: 30, 2: 40},
   'subway':{0: 75, 1: 99},
+};
+
+//Phase available enemies object
+const availableEnemies ={
+  'slum':{0: 1, 1: 1, 2: 1},
+  'subway':{0: 1, 1: 1},
 };
