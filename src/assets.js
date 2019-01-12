@@ -15,7 +15,7 @@ const images = generateImagesObject('img/stage1.png', 'img/stage2.png',
                                     'img/cody-player.png', 'img/cody-select.png',
                                     'img/haggar-player.png', 'img/haggar-select.png',
                                     'img/items.png', 
-                                    'img/enemies.png'); 
+                                    'img/axel.png', 'img/j.png', 'img/oriber.png'); 
 
 //Items arrays
 const rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
@@ -23,7 +23,7 @@ const rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque'
 const obstaclesArray = ['bidon', 'tyres', 'box'];
 
 //Enemies array
-const enemiesArray = ['axel'];
+const enemiesArray = ['axel', 'j', 'oriber'];
 
 //Stage timeouts object
 const timeouts ={
