@@ -42,8 +42,7 @@ class Game{
       //new enemy check
       if (this.newEnemyTimer.timeLeft <= 0){
         if(this.stage.totalEnemiesLeft > 0){
-          let aux = this.createEnemy();
-          this.enemies.push(aux);
+          this.enemies.push(this.createEnemy());
           this.newEnemyTimer.reset();
         }else{
           this.newEnemyTimer.stop();
@@ -335,9 +334,9 @@ class Game{
 
   createEnemy (){
     let enemy, enemySprites;
-    //let randomEnemy = enemiesArray[Math.floor(Math.random() * enemiesArray.length)];
+    const randomEnemy = enemiesArray[Math.floor(Math.random() * enemiesArray.length)];
 
-    switch('axel'){
+    switch(randomEnemy){
       case 'axel':
         enemySprites = {
           goRight: new Sprite('img/axel.png',{x:0,y:0},{width:71, height:99},{width:159, height:222},3,6,true),
@@ -373,14 +372,14 @@ class Game{
         break;
       case 'oriber':
         enemySprites = {
-          goRight: new Sprite('img/oriber.png',{x:0,y:0},{width:77, height:92},{width:185, height:222},3,4,true),
-          goLeft: new Sprite('img/oriber.png',{x:0,y:92},{width:77, height:92},{width:185, height:222},3,4,true),
+          goRight: new Sprite('img/oriber.png',{x:0,y:0},{width:77, height:92},{width:185, height:222},2,4,true),
+          goLeft: new Sprite('img/oriber.png',{x:0,y:92},{width:77, height:92},{width:185, height:222},2,4,true),
 
-          punchRight: new Sprite('img/oriber.png',{x:0,y:184},{width:89, height:93},{width:235, height:222},3,3,true),
-          punchLeft: new Sprite('img/oriber.png',{x:0,y:277},{width:89, height:93},{width:235, height:222},3,3,true),
+          punchRight: new Sprite('img/oriber.png',{x:0,y:184},{width:89, height:93},{width:235, height:222},2,3,true),
+          punchLeft: new Sprite('img/oriber.png',{x:0,y:277},{width:89, height:93},{width:235, height:222},2,3,true),
 
-          kickRight: new Sprite('img/oriber.png',{x:308,y:0},{width:103, height:97},{width:235, height:222},3,2,true),
-          kickLeft: new Sprite('img/oriber.png',{x:308,y:97},{width:103, height:97},{width:235, height:222},3,2,true),
+          kickRight: new Sprite('img/oriber.png',{x:308,y:0},{width:103, height:97},{width:235, height:222},2,2,true),
+          kickLeft: new Sprite('img/oriber.png',{x:308,y:97},{width:103, height:97},{width:235, height:222},2,2,true),
 
           damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
           damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
