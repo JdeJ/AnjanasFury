@@ -3,7 +3,9 @@ class Game{
     this.canvas = canvas;
     this.ctx = ctx;
     this.playerName = playerName; //Name of the player
-    this.stage = this.createStage('slum'); //default stage
+    this.currentStage = 0; //default stage
+    this.stageName = stagesArray[this.currentStage]; // default stage
+    this.stage = this.createStage(this.stageName);
     this.player = this.createPlayer(this.playerName);
     this.timer = new Timer(this.stage.timeout);
     this.enemies = []; //enemies array in screen
@@ -11,21 +13,24 @@ class Game{
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
     this.state = 'stopped'; //game state: [stopped, running, paused]
-    this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
+    this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined, win: undefined}; //callbacks object of main.js
     this.taked = false; //flag controls if reward has been taken
   }
 
-  gameStart (pause, resume, gameOver, updateStats){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats, win){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
     this.cb.updateStats = updateStats;
+    this.cb.win = win;
     this.timer.start();
     this.refresh();
   }
 
   gameStatus(){
+    console.log("Player.x= "+ this.player.x +" - Player.y= "+this.player.y);
+    console.log("Stage.x= "+ this.stage.x);
     //time and player health check
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
       this.gameOver();
@@ -36,7 +41,29 @@ class Game{
         if (this.taked)
           this.stage.item = undefined;
       }
-  
+
+      //change phase/stage
+      if ((this.player.x >= phasePass[this.stageName][this.stage.currentPhase].x) &&
+          (this.stage.x <= phasePass[this.stageName][this.stage.currentPhase].stageX)&&
+          (this.player.y >= phasePass[this.stageName][this.stage.currentPhase].minY) &&
+          (this.player.y <= phasePass[this.stageName][this.stage.currentPhase].maxY)){
+
+            //Paso al siguiente Stage
+            if (this.stage.currentPhase < (this.stage.phases.length-1)){
+              this.stage.currentPhase++;
+              this.resetPositions();
+              this.resetTimeout();
+            }else if (this.currentStage < (stagesArray.length-1)){
+              this.currentStage++;
+              this.stageName = stagesArray[this.currentStage];
+              this.stage = this.createStage(this.stageName);
+              this.resetPositions();
+              this.resetTimeout();
+            }else{
+              this.youWin();
+            }
+      }
+
       //refresh animation
       this.refresh();
     }
@@ -54,9 +81,9 @@ class Game{
     //drawObjects
     if (this.stage.item)
       this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
-    
+
     //drawEnemies
-    
+
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -103,8 +130,19 @@ class Game{
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
     this.clear();
-    this.timer.stop(); 
+    this.timer.stop();
     this.cb.gameOver();
+  }
+
+  youWin (){
+    this.state = 'win';
+    //detengo el canvas
+    this.fps = window.cancelAnimationFrame(this.fps);
+    this.fps = undefined;
+    //detengo el timer
+    this.timer.stop();
+    //llamo al cb de main.js para que añada la pantalla de WIN al DOM
+    this.cb.win();
   }
 
   generateControls (){
@@ -123,12 +161,12 @@ class Game{
       window.addEventListener('keydown', (pressed) => {
         this.controlsPressed[pressed.keyCode] = true;
       });
-  
+
       window.addEventListener('keyup', (pressed) => {
         this.controlsPressed[pressed.keyCode] = false;
         this.player.still();
       });
-  
+
       if (this.controlsPressed[87]) {
         this.player.moveUp(this.stage, this.delta);
       }
@@ -137,11 +175,11 @@ class Game{
       }
       if (this.controlsPressed[65]) {
         this.player.moveLeft(this.stage, this.delta);
-        this.stage.parallax(this.player.x, this.player.vel);
+        this.stage.moveBackground(this.player.x, this.player.vel);
       }
       if (this.controlsPressed[68]) {
         this.player.moveRight(this.stage, this.delta);
-        this.stage.parallax (this.player.x, this.player.vel);
+        this.stage.moveBackground (this.player.x, this.player.vel);
       }
       if (this.controlsPressed[65] && this.controlsPressed[68]){
         this.player.still();
@@ -158,7 +196,7 @@ class Game{
       }
       if (this.controlsPressed[73]) {
         this.player.take();
-      } 
+      }
     }
   }
 
@@ -172,11 +210,11 @@ class Game{
     let collisionBorder = undefined; //controlo por donde estoy colisionando con el objeto
 
 
-    if (player.x < itemTotalWitdh && 
-        playerTotalWitdh > item.x && 
+    if (player.x < itemTotalWitdh &&
+        playerTotalWitdh > item.x &&
         player.y + 200 < itemTotalHeight &&
         playerTotalHeight > item.y + 200){
-      
+
       if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
         player.y = item.y + 35;
         touchable = false;
@@ -190,7 +228,7 @@ class Game{
         touchable = true;
         collisionBorder = 'left';
       }else if ((player.x < itemTotalWitdh) && (playerTotalWitdh > itemTotalWitdh)){ //estoy a la derecha
-        player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo      
+        player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo
         touchable = true;
         collisionBorder = 'right';
       }
@@ -204,18 +242,32 @@ class Game{
             this.player.score += item.rewardPoints;
             this.player.health += item.rewardHealth;
           }
-          
+
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
         if (touchable && (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
           player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
           player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft)){
-        
-          item.receiveDamage (player.strength);            
+
+          item.receiveDamage (player.strength);
         }
       }
     }
+  }
+
+  //Reinicio las posiciones del player y del stage
+  resetPositions (){
+    this.player.x = this.stage.phases[this.stage.currentPhase].x.minX + 65;
+    this.player.y = this.stage.phases[this.stage.currentPhase].y.minY-170;
+    this.stage.x = 0;
+    this.stage.y = 0;
+  }
+
+  //Cambio el timeout al cambiar de stage/phase
+  resetTimeout (){
+    this.timer.stop();
+    this.timer = new Timer(this.stage.timeout);
   }
 
   //Instancio el player seleccionado en el DOM
@@ -244,7 +296,7 @@ class Game{
         player = new Player('cody', 5000, 50, 10, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
       case 'haggar':
-        playerSprites = { 
+        playerSprites = {
           stillRight: new Sprite('img/haggar.png',{x:0,y:0},{width:81, height:93},{width:193, height:222},0,1,false),
           stillLeft: new Sprite('img/haggar.png',{x:0,y:100},{width:81, height:93},{width:193, height:222},0,1,false),
           goRight: new Sprite('img/haggar.png',{x:81,y:0},{width:85, height:100},{width:189, height:222},4,8,true),
@@ -271,7 +323,7 @@ class Game{
   //Instancio el stage actual
   createStage (stageName){
     let phasesSprites;
-    
+
     switch (stageName) {
       case 'slum':
         //stage backgrounds sprites
@@ -280,24 +332,24 @@ class Game{
         const st1P2l0 = new Sprite('img/stage1.png',{x:1304,y:0},{width:608, height:256},{width:1426, height:600},0, 1);
         const st1P3l0 = new Sprite('img/stage1.png',{x:1918,y:257},{width:944, height:160},{width:2212, height:375},0, 1);
         const st1P3l1 = new Sprite('img/stage1.png',{x:1918,y:0},{width:944, height:256},{width:2212, height:600},0, 1);
-        
+
         phasesSprites = [
           new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2880}, {minY: 465, maxY: 592}, 860,false),
-          new Phase(1426, [st1P2l0], {minX: 60, maxX: 1380}, {minY: 450, maxY: 592}, 900,false),
+          new Phase(1426, [st1P2l0], {minX: 60, maxX: 1400}, {minY: 490, maxY: 592}, 910,false),
           new Phase(2212, [st1P3l0, st1P3l1], {minX: 220, maxX: 2077}, {minY: 470, maxY: 592}, 780,false)
         ];
         break;
-    
+
       case 'subway':
         //stage backgrounds sprites
         const st2P1l0 = new Sprite('img/stage2.png',{x:0,y:0},{width:2512, height:256},{width:5888, height:600},0, 1);
         const st2P1l1 = new Sprite('img/stage2.png',{x:0,y:272},{width:2512, height:142},{width:5940, height:350},0, 1);
         const st2P2l0 = new Sprite('img/stage2.png',{x:0,y:426},{width:2400, height:255},{width:5647, height:600},0, 1);
-        
+
         phasesSprites = [
           new Phase(5888, [st2P1l0], {minX: 270, maxX: 5880}, {minY: 453, maxY: 592}, 870,false),
           //new Phase(5888, [st2P1l0, st2P1l1], {minX: 400, maxX: 5908}, {minY: 453, maxY: 592}, 944,false)
-          new Phase(5647, [st2P2l0], {minX: 39, maxX: 5600}, {minY: 452, maxY: 592}, 870,false)
+          new Phase(5647, [st2P2l0], {minX: 41, maxX: 5600}, {minY: 452, maxY: 592}, 870,false)
         ];
         break;
     }

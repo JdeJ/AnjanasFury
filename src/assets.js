@@ -16,16 +16,32 @@ const images = generateImagesObject('img/stage1.png', 'img/stage2.png',
                                     'img/haggar-player.png', 'img/haggar-select.png',
                                     'img/items.png'); 
 
-//Items arrays
-var rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
+//Stages array
+const stagesArray = ['slum', 'subway'];
 
-var obstaclesArray = ['bidon', 'tyres', 'box'];
+//Items arrays
+const rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
+
+const obstaclesArray = ['bidon', 'tyres', 'box'];
 
 //Enemies array
 var enemiesArray = [];
 
 //Stage timeouts object
-var timeouts ={
-  'slum':{0: 99, 1: 30, 2: 40},
-  'subway':{0: 75, 1: 99},
+const timeouts ={
+  'slum':{0: 70, 1: 40, 2: 50},
+  'subway':{0: 80, 1: 99},
+};
+
+//Stage phase pass object
+const phasePass = {
+  'slum':{
+    0: {x: 774, stageX: -1880, minY: 255, maxY: 355},
+    1: {x: 817, stageX: -400, minY: 270, maxY: 280},
+    2: {x: 700, stageX: -1079, minY: 250, maxY: 310},
+  },
+  'subway':{
+    0: {x: 790, stageX: -4886, minY: 233, maxY: 363},
+    1: {x: 780, stageX: -4606, minY: 232, maxY: 362},
+  }
 };

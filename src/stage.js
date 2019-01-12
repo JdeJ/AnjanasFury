@@ -10,18 +10,20 @@ class Stage{
   }
   
   drawStage (ctx){
-    this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
-    if (this.phases[this.currentPhase].sprites.length > 1){
+    if (this.phases[this.currentPhase].sprites.length > 1){ //parallax
+      this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
       this.phases[this.currentPhase].sprites[1].drawSprite(ctx, this.x, this.y);
+    }else{
+      this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x, this.y);
     }
   }
 
-  parallax (playerX, vel){
+  moveBackground (playerX, vel){
     if (playerX >=700 && this.x > -(this.phases[this.currentPhase].x.maxX - canvas.width)){
       this.x -= vel/1.5;
       if (this.item)
         this.item.x -= vel/1.5;
-    }else if (playerX <= 250 && this.x < 0){
+    }else if (playerX <= 282 && this.x < 0){
       this.x += vel/1.5;
       if (this.item)
         this.item.x += vel/1.5;

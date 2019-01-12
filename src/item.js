@@ -63,7 +63,7 @@ class Item{
         break;
       case 'tyres':
         this.rewardPoints = 1000;
-        return new Sprite('img/items.png',{x:220,y:444},{width:146, height:222},{width:146, height:222},0,1,false);
+        return new Sprite('img/items.png',{x:230,y:444},{width:146, height:222},{width:146, height:222},0,1,false);
         break;
       case 'box':
         this.rewardPoints = 1000;

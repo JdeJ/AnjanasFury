@@ -13,7 +13,7 @@ document.onload = function () {
     removePlayerStats();
     const game = new Game(canvas, ctx, player);
     statistics();
-    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
+    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), winCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
@@ -199,6 +199,10 @@ document.onload = function () {
     pointsElement.innerText = points;
 
     //vaciar barra energia player
+  }
+
+  function winCB(){
+    console.log ('Has ganado!!!!');
   }
 
   function cleanContainer (){
