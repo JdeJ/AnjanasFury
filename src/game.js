@@ -53,12 +53,14 @@ class Game{
               this.stage.currentPhase++;
               this.resetPositions();
               this.resetTimeout();
+              this.timer.start();
             }else if (this.currentStage < (stagesArray.length-1)){
               this.currentStage++;
               this.stageName = stagesArray[this.currentStage];
               this.stage = this.createStage(this.stageName);
               this.resetPositions();
               this.resetTimeout();
+              this.timer.start();
             }else{
               this.youWin();
             }
