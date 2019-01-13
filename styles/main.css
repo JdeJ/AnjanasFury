@@ -136,7 +136,8 @@ body {
   justify-content: center;
   font-family: 'Press Start 2P';
   font-size: 20px;
-  color: rgb(190, 33, 29);
+  /* color: rgb(190, 33, 29); */
+  color: whitesmoke;
   background: black;
   border-radius: 10px;
 }
@@ -164,7 +165,7 @@ body {
 }
 
 
-/* PAUSED / GAME OVER screen */
+/* PAUSED screen */
 
 @keyframes blinking {
   0% { opacity: 1.0; }
@@ -187,16 +188,6 @@ body {
   border-radius: 10px;
 }
 
-.crt-content .options-btn{
-  font-size: 30px;
-  padding: 10px;
-  background-color: black;
-  color: whitesmoke;
-  border: 1px solid whitesmoke;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
 .crt-content>p {
   font-size: 80px;
 }
@@ -207,6 +198,56 @@ body {
 
 .blink {
   animation: blinking 1s infinite;
+}
+
+/* GAME OVER screen */
+@keyframes fade {
+	0% { opacity: 1; }
+	25% { opacity: 1; }
+	75% { opacity: 0; }
+	100% { opacity: 0; }
+}
+
+.game-over-img {
+  position: relative;
+}
+
+.game-over-img img{
+  position: absolute;
+}
+
+.game-over-img .top{
+  animation: fade 1s ease-in-out infinite alternate;
+}
+
+.game-over-img .continue{
+  content:url("img/haggar-gameOver-3.jpg");
+}
+
+.crt-content .options-btn{
+  font-size: 30px;
+  padding: 10px;
+  background-color: black;
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* YOU LOSE screen */
+@keyframes grow {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.crt-content .you-lose p {
+  padding: 30px 0;
+  font-size: 160px;
+  animation: grow 2s;
 }
 
 /* STATISTICS Screen */

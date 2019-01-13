@@ -3,8 +3,10 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit('cody')
+  //gameInit('cody')
   //playerSelect();
+  youLose();
+  //gameOverCB();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
@@ -118,11 +120,15 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
     auxDiv.innerHTML = `
-                        <p>GAME OVER</p>
-                        <div class="options"> 
-                          <p id="continue-btn" class="options-btn">CONTINUE</p>
-                          <p id="retry-btn"  class="options-btn">RETRY</p>
+                        <div class="game-over-img">
+                          <img class="bottom" src="img/haggar-gameOver-2.jpg">
+                          <img class="top" src="img/haggar-gameOver-1.jpg">
                         </div>
+                          <div class="options"> 
+                            <p id="continue-btn" class="options-btn">CONTINUE</p>
+                            <p id="retry-btn"  class="options-btn">GIVE UP</p>
+                          </div>
+                        
                       `;
     crt.appendChild(auxDiv);
 
@@ -138,12 +144,14 @@ document.onload = function () {
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
         //Si pulso cualquier tecla o boton de accion (puño, patada....)
-        if (selected.innerText === 'CONTINUE'){
-          //Si tengo seleccionado 'continue' borro la pantalla gameOver y voy a la pantalla de inicio
+        if (selected.innerText === 'GIVE UP'){
+          //Si tengo seleccionado 'GIVE UP' borro la pantalla gameOver
           crt.removeChild (document.querySelector('.crt-content'));
+          //Hacer pantalla grande GAME OVER
           playerSelect();
         }else{
-          //si tengo seleccionado 'retry' reinicio el Stage
+          //cambio la imagen y espero 1 segundo para reiniciar el stage
+          game.gameResetStage();
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
@@ -157,6 +165,21 @@ document.onload = function () {
         selected.style = 'animation: blinking 1s infinite';
       }     
     }
+  }
+
+  function youLose (){
+    cleanContainer();
+    removePlayerStats();
+    //Añado la pantalla 'YOU LOSE' al DOM
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'crt-content');
+    auxDiv.innerHTML = `
+                        <div class='you-lose'>
+                          <p>GAME</p>
+                          <p>OVER</p>
+                        </div>
+                      `;
+    crt.appendChild(auxDiv);
   }
 
   function statistics(){

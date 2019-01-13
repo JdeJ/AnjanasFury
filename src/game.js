@@ -111,6 +111,10 @@ class Game{
     this.gameStatus();
   }
 
+  gameResetStage(){
+    console.log('Stage reseteada');
+  }
+
   gameOver (){
     this.state = 'stopped';
     this.fps = window.cancelAnimationFrame(this.fps);
