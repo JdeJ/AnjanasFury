@@ -3,9 +3,9 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  //gameInit('cody')
+  gameInit('cody');
   //playerSelect();
-  gameOverCB();
+  //gameOverCB();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
@@ -112,18 +112,27 @@ document.onload = function () {
     cleanContainer();
   }
 
-  function gameOverCB (){
+  function gameOverCB (player){
     cleanContainer();
     removePlayerStats();
     //Añado la pantalla 'gameOver' al DOM
+
+    switch(player){
+      case 'cody':
+        break;
+      case 'haggar':
+        break;
+    }
+
+
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
     auxDiv.innerHTML = `
       <div class='game-over'>
         <div class='relative-div'>
           <div class="game-over-img">
-            <img class="bottom" src="img/haggar-gameOver-2.png">
-            <img class="top" src="img/haggar-gameOver-1.png">
+            <img class="bottom" src="img/${player}-gameOver-2.png">
+            <img class="top" src="img/${player}-gameOver-1.png">
           </div>
         </div>
       </div>

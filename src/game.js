@@ -2,9 +2,8 @@ class Game{
   constructor (canvas, ctx, playerName){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.playerName = playerName; //Name of the player
     this.stage = this.createStage('slum'); //default stage
-    this.player = this.createPlayer(this.playerName);
+    this.player = this.createPlayer(playerName);
     this.timer = new Timer(this.stage.timeout);
     this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
     this.enemies = []; //enemies array in screen
@@ -121,7 +120,7 @@ class Game{
     this.fps = undefined;
     this.clear();
     this.timer.stop(); 
-    this.cb.gameOver();
+    this.cb.gameOver(this.player.name);
   }
 
   generateControls (){
