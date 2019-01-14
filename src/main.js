@@ -5,8 +5,7 @@ document.onload = function () {
 
   //gameInit('cody')
   //playerSelect();
-  youLose();
-  //gameOverCB();
+  gameOverCB();
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
@@ -24,44 +23,44 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'player-select');
     auxDiv.innerHTML = `
-                        <div id="cody" class="player-stats">
-                          <div><span class="player-title">CODY</span></div>
-                          <div class="img-container">
-                            <div class="player-img"><img src="img/cody-select.png" alt=""></div>
-                          </div>
-                          <div class="player-desc">
-                            <span>Altura...1.90m</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Peso......90Kg</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Fuerza......</span><span>50</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Velocidad...</span><span>10</span>
-                          </div>
-                          
-                        </div>
-                        <div id="haggar" class="player-stats">
-                          <div><p class="player-title">HAGGAR</p></div>
-                          <div class="img-container">
-                            <div class="player-img"><img src="img/haggar-select.png" alt=""></div>
-                          </div>
-                          <div class="player-desc">
-                            <span>Altura...1.90m</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Peso......90Kg</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Fuerza......</span><span>50</span>
-                          </div>
-                          <div class="player-desc">
-                            <span>Velocidad...</span><span>10</span>
-                          </div>
-                        </div>      
-                      `;
+      <div id="cody" class="player-stats">
+        <div><span class="player-title">CODY</span></div>
+        <div class="img-container">
+          <div class="player-img"><img src="img/cody-select.png" alt=""></div>
+        </div>
+        <div class="player-desc">
+          <span>Altura...1.90m</span>
+        </div>
+        <div class="player-desc">
+          <span>Peso......90Kg</span>
+        </div>
+        <div class="player-desc">
+          <span>Fuerza......</span><span>50</span>
+        </div>
+        <div class="player-desc">
+          <span>Velocidad...</span><span>10</span>
+        </div>
+        
+      </div>
+      <div id="haggar" class="player-stats">
+        <div><p class="player-title">HAGGAR</p></div>
+        <div class="img-container">
+          <div class="player-img"><img src="img/haggar-select.png" alt=""></div>
+        </div>
+        <div class="player-desc">
+          <span>Altura...1.90m</span>
+        </div>
+        <div class="player-desc">
+          <span>Peso......90Kg</span>
+        </div>
+        <div class="player-desc">
+          <span>Fuerza......</span><span>50</span>
+        </div>
+        <div class="player-desc">
+          <span>Velocidad...</span><span>10</span>
+        </div>
+      </div>      
+    `;
     crt.appendChild(auxDiv);
   
     //Por defecto cody seleccionado
@@ -100,9 +99,9 @@ document.onload = function () {
     const pauseDiv = document.createElement('div');
     pauseDiv.setAttribute('class', 'crt-content');
     pauseDiv.innerHTML = `
-                            <p>PAUSED</p>
-                            <p class='paused'>Press <span class="blink">START</span> when ready...</p>
-                          `;
+      <p>PAUSED</p>
+      <p class='paused'>Press <span class="blink">START</span> when ready...</p>
+    `;
   
     crt.appendChild(pauseDiv);
   }
@@ -120,16 +119,19 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
     auxDiv.innerHTML = `
-                        <div class="game-over-img">
-                          <img class="bottom" src="img/haggar-gameOver-2.jpg">
-                          <img class="top" src="img/haggar-gameOver-1.jpg">
-                        </div>
-                          <div class="options"> 
-                            <p id="continue-btn" class="options-btn">CONTINUE</p>
-                            <p id="retry-btn"  class="options-btn">GIVE UP</p>
-                          </div>
-                        
-                      `;
+      <div class='game-over'>
+        <div class='relative-div'>
+          <div class="game-over-img">
+            <img class="bottom" src="img/haggar-gameOver-2.png">
+            <img class="top" src="img/haggar-gameOver-1.png">
+          </div>
+        </div>
+      </div>
+      <div class="options"> 
+        <p id="continue-btn" class="options-btn">CONTINUE</p>
+        <p id="retry-btn"  class="options-btn">GIVE UP</p>
+      </div>
+    `;
     crt.appendChild(auxDiv);
 
     //Seleccionar Continue o Retry
