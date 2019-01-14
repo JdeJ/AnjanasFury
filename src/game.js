@@ -120,7 +120,7 @@ class Game{
     this.fps = undefined;
     this.clear();
     this.timer.stop(); 
-    this.cb.gameOver(this.player.name);
+    this.cb.gameOver(this.player.name, this);
   }
 
   generateControls (){

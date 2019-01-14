@@ -111,7 +111,7 @@ document.onload = function () {
     cleanContainer();
   }
 
-  function gameOverCB (player){
+  function gameOverCB (player, game){
     cleanContainer();
     removePlayerStats();
 
@@ -137,7 +137,7 @@ document.onload = function () {
           youLose();
         }else{
           //cambio la imagen y espero 1 segundo para reiniciar el stage
-          this.game.gameResetStage();
+          game.gameResetStage();
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
