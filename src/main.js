@@ -3,9 +3,9 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit('cody');
+  //gameInit('cody');
   //playerSelect();
-  //gameOverCB();
+  gameOverCB('cody');
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
@@ -125,7 +125,7 @@ document.onload = function () {
 
     //controles para hacer click en las opciones en lugar de usar teclado o mando
     // document.getElementById('continue-btn').addEventListener('click', gameInit);
-    // document.getElementById('retry-btn').addEventListener('click', gameInit);
+    // document.getElementById('giveUp-btn').addEventListener('click', gameInit);
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
@@ -136,8 +136,11 @@ document.onload = function () {
           //Hacer pantalla grande GAME OVER
           youLose();
         }else{
-          //cambio la imagen y espero 1 segundo para reiniciar el stage
-          game.gameResetStage();
+          //cambio la imagen y detengo la animación
+          generateResetStageHtmlContent(player);
+
+          //espero 3 segundo para reiniciar el stage
+          setTimeout(()=>console.log('reseteando....'), 3000);
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
@@ -167,7 +170,7 @@ document.onload = function () {
       </div>
       <div class="options"> 
         <p id="continue-btn" class="options-btn">CONTINUE</p>
-        <p id="retry-btn"  class="options-btn">GIVE UP</p>
+        <p id="giveUp-btn"  class="options-btn">GIVE UP</p>
       </div>
     `;
     crt.appendChild(auxDiv);
@@ -180,12 +183,23 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
     auxDiv.innerHTML = `
-                        <div class='you-lose'>
-                          <p>GAME</p>
-                          <p>OVER</p>
-                        </div>
-                      `;
+      <div class='you-lose'>
+        <p>GAME</p>
+        <p>OVER</p>
+      </div>
+    `;
     crt.appendChild(auxDiv);
+  }
+
+  function generateResetStageHtmlContent(player){
+    let img = document.querySelector(".game-over-img .top");
+    console.log(img);
+    img.src=`img/${player}-gameOver-3.png`;
+    img.className = "top-continue";
+
+    //Borro el botón no seleccionado
+    document.getElementById('giveUp-btn').remove();
+
   }
 
   function statistics(){
