@@ -251,7 +251,6 @@ body {
   flex-flow: column;
   align-content: center;
   justify-content: space-between;
-  border: 1px solid white;
   height: 20%;
 }
 
@@ -262,6 +261,7 @@ body {
   color: whitesmoke;
   border: 1px solid whitesmoke;
   border-radius: 10px;
+  text-align: center;
 }
 
 /* YOU LOSE screen */

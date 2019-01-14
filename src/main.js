@@ -3,7 +3,7 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit('cody');
+  gameInit('haggar');
   //playerSelect();
   //gameOverCB();
 
@@ -102,7 +102,6 @@ document.onload = function () {
       <p>PAUSED</p>
       <p class='paused'>Press <span class="blink">START</span> when ready...</p>
     `;
-  
     crt.appendChild(pauseDiv);
   }
 
@@ -115,33 +114,9 @@ document.onload = function () {
   function gameOverCB (player){
     cleanContainer();
     removePlayerStats();
-    //Añado la pantalla 'gameOver' al DOM
 
-    switch(player){
-      case 'cody':
-        break;
-      case 'haggar':
-        break;
-    }
-
-
-    let auxDiv = document.createElement('div');
-    auxDiv.setAttribute('class', 'crt-content');
-    auxDiv.innerHTML = `
-      <div class='game-over'>
-        <div class='relative-div'>
-          <div class="game-over-img">
-            <img class="bottom" src="img/${player}-gameOver-2.png">
-            <img class="top" src="img/${player}-gameOver-1.png">
-          </div>
-        </div>
-      </div>
-      <div class="options"> 
-        <p id="continue-btn" class="options-btn">CONTINUE</p>
-        <p id="retry-btn"  class="options-btn">GIVE UP</p>
-      </div>
-    `;
-    crt.appendChild(auxDiv);
+    //Añado la pantalla 'gameOver' del player actual al DOM
+    generateGameOverHtmlContent(player); 
 
     //Seleccionar Continue o Retry
     const options = document.querySelectorAll('.options-btn');
@@ -176,6 +151,26 @@ document.onload = function () {
         selected.style = 'animation: blinking 1s infinite';
       }     
     }
+  }
+
+  function generateGameOverHtmlContent(player){
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'crt-content');
+    auxDiv.innerHTML = `
+      <div class='game-over'>
+        <div class='relative-div'>
+          <div class="game-over-img">
+            <img class="bottom" src="img/${player}-gameOver-2.png">
+            <img class="top" src="img/${player}-gameOver-1.png">
+          </div>
+        </div>
+      </div>
+      <div class="options"> 
+        <p id="continue-btn" class="options-btn">CONTINUE</p>
+        <p id="retry-btn"  class="options-btn">GIVE UP</p>
+      </div>
+    `;
+    crt.appendChild(auxDiv);
   }
 
   function youLose (){
