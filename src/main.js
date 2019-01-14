@@ -134,10 +134,10 @@ document.onload = function () {
           //Si tengo seleccionado 'GIVE UP' borro la pantalla gameOver
           crt.removeChild (document.querySelector('.crt-content'));
           //Hacer pantalla grande GAME OVER
-          playerSelect();
+          youLose();
         }else{
           //cambio la imagen y espero 1 segundo para reiniciar el stage
-          game.gameResetStage();
+          this.game.gameResetStage();
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
