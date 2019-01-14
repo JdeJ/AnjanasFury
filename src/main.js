@@ -3,7 +3,7 @@ document.onload = function () {
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
 
-  gameInit('haggar');
+  gameInit('cody');
   //playerSelect();
   //gameOverCB();
 
