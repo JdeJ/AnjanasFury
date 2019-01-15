@@ -10,17 +10,18 @@ class Game{
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
     this.state = 'stopped'; //game state: [stopped, running, paused]
-    this.cb = {pause: undefined, resume: undefined, gameOver: undefined, stats: undefined}; //callbacks object of main.js
+    this.cb = {}; //callbacks object of main.js
     this.taked = false; //flag controls if reward has been taken
   }
 
-  gameStart (pause, resume, gameOver, updateStats, statistics){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
     this.cb.updateStats = updateStats;
     this.cb.createStats = statistics;
+    this.cb.removePlayerStats = removePlayerStats;
     this.timer.start();
     this.newEnemyTimer.start();
     this.refresh();
@@ -31,6 +32,25 @@ class Game{
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
       this.gameOver();
     }else{
+      //change phase/stage
+      if ((this.player.x >= phasePass[this.stage.name][this.stage.currentPhase].x) &&
+          (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
+          (this.player.y >= phasePass[this.stage.name][this.stage.currentPhase].minY) &&
+          (this.player.y <= phasePass[this.stage.name][this.stage.currentPhase].maxY)){
+
+            //Paso a la siguiente Phase
+            if (this.stage.currentPhase < (this.stage.phases.length-1)){
+              this.stage.currentPhase++;
+
+              this.gameChangePhase(this.player.lives);
+            }else if (this.stage.name === 'slum'){
+              this.stage = this.createStage('subway');
+              this.gameChangePhase(this.player.lives);
+            }else{
+              this.youWin();
+            }
+      }
+
       //item check
       if (this.stage.item){
         this.stage.item.checkStatus();
@@ -64,12 +84,12 @@ class Game{
     this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
     //drawObjects
-    if (this.stage.item)
-      this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
+    // if (this.stage.item)
+    //   this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     
-    //drawEnemies
-    if (this.enemies.length > 0)
-      this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
+    // //drawEnemies
+    // if (this.enemies.length > 0)
+    //   this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -112,16 +132,24 @@ class Game{
   }
 
   //Reinicio la phase despues de darle a CONTINUE
-  gameResetStage(){
+  gameContinue (lives){
     this.cb.resume();
     this.cb.createStats();
+    this.gameChangePhase(lives);
+  }
+
+  gameChangePhase (lives){
     this.state = 'running';
     this.enemies = [];
-    this.stage.item = this.stage.createItem();
+    this.stage.createItem();
     this.player.x = this.stage.phases[this.stage.currentPhase].x.minX + 65;
-    this.player.y = this.stage.phases[this.stage.currentPhase].y.minY-170;
-    this.player.lives = 3;
-    this.timer.reset();
+    this.player.y = this.stage.phases[this.stage.currentPhase].y.minY - 170;
+    this.stage.x = 0;
+    this.stage.y = 0;
+    this.player.lives = lives;
+    this.stage.updateTimeout();
+    this.timer = new Timer(this.stage.timeout);
+    this.timer.start();
     this.newEnemyTimer.reset();
     this.gameStatus();
   }

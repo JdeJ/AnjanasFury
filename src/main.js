@@ -12,10 +12,10 @@ document.onload = function () {
   function gameInit(player){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
-    removePlayerStats();
+    removePlayerStatsCB();
     game = new Game(canvas, ctx, player);
     statisticsCB();
-    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this));
+    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this), removePlayerStatsCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
@@ -114,7 +114,7 @@ document.onload = function () {
 
   function gameOverCB (player, game){
     cleanContainer();
-    removePlayerStats();
+    removePlayerStatsCB();
 
     //Añado la pantalla 'gameOver' del player actual al DOM
     generateGameOverHtmlContent(player); 
@@ -140,9 +140,8 @@ document.onload = function () {
           //cambio la imagen y detengo la animación
           generateResetStageHtmlContent(player);
 
-          //espero 3 segundo para reiniciar el stage
-          setTimeout(game.gameResetStage.bind(game), 5000);
-          // setTimeout(cleanContainer, 5000);
+          //espero 5 segundos para reiniciar el stage
+          setTimeout(game.gameContinue.bind(game, 3), 5000);
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
@@ -180,7 +179,7 @@ document.onload = function () {
 
   function youLose (){
     cleanContainer();
-    removePlayerStats();
+    removePlayerStatsCB();
     //Añado la pantalla 'YOU LOSE' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
@@ -264,7 +263,7 @@ document.onload = function () {
     }
   }
 
-  function removePlayerStats (){
+  function removePlayerStatsCB (){
     //remove all stats class items
     let stats = document.querySelector('.stats');
     if(stats){

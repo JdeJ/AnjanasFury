@@ -82,7 +82,6 @@ class Item{
 
   receiveDamage (damage){
     this.health -= damage;
-    console.log(this.health);
     this.checkStatus();
   }
 

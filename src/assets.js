@@ -36,3 +36,16 @@ const availableEnemies ={
   'slum':{0: 2, 1: 1, 2: 1},
   'subway':{0: 1, 1: 1},
 };
+
+//Stage phase pass object
+const phasePass = {
+  'slum':{
+    0: {x: 774, stageX: -1880, minY: 255, maxY: 355},
+    1: {x: 817, stageX: -400, minY: 270, maxY: 280},
+    2: {x: 700, stageX: -1079, minY: 250, maxY: 310},
+  },
+  'subway':{
+    0: {x: 790, stageX: -4886, minY: 233, maxY: 363},
+    1: {x: 780, stageX: -4606, minY: 232, maxY: 362},
+  }
+};
