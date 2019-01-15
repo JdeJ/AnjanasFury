@@ -14,12 +14,13 @@ class Game{
     this.taked = false; //flag controls if reward has been taken
   }
 
-  gameStart (pause, resume, gameOver, updateStats){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats, statistics){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
     this.cb.gameOver = gameOver;
     this.cb.updateStats = updateStats;
+    this.cb.createStats = statistics;
     this.timer.start();
     this.newEnemyTimer.start();
     this.refresh();
@@ -111,9 +112,10 @@ class Game{
 
   gameResetStage(){
     this.cb.resume();
+    this.cb.createStats();
     this.state = 'running';
     this.enemies = [];
-    this.stage.createItem();
+    this.stage.item = this.stage.createItem();
     this.player.x = this.stage.phases[this.stage.currentPhase].x.minX + 65;
     this.player.y = this.stage.phases[this.stage.currentPhase].y.minY-170;
     this.player.lives = 3;

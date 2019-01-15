@@ -14,8 +14,8 @@ document.onload = function () {
     cleanContainer();
     removePlayerStats();
     game = new Game(canvas, ctx, player);
-    statistics();
-    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
+    statisticsCB();
+    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
@@ -141,7 +141,8 @@ document.onload = function () {
           generateResetStageHtmlContent(player);
 
           //espero 3 segundo para reiniciar el stage
-          setTimeout(game.gameResetStage, 5000);
+          setTimeout(game.gameResetStage.bind(game), 5000);
+          // setTimeout(cleanContainer, 5000);
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
@@ -207,7 +208,7 @@ document.onload = function () {
     boton.style = 'animation: centrar 2s ease 0s normal forwards running';
   }
 
-  function statistics(){
+  function statisticsCB(){
     //Añado la pantalla 'statistics' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'stats');

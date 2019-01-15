@@ -22,6 +22,7 @@ class Timer{
   reset (){
     this.stop();
     this.timeLeft = this.phaseTime;
+    this.start();
   }
 
 }

@@ -5,13 +5,13 @@ class Stage{
     this.currentPhase = 0;
     this.x = 0;
     this.y = 0;
-    this.item = undefined;
+    this.item = this.createItem();
     this.timeout = timeouts[this.name][this.currentPhase];
     this.totalEnemiesLeft = availableEnemies[this.name][this.currentPhase]; //lefting enemies
   }
 
   createItem (){
-    this.item = new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
+    return new Item(this.phases[this.currentPhase], this.phases[this.currentPhase]);
   }
   
   drawStage (ctx){
