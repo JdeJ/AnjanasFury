@@ -35,13 +35,14 @@ class Game{
       if (this.stage.item){
         this.stage.item.checkStatus();
         if (this.taked)
-          this.stage.item = undefined;
+          this.stage.removeItem();
       }
 
       //new enemy check
       if (this.newEnemyTimer.timeLeft <= 0){
         if(this.stage.totalEnemiesLeft > 0){
           this.enemies.push(this.createEnemy());
+          this.stage.totalEnemiesLeft--;
           this.newEnemyTimer.reset();
         }else{
           this.newEnemyTimer.stop();
@@ -110,6 +111,7 @@ class Game{
     this.gameStatus();
   }
 
+  //Reinicio la phase despues de darle a CONTINUE
   gameResetStage(){
     this.cb.resume();
     this.cb.createStats();
@@ -383,6 +385,7 @@ class Game{
         };
         enemy = new Enemy('j', 3000, 30, 11, enemySprites);
         break;
+
       case 'oriber':
         enemySprites = {
           goRight: new Sprite('img/oriber.png',{x:0,y:0},{width:77, height:92},{width:185, height:222},2,4,true),
