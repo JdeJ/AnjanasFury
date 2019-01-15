@@ -7,7 +7,6 @@ class Game{
     this.timer = new Timer(this.stage.timeout);
     this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
     this.enemies = []; //enemies array in screen
-    this.objects = []; //objects array in screen
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
     this.state = 'stopped'; //game state: [stopped, running, paused]
@@ -113,7 +112,14 @@ class Game{
   gameResetStage(){
     this.cb.resume();
     this.state = 'running';
-    this.timer = new Timer(this.stage.timeout);
+    this.enemies = [];
+    this.stage.createItem();
+    this.player.x = this.stage.phases[this.stage.currentPhase].x.minX + 65;
+    this.player.y = this.stage.phases[this.stage.currentPhase].y.minY-170;
+    this.player.lives = 3;
+    this.timer.reset();
+    this.newEnemyTimer.reset();
+    this.gameStatus();
   }
 
   gameOver (){
