@@ -111,7 +111,9 @@ class Game{
   }
 
   gameResetStage(){
-    console.log('Stage reseteada');
+    this.cb.resume();
+    this.state = 'running';
+    this.timer = new Timer(this.stage.timeout);
   }
 
   gameOver (){

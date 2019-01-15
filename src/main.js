@@ -2,17 +2,18 @@ document.onload = function () {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const crt = document.querySelector(".crt");
+  let game;
 
   //gameInit('cody');
-  //playerSelect();
-  gameOverCB('cody');
+  playerSelect();
+  // gameOverCB('cody');
 
   //Inicio el juego pasandole los callbacks
   function gameInit(player){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
     cleanContainer();
     removePlayerStats();
-    const game = new Game(canvas, ctx, player);
+    game = new Game(canvas, ctx, player);
     statistics();
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this));
   }
@@ -140,7 +141,7 @@ document.onload = function () {
           generateResetStageHtmlContent(player);
 
           //espero 3 segundo para reiniciar el stage
-          setTimeout(()=>console.log('reseteando....'), 3000);
+          setTimeout(game.gameResetStage, 5000);
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
@@ -192,14 +193,18 @@ document.onload = function () {
   }
 
   function generateResetStageHtmlContent(player){
+    //cambio la imagen
     let img = document.querySelector(".game-over-img .top");
-    console.log(img);
     img.src=`img/${player}-gameOver-3.png`;
-    img.className = "top-continue";
+    img.classList.remove('top');
 
     //Borro el botón no seleccionado
     document.getElementById('giveUp-btn').remove();
 
+    //Añado la clase "centrar" para aplicar la animacion
+    let boton = document.querySelector('#continue-btn');
+    //boton.className = 'seleccionado';
+    boton.style = 'animation: centrar 2s ease 0s normal forwards running';
   }
 
   function statistics(){
