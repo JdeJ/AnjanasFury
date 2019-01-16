@@ -27,8 +27,8 @@ const enemiesArray = ['axel', 'j', 'oriber'];
 
 //Stage timeouts object
 const timeouts ={
-  'slum':{0: 60, 1: 30, 2: 40},
-  'subway':{0: 75, 1: 99},
+  'slum':{0: 99, 1: 99, 2: 99},
+  'subway':{0: 99, 1: 99},
 };
 
 //Phase available enemies object
@@ -41,7 +41,7 @@ const availableEnemies ={
 const phasePass = {
   'slum':{
     0: {x: 774, stageX: -1880, minY: 255, maxY: 355},
-    1: {x: 817, stageX: -400, minY: 270, maxY: 280},
+    1: {x: 800, stageX: -426, minY: 270, maxY: 280},
     2: {x: 700, stageX: -1079, minY: 250, maxY: 310},
   },
   'subway':{

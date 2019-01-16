@@ -21,8 +21,10 @@ class Stage{
   }
   
   drawStage (ctx){
-    this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
-    if (this.phases[this.currentPhase].sprites.length > 1){
+    if (this.phases[this.currentPhase].sprites.length === 1){
+      this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x, this.y);
+    }else{
+      this.phases[this.currentPhase].sprites[0].drawSprite(ctx, this.x/2, this.y/2);
       this.phases[this.currentPhase].sprites[1].drawSprite(ctx, this.x, this.y);
     }
   }

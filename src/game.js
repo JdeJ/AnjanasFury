@@ -28,20 +28,21 @@ class Game{
   }
 
   gameStatus(){
-    //time and player health check
+    //time and player health checks
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
       this.gameOver();
     }else{
+      // console.log(`X= ${this.player.x} / Y= ${this.player.y}`);
+      // console.log(`Stage: ${this.stage.x}`);
       //change phase/stage
       if ((this.player.x >= phasePass[this.stage.name][this.stage.currentPhase].x) &&
           (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
-          (this.player.y >= phasePass[this.stage.name][this.stage.currentPhase].minY) &&
+          (this.player.y > phasePass[this.stage.name][this.stage.currentPhase].minY) &&
           (this.player.y <= phasePass[this.stage.name][this.stage.currentPhase].maxY)){
 
             //Paso a la siguiente Phase
             if (this.stage.currentPhase < (this.stage.phases.length-1)){
               this.stage.currentPhase++;
-
               this.gameChangePhase(this.player.lives);
             }else if (this.stage.name === 'slum'){
               this.stage = this.createStage('subway');
@@ -161,6 +162,10 @@ class Game{
     this.clear();
     this.timer.stop(); 
     this.cb.gameOver(this.player.name, this);
+  }
+
+  youWin (){
+    console.log('You win!!!!!');
   }
 
   generateControls (){
@@ -353,7 +358,7 @@ class Game{
         
         phasesSprites = [
           new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2880}, {minY: 465, maxY: 592}, 860,false),
-          new Phase(1426, [st1P2l0], {minX: 60, maxX: 1380}, {minY: 450, maxY: 592}, 900,false),
+          new Phase(1426, [st1P2l0], {minX: 60, maxX: 1426}, {minY: 470, maxY: 592}, 900,false),
           new Phase(2212, [st1P3l0, st1P3l1], {minX: 220, maxX: 2077}, {minY: 470, maxY: 592}, 780,false)
         ];
         break;

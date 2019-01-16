@@ -140,8 +140,8 @@ document.onload = function () {
           //cambio la imagen y detengo la animación
           generateResetStageHtmlContent(player);
 
-          //espero 5 segundos para reiniciar el stage
-          setTimeout(game.gameContinue.bind(game, 3), 5000);
+          //espero 4 segundos para reiniciar el stage, y reinicio las vidas a 3
+          setTimeout(game.gameContinue.bind(game, 3), 4000);
         }
       }else if(e.keyCode === 83){
         //Si pulso 'down' desactivo la animacion actual y activo la segunda opcion
