@@ -2,7 +2,7 @@ class Game{
   constructor (canvas, ctx, playerName){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.stage = this.createStage('slum'); //default stage
+    this.stage = this.createStage('subway'); //default stage
     this.player = this.createPlayer(playerName);
     this.timer = new Timer(this.stage.timeout);
     this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
@@ -32,13 +32,15 @@ class Game{
     if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
       this.gameOver();
     }else{
-      // console.log(`X= ${this.player.x} / Y= ${this.player.y}`);
-      // console.log(`Stage: ${this.stage.x}`);
+      
       //change phase/stage
       if ((this.player.x >= phasePass[this.stage.name][this.stage.currentPhase].x) &&
           (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
           (this.player.y > phasePass[this.stage.name][this.stage.currentPhase].minY) &&
           (this.player.y <= phasePass[this.stage.name][this.stage.currentPhase].maxY)){
+
+            console.log(`X= ${this.player.x} / Y= ${this.player.y}`);
+            console.log(`Stage: ${this.stage.x}`);
 
             //Paso a la siguiente Phase
             if (this.stage.currentPhase < (this.stage.phases.length-1)){
@@ -359,7 +361,7 @@ class Game{
         phasesSprites = [
           new Phase(3038, [st1P1l0, st1P1l1], {minX: 46, maxX: 2880}, {minY: 465, maxY: 592}, 860,false),
           new Phase(1426, [st1P2l0], {minX: 60, maxX: 1426}, {minY: 470, maxY: 592}, 900,false),
-          new Phase(2212, [st1P3l0, st1P3l1], {minX: 220, maxX: 2077}, {minY: 470, maxY: 592}, 780,false)
+          new Phase(2212, [st1P3l0, st1P3l1], {minX: 220, maxX: 2077}, {minY: 490, maxY: 592}, 800,false)
         ];
         break;
     
