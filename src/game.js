@@ -2,10 +2,10 @@ class Game{
   constructor (canvas, ctx, playerName){
     this.canvas = canvas;
     this.ctx = ctx;
-    this.stage = this.createStage('subway'); //default stage
+    this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(playerName);
     this.timer = new Timer(this.stage.timeout);
-    this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
+    this.newEnemyTimer = new Timer(4); //new enemy every 7 seconds
     this.enemies = []; //enemies array in screen
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
@@ -38,9 +38,6 @@ class Game{
           (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
           (this.player.y > phasePass[this.stage.name][this.stage.currentPhase].minY) &&
           (this.player.y <= phasePass[this.stage.name][this.stage.currentPhase].maxY)){
-
-            console.log(`X= ${this.player.x} / Y= ${this.player.y}`);
-            console.log(`Stage: ${this.stage.x}`);
 
             //Paso a la siguiente Phase
             if (this.stage.currentPhase < (this.stage.phases.length-1)){
@@ -91,8 +88,8 @@ class Game{
     //   this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     
     // //drawEnemies
-    // if (this.enemies.length > 0)
-    //   this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
+    if (this.enemies.length > 0)
+      this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -108,6 +105,7 @@ class Game{
     this.clear();
     if (!this.taked)
       this.checkItemCollisions(this.player, this.stage.item);
+    this.moveEnemies();
     this.drawElements();
     this.generateControls();
     this.fps = window.requestAnimationFrame(this.gameStatus.bind(this));
@@ -168,6 +166,10 @@ class Game{
 
   youWin (){
     console.log('You win!!!!!');
+  }
+
+  moveEnemies (){
+    this.enemies.forEach((enemy)=>enemy.move(this.stage, this.delta, this.player));
   }
 
   generateControls (){
@@ -401,7 +403,7 @@ class Game{
           damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,1,false),
           damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,1,false),
         };
-        enemy = new Enemy('axel', 4000, 40, 9, enemySprites);
+        enemy = new Enemy('axel', 4000, 40, 9, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
       
       case 'j':
@@ -418,7 +420,7 @@ class Game{
           damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,1,false),
           damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
         };
-        enemy = new Enemy('j', 3000, 30, 11, enemySprites);
+        enemy = new Enemy('j', 3000, 30, 11, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
 
       case 'oriber':
@@ -435,7 +437,7 @@ class Game{
           damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
           damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
         };
-        enemy = new Enemy('oriber', 3000, 30, 11, enemySprites);
+        enemy = new Enemy('oriber', 3000, 30, 11, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
     }
 
