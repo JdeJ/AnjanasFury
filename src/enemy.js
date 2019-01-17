@@ -14,7 +14,6 @@ class Enemy{
   }
 
   drawEnemy (ctx){
-    console.log(`${this.direction} -> EnemyX= ${this.x} / EnemyY= ${this.y}`);
     this.sprite.updateSprite();
     this.sprite.drawSprite(ctx, this.x, this.y);
   }
@@ -25,51 +24,68 @@ class Enemy{
 
   move (stage, delta, player){
 
-    if (this.movementAdjust <= 20){
-      this.movementAdjust++;
-    }else{
-      this.movementAdjust = 0;
-      if (this.direction === 'right'){
-        this.moveRight(stage, delta);
-      }else{
-        this.moveLeft(stage, delta);
-      }
-    }
-
+    this.chasePlayer(player, delta);
     
-
-
-    // let x;
-
-    // if (this.direction === 'right'){
-    //   x = this.x + this.vel;
+    console.log(`${this.direction} -> X=${this.x} / Y=${this.y}`);
+    // if (this.movementAdjust <= 20){
+    //   this.movementAdjust++;
     // }else{
-    //   x = this.x - this.vel;
+    //   this.movementAdjust = 0;
+    //   this.chasePlayer(player, delta);
     // }
 
-    // if(stage.canMoveX(x, this.sprite)){
-    //   this.direction === 'right'? this.moveRight(stage, delta) : this.moveLeft(stage, delta);
+    // if (this.movementAdjust <= 20){
+    //   this.movementAdjust++;
+    // }else{
+    //   this.movementAdjust = 0;
+    //   if (this.direction === 'right'){
+    //     this.moveRight(delta);
+    //   }else{
+    //     this.moveLeft(delta);
+    //   }
     // }
 
     this.changeSprite('go');
   }
 
-  moveRight (stage, delta){
+  moveRight (delta){
     this.x += this.vel * delta / 16.6;
     this.direction = 'right';
   }
 
-  moveLeft (stage, delta){
+  moveLeft (delta){
     this.x -= this.vel * delta / 16.6;
     this.direction = 'left';
   }
 
-  moveUp (stage){
+  moveUp (){
     let y = this.y - this.vel;
   }
 
-  moveDown (stage){
+  moveDown (){
     let y = this.y - this.vel;
+  }
+
+  chasePlayer(player, delta){
+     
+    // subtract (= difference vector)
+    var dx = player.x - this.x;
+    var dy = player.y - this.y;
+    
+    // normalize (= direction vector)
+    // (a direction vector has a length of 1)
+    var length = Math.sqrt(dx * dx + dy * dy);
+    if (length) {
+      dx /= length;
+      dy /= length;
+    }
+    
+    // move
+    // delta is the elapsed time in seconds
+    // SPEED is the speed in units per second (UPS)
+    this.x += dx;
+    this.y += dy;
+    
   }
 
   changeSprite (action){
