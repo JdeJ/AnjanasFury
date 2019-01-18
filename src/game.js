@@ -10,8 +10,7 @@ class Game{
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
     this.state = 'stopped'; //game state: [stopped, running, paused]
-    this.cb = {}; //callbacks object of main.js
-    this.taked = false; //flag controls if reward has been taken
+    this.cb = {}; //callbacks object of main.js 
   }
 
   gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats){ //cb of main
@@ -54,8 +53,6 @@ class Game{
       //item check
       if (this.stage.item){
         this.stage.item.checkStatus();
-        if (this.taked)
-          this.stage.removeItem();
       }
 
       //new enemy check
@@ -84,12 +81,12 @@ class Game{
     this.stage.drawStage(this.ctx, this.player.x, this.player.y);
 
     //drawObjects
-    // if (this.stage.item)
-    //   this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
+    if (this.stage.item)
+      this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     
     // //drawEnemies
-    if (this.enemies.length > 0)
-      this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
+    // if (this.enemies.length > 0)
+    //   this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -99,13 +96,23 @@ class Game{
   }
 
   refresh (){
+    //calculo desviación en los fps por culpa de una bajada de rendimiento
     this.currentTs = new Date();
     this.delta = (this.currentTs - (this.lastTs || this.currentTs)) || 16.6;
     this.lastTs = this.currentTs;
+
     this.clear();
-    if (!this.taked)
+
+    // checkCollisions
+    this.checkCollisions();
+
+    if (this.stage.item)
       this.checkItemCollisions(this.player, this.stage.item);
-    this.moveEnemies();
+
+    if (this.enemies.length > 0){
+      this.moveEnemies();
+    }
+    
     this.drawElements();
     this.generateControls();
     this.fps = window.requestAnimationFrame(this.gameStatus.bind(this));
@@ -227,61 +234,72 @@ class Game{
     }
   }
 
-  checkItemCollisions(player, item){
-    let playerTotalWitdh = player.x + player.sprite.dSize.width;
-    let playerTotalHeight = player.y + player.sprite.dSize.height;
-    let playerAxis = player.x + Math.floor(player.sprite.dSize.width / 2); //Player sprite center axis
-    let itemTotalWitdh = item.x + item.sprite.dSize.width;
-    let itemTotalHeight = item.y + item.sprite.dSize.height + 10;
-    let touchable = true; //flag para comprobar que no estoy encima o debajo del objeto y dejar que lo golpee
-    let collisionBorder = undefined; //controlo por donde estoy colisionando con el objeto
+  checkCollisions (){
+  
+    if (this.stage.item)
+      this.checkItemCollisions(this.player, this.stage.item);
+    
+  }
 
+  checkItemCollisions (player, item){
+    const collisionDirection = this.collisions(player, item);
 
-    if (player.x < itemTotalWitdh && 
-        playerTotalWitdh > item.x && 
-        player.y + 200 < itemTotalHeight &&
-        playerTotalHeight > item.y + 200){
-      
-      if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && ((playerTotalHeight + 20) >= itemTotalHeight)){ //estoy debajo
-        player.y = item.y + 35;
-        touchable = false;
-        collisionBorder = 'under';
-      }else if ((playerAxis > item.x) && playerAxis < itemTotalWitdh && (playerTotalHeight <= (itemTotalHeight - 20))){ //estoy encima
-        player.y = item.y - 30;
-        touchable = false;
-        collisionBorder = 'over';
-      }else if ((playerTotalWitdh > item.x) && (playerTotalWitdh < itemTotalWitdh)){ //estoy a la izquierda
-        player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
-        touchable = true;
-        collisionBorder = 'left';
-      }else if ((player.x < itemTotalWitdh) && (playerTotalWitdh > itemTotalWitdh)){ //estoy a la derecha
-        player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo      
-        touchable = true;
-        collisionBorder = 'right';
-      }
-
+    if (collisionDirection === 'left' || collisionDirection === 'right'){
       //controlo si es un obstacle o una reward
       if (item.sprite === item.rewardSprite){
-        if (touchable && (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft)){
+        if (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft){
           //update player stats
-          if (!this.taked){
-            this.taked = true;
+          if (this.stage.item){
             this.player.score += item.rewardPoints;
             this.player.health += item.rewardHealth;
-          }
-          
+            this.stage.removeItem();
+          } 
         }
       }else{
         //controlo que solo pueda romper el objeto si hago punch, kick o hook
-        if (touchable && (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+        if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
           player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
-          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft)){
+          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
         
           item.receiveDamage (player.strength);            
         }
       }
     }
   }
+
+  collisions (obj1, obj2){
+
+    let obj1TotalWitdh = obj1.x + obj1.sprite.dSize.width;
+    let obj1TotalHeight = obj1.y + obj1.sprite.dSize.height;
+    let obj1Axis = obj1.x + Math.floor(obj1.sprite.dSize.width / 2); //obj1 sprite center axis
+    let obj2TotalWitdh = obj2.x + obj2.sprite.dSize.width;
+    let obj2TotalHeight = obj2.y + obj2.sprite.dSize.height + 10;
+
+
+    if (obj1.x < obj2TotalWitdh && 
+        obj1TotalWitdh > obj2.x && 
+        obj1.y + 200 < obj2TotalHeight &&
+        obj1TotalHeight > obj2.y + 200){
+      
+      if ((obj1Axis > obj2.x) && obj1Axis < obj2TotalWitdh && ((obj1TotalHeight + 20) >= obj2TotalHeight)){ //estoy debajo
+        obj1.y = obj2.y + 35;
+        return 'under';
+      }else if ((obj1Axis > obj2.x) && obj1Axis < obj2TotalWitdh && (obj1TotalHeight <= (obj2TotalHeight - 20))){ //estoy encima
+        obj1.y = obj2.y - 30;
+        return 'over';
+      }else if ((obj1TotalWitdh > obj2.x) && (obj1TotalWitdh < obj2TotalWitdh)){ //estoy a la izquierda
+        obj1.x = obj2.x - obj1.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
+        return 'left';
+      }else if ((obj1.x < obj2TotalWitdh) && (obj1TotalWitdh > obj2TotalWitdh)){ //estoy a la derecha
+        obj1.x = obj2.x + obj2.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo     
+        return 'right';
+      }
+    }
+
+    return undefined;
+  }
+
+  
 
   //Instancio el player seleccionado en el DOM
   createPlayer (playerName){

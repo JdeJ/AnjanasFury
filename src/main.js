@@ -4,17 +4,17 @@ document.onload = function () {
   const crt = document.querySelector(".crt");
   let game;
 
-  //gameInit('cody');
   playerSelect();
-  // gameOverCB('cody');
 
-  //Inicio el juego pasandole los callbacks
+  //Inicio el juego
   function gameInit(player){
-    //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over)
+    //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over...)
     cleanContainer();
     removePlayerStatsCB();
     game = new Game(canvas, ctx, player);
+    //Muestro la barra de estadísticas
     statisticsCB();
+    //llamo a gameStart pasandole todos los CB necesarios para modificar el DOM
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this), removePlayerStatsCB.bind(this));
   }
 
@@ -112,6 +112,7 @@ document.onload = function () {
     cleanContainer();
   }
 
+  //Función callback gameOver que se ejecutará desde game.js cuando se acabe el tiempo o la vida de player
   function gameOverCB (player, game){
     cleanContainer();
     removePlayerStatsCB();
@@ -123,10 +124,6 @@ document.onload = function () {
     const options = document.querySelectorAll('.options-btn');
     let selected = options[0];
     selected.style = 'animation: blinking 1s infinite';
-
-    //controles para hacer click en las opciones en lugar de usar teclado o mando
-    // document.getElementById('continue-btn').addEventListener('click', gameInit);
-    // document.getElementById('giveUp-btn').addEventListener('click', gameInit);
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
@@ -134,7 +131,7 @@ document.onload = function () {
         if (selected.innerText === 'GIVE UP'){
           //Si tengo seleccionado 'GIVE UP' borro la pantalla gameOver
           crt.removeChild (document.querySelector('.crt-content'));
-          //Hacer pantalla grande GAME OVER
+          //Muestro pantalla grande GAME OVER
           youLose();
         }else{
           //cambio la imagen y detengo la animación
@@ -177,6 +174,7 @@ document.onload = function () {
     crt.appendChild(auxDiv);
   }
 
+  //Funcion que se ejecutará cuando el gamer se rinda
   function youLose (){
     cleanContainer();
     removePlayerStatsCB();
@@ -192,6 +190,7 @@ document.onload = function () {
     crt.appendChild(auxDiv);
   }
 
+  //Funcion que se ejecutara cuando se reinicie la phase
   function generateResetStageHtmlContent(player){
     //cambio la imagen
     let img = document.querySelector(".game-over-img .top");
@@ -201,9 +200,8 @@ document.onload = function () {
     //Borro el botón no seleccionado
     document.getElementById('giveUp-btn').remove();
 
-    //Añado la clase "centrar" para aplicar la animacion
+    //cambio la animación del botón seleccionado
     let boton = document.querySelector('#continue-btn');
-    //boton.className = 'seleccionado';
     boton.style = 'animation: centrar 2s ease 0s normal forwards running';
   }
 
@@ -246,7 +244,7 @@ document.onload = function () {
     livesElement.innerText = lives;
     pointsElement.innerText = points;
 
-    //vaciar barra energia player
+//////////////////////////vaciar barra vida player
   }
 
   function cleanContainer (){
