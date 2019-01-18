@@ -22,70 +22,45 @@ class Enemy{
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  move (stage, delta, player){
-
+  move (delta, player){
+    //Persigue al player
     this.chasePlayer(player, delta);
-    
-    console.log(`${this.direction} -> X=${this.x} / Y=${this.y}`);
-    // if (this.movementAdjust <= 20){
-    //   this.movementAdjust++;
-    // }else{
-    //   this.movementAdjust = 0;
-    //   this.chasePlayer(player, delta);
-    // }
 
-    // if (this.movementAdjust <= 20){
-    //   this.movementAdjust++;
-    // }else{
-    //   this.movementAdjust = 0;
-    //   if (this.direction === 'right'){
-    //     this.moveRight(delta);
-    //   }else{
-    //     this.moveLeft(delta);
-    //   }
-    // }
-
+    //actualiza el sprite
     this.changeSprite('go');
-  }
-
-  moveRight (delta){
-    this.x += this.vel * delta / 16.6;
-    this.direction = 'right';
-  }
-
-  moveLeft (delta){
-    this.x -= this.vel * delta / 16.6;
-    this.direction = 'left';
-  }
-
-  moveUp (){
-    let y = this.y - this.vel;
-  }
-
-  moveDown (){
-    let y = this.y - this.vel;
   }
 
   chasePlayer(player, delta){
      
-    // subtract (= difference vector)
+    // subtract
     var dx = player.x - this.x;
     var dy = player.y - this.y;
     
-    // normalize (= direction vector)
-    // (a direction vector has a length of 1)
+    // normalize
     var length = Math.sqrt(dx * dx + dy * dy);
     if (length) {
       dx /= length;
       dy /= length;
     }
-    
+
+    //compruebo si el enemigo está mirando al player
+    this.checkDirection(dx, dy);
+
     // move
-    // delta is the elapsed time in seconds
-    // SPEED is the speed in units per second (UPS)
-    this.x += dx;
-    this.y += dy;
+    this.x += dx * 1.2; //ajusto la velocidad de desplazamiento con el 1.2
+    this.y += dy * 1.2; //ajusto la velocidad de desplazamiento con el 1.2
     
+  }
+
+  checkDirection (x , y){
+    const arcTan = Math.atan2(y, x) * 180 / Math.PI;
+
+    if ((arcTan >= 0 && arcTan <= 90) ||
+        (arcTan <= 0 && arcTan >= -90)){
+      this.direction = 'right';
+    }else{
+      this.direction = 'left';
+    }
   }
 
   changeSprite (action){

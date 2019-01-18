@@ -169,7 +169,7 @@ class Game{
   }
 
   moveEnemies (){
-    this.enemies.forEach((enemy)=>enemy.move(this.stage, this.delta, this.player));
+    this.enemies.forEach((enemy)=>enemy.move(this.delta, this.player));
   }
 
   generateControls (){
