@@ -390,8 +390,8 @@ class Game{
           dieRight: new Sprite('img/cody.png',{x:0,y:412},{width:97, height:96},{width:225, height:222},5,4,false),
           dieLeft: new Sprite('img/cody.png',{x:0,y:508},{width:97, height:96},{width:225, height:222},5,4,false),
           
-          damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,5,false),
-          damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,5,false),
+          damageRight: new Sprite('img/cody.png',{x:388,y:412},{width:55, height:84},{width:148, height:222},0,1,false),
+          damageLeft: new Sprite('img/cody.png',{x:388,y:496},{width:55, height:84},{width:148, height:222},0,1,false),
         };
         player = new Player('cody', 15000, 50, 10, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
@@ -418,8 +418,8 @@ class Game{
           dieRight: new Sprite('img/haggar.png',{x:75,y:584},{width:133, height:96},{width:308, height:222},5,2,false),
           dieLeft: new Sprite('img/haggar.png',{x:75,y:680},{width:133, height:96},{width:308, height:222},5,2,false),
           
-          damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,5,false),
-          damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,5,false),
+          damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
+          damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
         };
         player = new Player('haggar', 15000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
@@ -480,8 +480,8 @@ class Game{
           kickRight: new Sprite('img/axel.png',{x:0,y:198},{width:99, height:94},{width:233, height:222},3,3,true),
           kickLeft: new Sprite('img/axel.png',{x:0,y:292},{width:99, height:94},{width:233, height:222},3,3,true),
 
-          damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,5,false),
-          damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,5,false),
+          damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,1,false),
+          damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,1,false),
         };
         enemy = new Enemy('axel', 4000, 10, 9, 13000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
@@ -497,8 +497,8 @@ class Game{
           kickRight: new Sprite('img/j.png',{x:344,y:0},{width:96, height:91},{width:233, height:222},3,2,true),
           kickLeft: new Sprite('img/j.png',{x:344,y:91},{width:96, height:91},{width:233, height:222},3,2,true),
 
-          damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,5,false),
-          damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,5,false),
+          damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,1,false),
+          damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
         };
         enemy = new Enemy('j', 3000, 5, 11, 12500, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
@@ -514,8 +514,8 @@ class Game{
           kickRight: new Sprite('img/oriber.png',{x:308,y:0},{width:103, height:97},{width:235, height:222},2,2,true),
           kickLeft: new Sprite('img/oriber.png',{x:308,y:97},{width:103, height:97},{width:235, height:222},2,2,true),
 
-          damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,5,false),
-          damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,5,false),
+          damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
+          damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
         };
         enemy = new Enemy('oriber', 5000, 10, 11, 16000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;

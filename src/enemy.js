@@ -12,7 +12,7 @@ class Enemy{
     this.x = (this.direction === 'right') ? -100 : 1100;
     this.y = (this.getRandom(y.minY, y.maxY))-this.sprite.dSize.height;
     this.movementAdjust = 0;
-    this.spriteBlock = false; //blocks sprite for some animations
+    this.spriteBlocked = false; //blocks sprite for some animations
   }
 
   drawEnemy (ctx){
@@ -66,7 +66,7 @@ class Enemy{
   }
 
   changeSprite (action){
-    if (!this.spriteBlock){
+    if (!this.spriteBlocked){
       //Creates sprite's string with the action parameter and the direction of the player
       let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
       this.sprite = this.sprites[newSprite];
@@ -82,6 +82,8 @@ class Enemy{
   receiveDamage (damage){
     //actualiza el sprite
     this.changeSprite('damage');
+    this.spriteBlocked = true;
+    this.animationTimeout(1000);
 
     this.health -= damage;
     return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
@@ -99,5 +101,11 @@ class Enemy{
   dead (){
     //actualiza el sprite
     this.changeSprite('damage');
+  }
+
+  animationTimeout (timeout){
+    setTimeout(() => {
+      this.spriteBlocked = false;
+    }, timeout);
   }
 }
