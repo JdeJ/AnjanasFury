@@ -74,8 +74,12 @@ class Enemy{
   }
 
   attack (){
+    //generate random enemy's attack
     const attackType = this.getRandom(0, 1) === 0 ? 'punch' : 'kick';
     this.changeSprite(attackType);
+    this.spriteBlocked = true;
+    this.animationTimeout(400);
+    
     return (this.strength);
   }
 
@@ -84,7 +88,6 @@ class Enemy{
     this.changeSprite('damage');
     this.spriteBlocked = true;
     this.animationTimeout(500);
-
     this.health -= damage;
     return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
   }
