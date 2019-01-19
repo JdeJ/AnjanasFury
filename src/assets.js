@@ -33,7 +33,7 @@ const timeouts ={
 
 //Phase available enemies object
 const availableEnemies ={
-  'slum':{0: 4, 1: 3, 2: 6},
+  'slum':{0: 1, 1: 3, 2: 6},
   'subway':{0: 7, 1: 10},
 };
 

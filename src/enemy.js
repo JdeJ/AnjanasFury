@@ -12,6 +12,7 @@ class Enemy{
     this.x = (this.direction === 'right') ? -100 : 1100;
     this.y = (this.getRandom(y.minY, y.maxY))-this.sprite.dSize.height;
     this.movementAdjust = 0;
+    this.spriteBlock = false; //blocks sprite for some animations
   }
 
   drawEnemy (ctx){
@@ -65,9 +66,17 @@ class Enemy{
   }
 
   changeSprite (action){
-    //Creates sprite's string with the action parameter and the direction of the player
-    let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
-    this.sprite = this.sprites[newSprite];
+    if (!this.spriteBlock){
+      //Creates sprite's string with the action parameter and the direction of the player
+      let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
+      this.sprite = this.sprites[newSprite];
+    }
+  }
+
+  attack (){
+    const attackType = this.getRandom(0, 1) === 0 ? 'punch' : 'kick';
+    this.changeSprite(attackType);
+    return (this.strength);
   }
 
   receiveDamage (damage){

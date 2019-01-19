@@ -30,10 +30,10 @@ document.onload = function () {
           <div class="player-img"><img src="img/cody-select.png" alt=""></div>
         </div>
         <div class="player-desc">
-          <span>Altura...1.90m</span>
+          <span>Altura...1.70m</span>
         </div>
         <div class="player-desc">
-          <span>Peso......90Kg</span>
+          <span>Peso......80Kg</span>
         </div>
         <div class="player-desc">
           <span>Fuerza......</span><span>50</span>
@@ -49,16 +49,16 @@ document.onload = function () {
           <div class="player-img"><img src="img/haggar-select.png" alt=""></div>
         </div>
         <div class="player-desc">
-          <span>Altura...1.90m</span>
+          <span>Altura...1.85m</span>
         </div>
         <div class="player-desc">
-          <span>Peso......90Kg</span>
+          <span>Peso.....110Kg</span>
         </div>
         <div class="player-desc">
-          <span>Fuerza......</span><span>50</span>
+          <span>Fuerza......</span><span>70</span>
         </div>
         <div class="player-desc">
-          <span>Velocidad...</span><span>10</span>
+          <span>Velocidad....</span><span>7</span>
         </div>
       </div>      
     `;
@@ -67,12 +67,7 @@ document.onload = function () {
     //Por defecto cody seleccionado
     const options = document.querySelectorAll('.player-img');
     let selected = options[0];
-    //selected.style = 'background-color: rgb(94,132,199)';
     let player = 'cody';
-  
-    //controles para hacer click en los players en lugar de usar teclado o mando
-    // document.getElementById('cody').addEventListener('click', function (){ player = 'cody'});
-    // document.getElementById('haggar').addEventListener('click', ()=> player = 'haggar');
     
     document.onkeydown = (e) => {
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){

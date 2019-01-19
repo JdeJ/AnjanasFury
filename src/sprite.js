@@ -6,7 +6,6 @@ class Sprite {
     this.dSize = dSize; //Object with size in the canvas
     this.speed = speed; //speed in frames/sec for animating
     this.frames = frames; //number of frames of the animation
-    this.animationId = undefined //id of animation interval
     this.currentFrame = 0;
     this.framesCount = 0; //updates until frame change
     this.loop = loop; //false if sprites only animates once
@@ -25,12 +24,6 @@ class Sprite {
             this.currentFrame = 0;
         }
       }
-    }
-  }
-
-  changeSprite (){
-    if (this.frames > 1){
-      this.currentFrame = (this.currentFrame === 0) ? 1 : 0; 
     }
   }
 

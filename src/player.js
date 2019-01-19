@@ -12,6 +12,7 @@ class Player{
     this.sprite = this.sprites.stillRight; // default sprite
     this.lives = 2; //default lives
     this.score = 0; //default score
+    this.spriteBlock = false; //blocks sprite for some animations
   }
 
   drawPlayer (ctx){
@@ -20,9 +21,11 @@ class Player{
   }
 
   changeSprite (action){
-    //Creates sprite's string with the action parameter and the direction of the player
-    let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
-    this.sprite = this.sprites[newSprite];
+    if (!this.spriteBlock){
+      //Creates sprite's string with the action parameter and the direction of the player
+      let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
+      this.sprite = this.sprites[newSprite];
+    }
   }
 
   still (){
@@ -83,6 +86,7 @@ class Player{
 
   receiveDamage (damage){
     this.changeSprite('damage');
+    console.log(this.sprite);
     this.health -= damage;
     return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
   }
@@ -99,6 +103,10 @@ class Player{
   dead (){
     //actualiza el sprite
     this.changeSprite('damage');
+  }
+
+  animationTimeout (timeout){
+    
   }
 
 }
