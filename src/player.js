@@ -81,17 +81,24 @@ class Player{
     this.changeSprite('take');
   }
 
-  receiveDamage (){
+  receiveDamage (damage){
     this.changeSprite('damage');
+    this.health -= damage;
+    return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
   }
 
-  death (){
-    this.changeSprite('die');
-    // if (this.direction === 'right'){
-    //   this.dieRight.drawSprite(ctx, this.x + 50, this.y + 50);
-    // }else{
-    //   this.dieLeft.drawSprite(ctx, this.x + 50, this.y + 50);
-    // }
+  //checks if enemy has dead
+  isDead (){
+    if (this.health <= 0){
+      this.dead();
+      return true;
+    }
+    return false;
+  }
+
+  dead (){
+    //actualiza el sprite
+    this.changeSprite('damage');
   }
 
 }

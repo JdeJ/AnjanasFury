@@ -29,15 +29,23 @@ class Stage{
     }
   }
 
-  parallax (playerX, vel){
+  parallax (playerX, vel, enemiesArray){
     if (playerX >=700 && this.x > -(this.phases[this.currentPhase].x.maxX - canvas.width)){
       this.x -= vel/1.5;
       if (this.item)
         this.item.x -= vel/1.5;
+      if (enemiesArray.length > 0)
+        enemiesArray.forEach(enemy => {
+          enemy.x -= vel/1.5;
+        });
     }else if (playerX <= 250 && this.x < 0){
       this.x += vel/1.5;
       if (this.item)
         this.item.x += vel/1.5;
+      if (enemiesArray.length > 0)
+        enemiesArray.forEach(enemy => {
+          enemy.x += vel/1.5;
+        });
     }
   }
 

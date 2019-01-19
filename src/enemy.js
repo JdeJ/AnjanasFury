@@ -71,6 +71,9 @@ class Enemy{
   }
 
   receiveDamage (damage){
+    //actualiza el sprite
+    this.changeSprite('damage');
+
     this.health -= damage;
     return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
   }
@@ -85,6 +88,7 @@ class Enemy{
   }
 
   dead (){
-
+    //actualiza el sprite
+    this.changeSprite('damage');
   }
 }
