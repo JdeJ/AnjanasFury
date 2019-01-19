@@ -68,4 +68,22 @@ class Enemy{
     let newSprite = action + this.direction.charAt(0).toUpperCase() + this.direction.slice(1);
     this.sprite = this.sprites[newSprite];
   }
+
+  receiveDamage (damage){
+    this.health -= damage;
+    return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
+  }
+
+  //checks if enemy has dead
+  isDead (){
+    if (this.health <= 0){
+      this.dead();
+      return true;
+    }
+    return false;
+  }
+
+  dead (){
+
+  }
 }

@@ -85,8 +85,8 @@ class Game{
       this.stage.item.sprite.drawSprite(this.ctx, this.stage.item.x, this.stage.item.y);
     
     // //drawEnemies
-    // if (this.enemies.length > 0)
-    //   this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
+    if (this.enemies.length > 0)
+      this.enemies.forEach((enemy)=>enemy.drawEnemy(this.ctx));
 
     //drawPlayer
     this.player.drawPlayer(this.ctx);
@@ -236,37 +236,102 @@ class Game{
 
   checkCollisions (){
   
+    //Checks Player-Item collision
     if (this.stage.item)
       this.checkItemCollisions(this.player, this.stage.item);
+
+    //Checks Player-Enemies collision
+    if(this.enemies.length > 0){
+      this.enemies.forEach((enemy)=> this.checkEnemyCollisions(this.player, enemy));
+      
+/////////////////////////Borrar los enemigos con 0 de vida
+
+    }
     
   }
 
   checkItemCollisions (player, item){
     const collisionDirection = this.collisions(player, item);
 
-    if (collisionDirection === 'left' || collisionDirection === 'right'){
-      //controlo si es un obstacle o una reward
-      if (item.sprite === item.rewardSprite){
-        if (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft){
-          //update player stats
-          if (this.stage.item){
-            this.player.score += item.rewardPoints;
-            this.player.health += item.rewardHealth;
-            this.stage.removeItem();
-          } 
-        }
-      }else{
-        //controlo que solo pueda romper el objeto si hago punch, kick o hook
-        if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
-          player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
-          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
-        
-          item.receiveDamage (player.strength);            
+    if (collisionDirection){
+
+      switch (collisionDirection){
+        case 'right':
+          player.x = item.x + item.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado  
+          break;
+        case 'left':
+          player.x = item.x - player.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado 
+          break;
+        case 'over':
+          player.y = item.y - 30;
+          break;
+        case 'under':
+          player.y = item.y + 35;
+          break;
+      }
+
+      if (collisionDirection === 'left' || collisionDirection === 'right'){
+        //controlo si es un obstacle o una reward
+        if (item.sprite === item.rewardSprite){
+          if (player.sprite === player.sprites.takeRight || player.sprite === player.sprites.takeLeft){
+            //update player stats
+            if (this.stage.item){
+              this.player.score += item.rewardPoints;
+              this.player.health += item.rewardHealth;
+              this.stage.removeItem();
+            } 
+          }
+        }else{
+          //controlo que solo pueda romper el objeto si hago punch, kick o hook
+          if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+            player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
+            player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
+          
+            item.receiveDamage (player.strength);            
+          }
         }
       }
     }
   }
 
+  checkEnemyCollisions (player, enemy){
+    const enemyInitialX = enemy.x;
+    const enemyInitialY = enemy.y;
+    const collisionDirection = this.collisions(player, enemy);
+
+    if (collisionDirection){
+
+      switch (collisionDirection){
+        case 'right':
+          enemy.x = player.x - player.sprite.dSize.width - 10; 
+          break;
+        case 'left':
+          enemy.x = player.x + enemy.sprite.dSize.width + 10;
+          break;
+        case 'over':
+          enemy.y = player.y + 30;
+          break;
+        case 'under':
+          enemy.y = player.y - 35;
+          break;
+      }
+
+      if (collisionDirection === 'left' || collisionDirection === 'right'){
+        //controlo que solo pueda herir si hago punch, kick o hook
+        if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
+          player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
+          player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
+        
+          if (!enemy.receiveDamage (player.strength)){
+  
+          }           
+        }
+      }
+    }
+
+  }
+
+  //devuelve si están colisionando dos objetos y por donde
   collisions (obj1, obj2){
 
     let obj1TotalWitdh = obj1.x + obj1.sprite.dSize.width;
@@ -275,23 +340,18 @@ class Game{
     let obj2TotalWitdh = obj2.x + obj2.sprite.dSize.width;
     let obj2TotalHeight = obj2.y + obj2.sprite.dSize.height + 10;
 
-
     if (obj1.x < obj2TotalWitdh && 
         obj1TotalWitdh > obj2.x && 
         obj1.y + 200 < obj2TotalHeight &&
         obj1TotalHeight > obj2.y + 200){
       
       if ((obj1Axis > obj2.x) && obj1Axis < obj2TotalWitdh && ((obj1TotalHeight + 20) >= obj2TotalHeight)){ //estoy debajo
-        obj1.y = obj2.y + 35;
         return 'under';
       }else if ((obj1Axis > obj2.x) && obj1Axis < obj2TotalWitdh && (obj1TotalHeight <= (obj2TotalHeight - 20))){ //estoy encima
-        obj1.y = obj2.y - 30;
         return 'over';
       }else if ((obj1TotalWitdh > obj2.x) && (obj1TotalWitdh < obj2TotalWitdh)){ //estoy a la izquierda
-        obj1.x = obj2.x - obj1.sprite.dSize.width - 1; //resto 1px para que no se quede justo pegado y poder seguir rompiendolo
         return 'left';
       }else if ((obj1.x < obj2TotalWitdh) && (obj1TotalWitdh > obj2TotalWitdh)){ //estoy a la derecha
-        obj1.x = obj2.x + obj2.sprite.dSize.width + 1; //sumo 1px para que no se quede justo pegado y poder seguir rompiendolo     
         return 'right';
       }
     }
