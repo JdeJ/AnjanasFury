@@ -242,7 +242,11 @@ class Game{
 
     //Checks Player-Enemies collision
     if(this.enemies.length > 0){
-      this.enemies.forEach((enemy)=> this.checkEnemyCollisions(this.player, enemy));
+      this.enemies.forEach((enemy, index, enemiesArray)=> {
+        this.checkEnemyCollisions(this.player, enemy)
+        if (enemy.health <= 0)
+          enemiesArray.splice(index, 1);
+      });
       
 /////////////////////////Borrar los enemigos con 0 de vida
 
