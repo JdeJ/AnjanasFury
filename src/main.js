@@ -13,7 +13,7 @@ document.onload = function () {
     removePlayerStatsCB();
     game = new Game(canvas, ctx, player);
     //Muestro la barra de estadísticas
-    statisticsCB();
+    statisticsCB(player);
     //llamo a gameStart pasandole todos los CB necesarios para modificar el DOM
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this), removePlayerStatsCB.bind(this));
   }
@@ -205,7 +205,7 @@ document.onload = function () {
     boton.style = 'animation: centrar 2s ease 0s normal forwards running';
   }
 
-  function statisticsCB(){
+  function statisticsCB(player){
     //Añado la pantalla 'statistics' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'stats');
@@ -213,10 +213,10 @@ document.onload = function () {
                       <div class="record"><p>JDJ  1957834</p></div>
                       <div class="score">
                         <div class="player">
-                          <div class="mini-player"><img src="img/cody-player.png" alt=""></div>
+                          <div class="mini-player"><img src="img/${player}-player.png" alt=""></div>
                           <div class="player-stats">
                             <div>
-                              <div class="lives"> <p>CODY= </p><p>3</p> </div>
+                              <div class="lives"> <p>${player.toUpperCase()}= </p><p>3</p> </div>
                               <div class="points"> <p>43562</p> </div>
                             </div>
                             <div class="health"></div>
@@ -239,7 +239,10 @@ document.onload = function () {
     if(time<10){
       time = '0'+time;
       timeElement.style = 'animation: blinking .5s infinite';
+    }else{
+      timeElement.style = null;
     }
+
     timeElement.innerText = time;
     livesElement.innerText = lives;
     pointsElement.innerText = points;

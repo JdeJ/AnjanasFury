@@ -37,7 +37,7 @@ class Game{
           (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
           (this.player.y > phasePass[this.stage.name][this.stage.currentPhase].minY) &&
           (this.player.y <= phasePass[this.stage.name][this.stage.currentPhase].maxY)){
-
+            this.state = 'stopped';
             //Paso a la siguiente Phase
             if (this.stage.currentPhase < (this.stage.phases.length-1)){
               this.stage.currentPhase++;
@@ -157,6 +157,8 @@ class Game{
     this.player.lives = lives;
     this.stage.updateTimeout();
     this.timer = new Timer(this.stage.timeout);
+    this.fps = window.cancelAnimationFrame(this.fps);
+    this.fps = undefined;
     this.timer.start();
     this.newEnemyTimer.reset();
     this.gameStatus();
@@ -296,8 +298,6 @@ class Game{
   }
 
   checkEnemyCollisions (player, enemy){
-    const enemyInitialX = enemy.x;
-    const enemyInitialY = enemy.y;
     const collisionDirection = this.collisions(player, enemy);
 
     if (collisionDirection){
