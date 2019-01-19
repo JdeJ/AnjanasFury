@@ -318,7 +318,7 @@ class Game{
       }
 
       if (collisionDirection === 'left' || collisionDirection === 'right'){
-        player.receiveDamage(enemy.attack());
+        
         //controlo que solo pueda herir si hago punch, kick o hook
         if (player.sprite === player.sprites.punchRight || player.sprite === player.sprites.punchLeft ||
           player.sprite === player.sprites.kickRight || player.sprite === player.sprites.kickLeft ||
@@ -327,6 +327,8 @@ class Game{
           if (!enemy.receiveDamage (player.strength)){
             this.player.score += enemy.reward;
           }           
+        }else{
+          player.receiveDamage(enemy.attack());
         }
       }
     }else{

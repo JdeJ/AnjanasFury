@@ -87,7 +87,7 @@ class Player{
   receiveDamage (damage){
     this.changeSprite('damage');
     this.spriteBlocked = true;
-    this.animationTimeout(1000);
+    this.animationTimeout(500);
     this.health -= damage;
     return this.isDead() ? false : true; //devuelve true si lo ha dañado y false si esta muerto
   }
