@@ -5,7 +5,7 @@ class Game{
     this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(playerName);
     this.timer = new Timer(this.stage.timeout);
-    this.newEnemyTimer = new Timer(4); //new enemy every 7 seconds
+    this.newEnemyTimer = new Timer(7); //new enemy every 7 seconds
     this.enemies = []; //enemies array in screen
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id
@@ -245,11 +245,8 @@ class Game{
       this.enemies.forEach((enemy, index, enemiesArray)=> {
         this.checkEnemyCollisions(this.player, enemy)
         if (enemy.health <= 0)
-          enemiesArray.splice(index, 1);
+          enemiesArray.splice(index, 1); //Borrar los enemigos con 0 de vida
       });
-      
-/////////////////////////Borrar los enemigos con 0 de vida
-
     }
     
   }
@@ -307,10 +304,10 @@ class Game{
 
       switch (collisionDirection){
         case 'right':
-          enemy.x = player.x - player.sprite.dSize.width - 10; 
+          enemy.x = player.x - player.sprite.dSize.width; 
           break;
         case 'left':
-          enemy.x = player.x + enemy.sprite.dSize.width + 10;
+          enemy.x = player.x + enemy.sprite.dSize.width;
           break;
         case 'over':
           enemy.y = player.y + 30;
@@ -327,7 +324,7 @@ class Game{
           player.sprite === player.sprites.hookRight || player.sprite === player.sprites.hookLeft){
         
           if (!enemy.receiveDamage (player.strength)){
-  
+            this.player.score += enemy.reward;
           }           
         }
       }
@@ -362,8 +359,6 @@ class Game{
 
     return undefined;
   }
-
-  
 
   //Instancio el player seleccionado en el DOM
   createPlayer (playerName){
@@ -485,7 +480,7 @@ class Game{
           damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,1,false),
           damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,1,false),
         };
-        enemy = new Enemy('axel', 4000, 40, 9, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('axel', 4000, 40, 9, 3000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
       
       case 'j':
@@ -502,7 +497,7 @@ class Game{
           damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,1,false),
           damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
         };
-        enemy = new Enemy('j', 3000, 30, 11, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('j', 3000, 30, 11, 2500, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
 
       case 'oriber':
@@ -519,7 +514,7 @@ class Game{
           damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
           damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
         };
-        enemy = new Enemy('oriber', 3000, 30, 11, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('oriber', 5000, 30, 11, 6000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
     }
 

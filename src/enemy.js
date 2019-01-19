@@ -1,10 +1,11 @@
 class Enemy{
 
-  constructor (name,  health, strength, vel, sprites, x, y){
+  constructor (name,  health, strength, vel, reward, sprites, x, y){
     this.name = name;
     this.health = health;
     this.strength = strength;
     this.vel = vel;
+    this.reward = reward;
     this.sprites = sprites; //object with all player sprites
     this.direction = this.getRandom(0, 1) === 0 ? 'left' : 'right';
     this.sprite = (this.direction === 'right')? this.sprites.goRight : this.sprites.goLeft;
