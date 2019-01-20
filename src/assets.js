@@ -27,7 +27,7 @@ const enemiesArray = ['axel', 'j', 'oriber'];
 
 //Stage timeouts object
 const timeouts ={
-  'slum':{0: 60, 1: 30, 2: 45},
+  'slum':{0: 99, 1: 30, 2: 45},
   'subway':{0: 80, 1: 99},
 };
 

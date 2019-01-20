@@ -28,10 +28,15 @@ class Game{
 
   gameStatus(){
     //time and player health checks
-    if ((this.timer.timeLeft <= 0)||(this.player.health <= 0)){
+    if ((this.timer.timeLeft <= 0)||(this.player.lives <= 0)){
       this.gameOver();
     }else{
-      
+      //si me quitan toda la salud, consumo una vida
+      if (this.player.health <= 0){
+        this.player.lives--;
+        this.player.health = 15000;
+      }
+
       //change phase/stage
       if ((this.player.x >= phasePass[this.stage.name][this.stage.currentPhase].x) &&
           (this.stage.x <= phasePass[this.stage.name][this.stage.currentPhase].stageX)&&
@@ -423,7 +428,7 @@ class Game{
           damageRight: new Sprite('img/haggar.png',{x:0,y:584},{width:75, height:96},{width:174, height:222},0,1,false),
           damageLeft: new Sprite('img/haggar.png',{x:0,y:680},{width:75, height:96},{width:174, height:222},0,1,false),
         };
-        player = new Player('haggar', 1000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('haggar', 15000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
     }
     return player;

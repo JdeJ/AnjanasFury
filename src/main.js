@@ -250,6 +250,10 @@ document.onload = function () {
 
   }
 
+  function liveConsumCB (){
+    
+  }
+
   function cleanContainer (){
     //remove all crt-content class items
     let content = document.querySelector('.crt-content');
