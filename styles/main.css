@@ -142,24 +142,24 @@ body {
   border-radius: 10px;
 }
 
-.player-stats{
+.player-select-stats{
   padding: 0 40px;
   text-align: center;
 }
 
-.player-stats .player-title{
+.player-select-stats .player-title{
   font-size: 35px;
 }
 
-.player-stats .img-container{
+.player-select-stats .img-container{
   padding: 10px;
 }
 
-.player-stats .player-desc{
+.player-select-stats .player-desc{
   padding: 5px 0;
 }
 
-.player-stats .img-container .player-img>img{
+.player-select-stats .img-container .player-img>img{
   width: 200px;
   padding: 20px;
 }
@@ -335,12 +335,12 @@ body {
   display: flex;
   flex-direction: column;
   flex: 100%;
+  padding-left: 10px;
 }
 
 .stats .score .player .player-stats > div {
   display: flex;
   flex-direction: row;
-  padding-left: 5px;
 }
 
 .stats .score .player .player-stats .lives {

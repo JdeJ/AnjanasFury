@@ -26,7 +26,7 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'player-select');
     auxDiv.innerHTML = `
-      <div id="cody" class="player-stats">
+      <div id="cody" class="player-select-stats">
         <div><span class="player-title">CODY</span></div>
         <div class="img-container">
           <div class="player-img"><img src="img/cody-select.png" alt=""></div>
@@ -45,7 +45,7 @@ document.onload = function () {
         </div>
         
       </div>
-      <div id="haggar" class="player-stats">
+      <div id="haggar" class="player-select-stats">
         <div><p class="player-title">HAGGAR</p></div>
         <div class="img-container">
           <div class="player-img"><img src="img/haggar-select.png" alt=""></div>
