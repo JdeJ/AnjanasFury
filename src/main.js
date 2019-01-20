@@ -214,7 +214,9 @@ document.onload = function () {
                               <div class="lives"> <p>${player.toUpperCase()}= </p><p>3</p> </div>
                               <div class="points"> <p>43562</p> </div>
                             </div>
-                            <div class="health"></div>
+                            <div class="health-container">
+                              <div class="health"></div>
+                            </div>
                           </div>
                         </div>
                         <div class="time">
@@ -226,10 +228,11 @@ document.onload = function () {
     crt.appendChild(auxDiv);
   }
 
-  function updateStatisticsCB(lives, points, time){
+  function updateStatisticsCB (lives, points, time, health){
     let timeElement = document.querySelector('.score .time .chrono > p');
     let livesElement = document.querySelector('.score .player-stats .lives>p:last-child');
     let pointsElement = document.querySelector('.score .player-stats .points>p');
+    let healthBarElement = document.querySelector('.score .player-stats .health');
 
     if(time<10){
       time = '0'+time;
@@ -242,7 +245,9 @@ document.onload = function () {
     livesElement.innerText = lives;
     pointsElement.innerText = points;
 
-//////////////////////////vaciar barra vida player
+    //vacio la barra de salud
+    healthBarElement.style.width = (health / 150) + '%';
+
   }
 
   function cleanContainer (){

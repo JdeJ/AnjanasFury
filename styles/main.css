@@ -355,12 +355,20 @@ body {
   text-align: right;
 }
 
-.stats .score .player .player-stats .health {
+.stats .score .player .player-stats .health-container {
   flex: 100%;
   height: 27px;
-  margin-left: 5px;
+  border: 1px solid yellow;
+  border-radius: 10px;
+  padding-left: 0;
+}
+
+.stats .score .player .player-stats .health {
+  width: 100%;
+  height: 27px;
   border: 1px solid yellow;
   background-color: yellow;
+  border-radius: 10px;
 }
 
 .stats .score .time {
