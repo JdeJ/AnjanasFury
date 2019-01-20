@@ -15,7 +15,9 @@ document.onload = function () {
     //Muestro la barra de estadísticas
     statisticsCB(player);
     //llamo a gameStart pasandole todos los CB necesarios para modificar el DOM
-    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), updateStatisticsCB.bind(this), statisticsCB.bind(this), removePlayerStatsCB.bind(this));
+    game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), 
+                   updateStatisticsCB.bind(this), statisticsCB.bind(this), 
+                   removePlayerStatsCB.bind(this), liveConsumCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
@@ -251,7 +253,9 @@ document.onload = function () {
   }
 
   function liveConsumCB (){
-    
+    let livesElement = document.querySelector('.score .player-stats .lives>p:last-child');
+
+    livesElement.style = 'animation: blinking .5s ease 0s 4 normal none running';
   }
 
   function cleanContainer (){

@@ -13,7 +13,7 @@ class Game{
     this.cb = {}; //callbacks object of main.js 
   }
 
-  gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats, liveConsum){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
@@ -21,6 +21,7 @@ class Game{
     this.cb.updateStats = updateStats;
     this.cb.createStats = statistics;
     this.cb.removePlayerStats = removePlayerStats;
+    this.cb.liveConsum = liveConsum;
     this.timer.start();
     this.newEnemyTimer.start();
     this.refresh();
@@ -35,6 +36,7 @@ class Game{
       if (this.player.health <= 0){
         this.player.lives--;
         this.player.health = 15000;
+        this.cb.liveConsum();
       }
 
       //change phase/stage
