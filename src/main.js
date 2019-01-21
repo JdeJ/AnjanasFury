@@ -7,7 +7,9 @@ document.onload = function () {
   
   presents();
   
-  // playerSelect();
+  setTimeout(() => {
+    playerSelect();
+  }, 3400);
   
 
   function presents (){
