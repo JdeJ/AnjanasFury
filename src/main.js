@@ -4,7 +4,20 @@ document.onload = function () {
   const crt = document.querySelector(".crt");
   let game;
 
-  playerSelect();
+  
+  presents();
+  
+  // playerSelect();
+  
+
+  function presents (){
+    const presents = document.createElement('div');
+    presents.setAttribute('class', 'presents');
+    presents.innerHTML = `
+      <p id="presentsText">JdeJ<br>presents</p>
+    `;
+    crt.appendChild(presents);
+  }
 
   //Inicio el juego
   function gameInit(player){
