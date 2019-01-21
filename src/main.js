@@ -8,17 +8,36 @@ document.onload = function () {
   presents();
   
   setTimeout(() => {
-    playerSelect();
+    intro();
   }, 3400);
   
 
-  function presents (){
+  function presents(){
     const presents = document.createElement('div');
     presents.setAttribute('class', 'presents');
     presents.innerHTML = `
       <p id="presentsText">JdeJ<br>presents</p>
     `;
     crt.appendChild(presents);
+  }
+
+  function intro(){
+    cleanContainer();
+
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'intro');
+    auxDiv.innerHTML = `
+      <div class="options"> 
+        <p id="start-button" class="options-btn">START</p>
+      </div>
+    `;
+    crt.appendChild(auxDiv);
+    
+    document.onkeydown = (e) => {
+      if (e.keyCode === 32){
+        playerSelect();
+      }   
+    }
   }
 
   //Inicio el juego
@@ -36,7 +55,7 @@ document.onload = function () {
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
-  function playerSelect (){
+  function playerSelect(){
     //Añado la pantalla 'player select' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'player-select');
@@ -278,6 +297,12 @@ document.onload = function () {
     let content = document.querySelector('.crt-content');
     if (content){
       crt.removeChild (content);
+    }
+
+    //remove present class items
+    let presents = document.querySelector('.presents');
+    if (presents){
+      crt.removeChild (presents);
     }
 
     //remove all player-select class items
