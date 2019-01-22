@@ -432,6 +432,34 @@ class Game{
         };
         player = new Player('haggar', 15000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
+      case 'anjana':
+        playerSprites = { 
+          stillRight: new Sprite('img/anjana.png',{x:0,y:0},{width:47, height:79},{width:132, height:222},0,1,false),
+          stillLeft: new Sprite('img/anjana.png',{x:0,y:80},{width:47, height:79},{width:132, height:222},0,1,false),
+          
+          goRight: new Sprite('img/anjana.png',{x:47,y:0},{width:65, height:80},{width:180, height:222},4,5,true),
+          goLeft: new Sprite('img/anjana.png',{x:47,y:80},{width:65, height:80},{width:180, height:222},4,5,true),
+          
+          punchRight: new Sprite('img/anjana.png',{x:0,y:160},{width:88, height:65},{width:300, height:222},4,2,true),
+          punchLeft: new Sprite('img/anjana.png',{x:0,y:225},{width:88, height:65},{width:300, height:222},4,2,true),
+          
+          kickRight: new Sprite('img/anjana.png',{x:176,y:160},{width:69, height:70},{width:218, height:222},4,3,true),
+          kickLeft: new Sprite('img/anjana.png',{x:176,y:230},{width:69, height:70},{width:218, height:222},4,3,true),
+          
+          hookRight: new Sprite('img/anjana.png',{x:0,y:458},{width:92, height:96},{width:267, height:222},4,3,true),
+          hookLeft: new Sprite('img/anjana.png',{x:0,y:526},{width:92, height:96},{width:267, height:222},4,3,true),
+          
+          takeRight: new Sprite('img/anjana.png',{x:0,y:290},{width:61, height:79},{width:171, height:222},5,1,false),
+          takeLeft: new Sprite('img/anjana.png',{x:0,y:369},{width:61, height:79},{width:171, height:222},5,1,false),
+          
+          dieRight: new Sprite('img/anjana.png',{x:152,y:300},{width:110, height:79},{width:309, height:222},5,2,false),
+          dieLeft: new Sprite('img/anjana.png',{x:152,y:379},{width:110, height:79},{width:309, height:222},5,2,false),
+          
+          damageRight: new Sprite('img/anjana.png',{x:61,y:290},{width:92, height:76},{width:268, height:222},0,1,false),
+          damageLeft: new Sprite('img/anjana.png',{x:61,y:366},{width:92, height:76},{width:268, height:222},0,1,false),
+        };
+        player = new Player('anjana', 15000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        break;
     }
     return player;
   }
