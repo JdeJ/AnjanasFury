@@ -446,8 +446,8 @@ class Game{
           kickRight: new Sprite('img/anjana.png',{x:176,y:160},{width:69, height:70},{width:218, height:222},4,3,true),
           kickLeft: new Sprite('img/anjana.png',{x:176,y:230},{width:69, height:70},{width:218, height:222},4,3,true),
           
-          hookRight: new Sprite('img/anjana.png',{x:0,y:458},{width:92, height:96},{width:267, height:222},4,3,true),
-          hookLeft: new Sprite('img/anjana.png',{x:0,y:526},{width:92, height:96},{width:267, height:222},4,3,true),
+          hookRight: new Sprite('img/anjana.png',{x:0,y:458},{width:82, height:68},{width:267, height:222},4,3,true),
+          hookLeft: new Sprite('img/anjana.png',{x:0,y:526},{width:82, height:68},{width:267, height:222},4,3,true),
           
           takeRight: new Sprite('img/anjana.png',{x:0,y:290},{width:61, height:79},{width:171, height:222},5,1,false),
           takeLeft: new Sprite('img/anjana.png',{x:0,y:369},{width:61, height:79},{width:171, height:222},5,1,false),
@@ -458,7 +458,7 @@ class Game{
           damageRight: new Sprite('img/anjana.png',{x:61,y:290},{width:92, height:76},{width:268, height:222},0,1,false),
           damageLeft: new Sprite('img/anjana.png',{x:61,y:366},{width:92, height:76},{width:268, height:222},0,1,false),
         };
-        player = new Player('anjana', 15000, 70, 5, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
+        player = new Player('anjana', 15000, 90, 7, playerSprites, this.stage.phases[this.stage.currentPhase].x.minX + 65, this.stage.phases[this.stage.currentPhase].y.minY-170);
         break;
     }
     return player;

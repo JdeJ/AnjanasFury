@@ -10,7 +10,6 @@ document.onload = function () {
   setTimeout(() => {
     intro();
   }, 3400);
-  
 
   function presents(){
     const presents = document.createElement('div');
@@ -56,7 +55,48 @@ document.onload = function () {
 
   //funcion que manipula el DOM para seleccionar el jugador
   function playerSelect(){
+    generatePlayerSelectHtmlContent(false);
+    //Por defecto cody seleccionado
+    let options = document.querySelectorAll('.player-img');
+    let index = 0;
+    let selected = options[index];
+    selected.style = 'background-color: rgb(94,132,199)';
+  
+    document.onkeydown = (e) => {
+      if (e.keyCode === 90){
+        generatePlayerSelectHtmlContent(true);
+      }
+      options = document.querySelectorAll('.player-img');
+      //Por defecto cody seleccionado
+      // options = document.querySelectorAll('.player-img');
+      // index = 0;
+      // selected = options[index];
+      // selected.style = 'background-color: rgb(94,132,199)';
+
+      if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
+        //Si pulso cualquier tecla o boton de accion (puño, patada....) retorno el player
+        gameInit(players[index]);
+      }else if(e.keyCode === 68){
+        if (index < options.length-1){
+          index++;
+          selected.style = 'background-color: none';
+          selected = options[index];
+          selected.style = 'background-color: rgb(94,132,199)';
+        }
+      }else if(e.keyCode === 65){
+        if (index > 0){
+          index--;
+          selected.style = 'background-color: none';
+          selected = options[index];
+          selected.style = 'background-color: rgb(94,132,199)';
+        }
+      }     
+    }
+  }
+
+  function generatePlayerSelectHtmlContent (cheet){
     //Añado la pantalla 'player select' al DOM
+    cleanContainer();
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'player-select');
     auxDiv.innerHTML = `
@@ -98,31 +138,30 @@ document.onload = function () {
         </div>
       </div>      
     `;
-    crt.appendChild(auxDiv);
-  
-    //Por defecto cody seleccionado
-    const options = document.querySelectorAll('.player-img');
-    let selected = options[0];
-    let player = 'cody';
-    
-    document.onkeydown = (e) => {
-      if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
-        //Si pulso cualquier tecla o boton de accion (puño, patada....) retorno el player
-        gameInit(player);
-      }else if(e.keyCode === 68){
-        //Si pulso 'right' desactivo la animacion actual y activo la segunda opcion
-        selected.style = 'background-color: none';
-        selected = options[1];
-        selected.style = 'background-color: rgb(94,132,199)';
-        player = 'haggar';
-      }else if(e.keyCode === 65){
-        //Si pulso 'left' desactivo la animacion actual y activo la primera opcion
-        selected.style = 'background-color: none';
-        selected = options[0];
-        selected.style = 'background-color: rgb(94,132,199)';
-        player = 'cody';
-      }     
+
+    if (cheet){
+      auxDiv.innerHTML += `
+        <div id="anjana" class="player-select-stats">
+          <div><p class="player-title">ANJANA</p></div>
+          <div class="img-container">
+            <div class="player-img"><img src="img/anjana-select.png" alt=""></div>
+          </div>
+          <div class="player-desc">
+            <span>Altura...85cm</span>
+          </div>
+          <div class="player-desc">
+            <span>Peso......9Kg</span>
+          </div>
+          <div class="player-desc">
+            <span>Fuerza.....</span><span>90</span>
+          </div>
+          <div class="player-desc">
+            <span>Velocidad..</span><span>10</span>
+          </div>
+        </div>`;     
     }
+
+    crt.appendChild(auxDiv);
   }
 
   //Función callback Pause que se ejecutará desde game.js cuando se pause el juego

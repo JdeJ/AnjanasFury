@@ -26,6 +26,9 @@ const obstaclesArray = ['bidon', 'tyres', 'box'];
 //Enemies array
 const enemiesArray = ['axel', 'j', 'oriber'];
 
+//Players array
+const players = ['cody', 'haggar', 'anjana'];
+
 //Stage timeouts object
 const timeouts ={
   'slum':{0: 999, 1: 30, 2: 45},
