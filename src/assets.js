@@ -15,7 +15,8 @@ const images = generateImagesObject('img/stage1.png', 'img/stage2.png',
                                     'img/cody-player.png', 'img/cody-select.png',
                                     'img/haggar-player.png', 'img/haggar-select.png',
                                     'img/items.png', 
-                                    'img/axel.png', 'img/j.png', 'img/oriber.png'); 
+                                    'img/axel.png', 'img/j.png', 'img/oriber.png',
+                                    'img/anjana.png', 'img/anjana-player.png', 'img/anjana-select.png'); 
 
 //Items arrays
 const rewardsArray = ['radio', 'dollar', 'gold', 'hat', 'hamburguer', 'barbeque', 'pizza', 'pineapple'];
