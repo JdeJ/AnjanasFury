@@ -31,13 +31,13 @@ const players = ['cody', 'haggar', 'anjana'];
 
 //Stage timeouts object
 const timeouts ={
-  'slum':{0: 999, 1: 30, 2: 45},
+  'slum':{0: 99, 1: 30, 2: 45},
   'subway':{0: 80, 1: 99},
 };
 
 //Phase available enemies object
 const availableEnemies ={
-  'slum':{0: 1, 1: 3, 2: 6},
+  'slum':{0: 3, 1: 2, 2: 6},
   'subway':{0: 7, 1: 10},
 };
 

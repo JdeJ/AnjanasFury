@@ -5,7 +5,7 @@ class Game{
     this.stage = this.createStage('slum'); //default stage
     this.player = this.createPlayer(playerName);
     this.timer = new Timer(this.stage.timeout);
-    this.newEnemyTimer = new Timer(6); //new enemy every 6 seconds
+    this.newEnemyTimer = new Timer(5); //new enemy every 5 seconds
     this.enemies = []; //enemies array in screen
     this.controlsPressed = [];
     this.fps = undefined; //canvas animation id

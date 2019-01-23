@@ -55,6 +55,7 @@ document.onload = function () {
 
   //funcion que manipula el DOM para seleccionar el jugador
   function playerSelect(){
+    cleanContainer();
     generatePlayerSelectHtmlContent(false);
     //Por defecto cody seleccionado
     let options = document.querySelectorAll('.player-img');
@@ -333,21 +334,27 @@ document.onload = function () {
 
   function cleanContainer (){
     //remove all crt-content class items
-    let content = document.querySelector('.crt-content');
+    content = document.querySelector('.crt-content');
     if (content){
       crt.removeChild (content);
     }
 
     //remove present class items
-    let presents = document.querySelector('.presents');
-    if (presents){
-      crt.removeChild (presents);
+    content = document.querySelector('.presents');
+    if (content){
+      crt.removeChild (content);
+    }
+
+    //remove intro class items
+    content = document.querySelector('.intro');
+    if (content){
+      crt.removeChild (content);
     }
 
     //remove all player-select class items
-    let selected = document.querySelector('.player-select');
-    if(selected){
-      crt.removeChild (selected);
+    content = document.querySelector('.player-select');
+    if(content){
+      crt.removeChild (content);
     }
   }
 
