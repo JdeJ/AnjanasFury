@@ -245,6 +245,24 @@ document.onload = function () {
     crt.appendChild(auxDiv);
   }
 
+  //Funcion que se ejecutara cuando se reinicie la phase
+  function generateResetStageHtmlContent(player){
+    //cambio la imagen
+    let img = document.querySelector(".game-over-img .top");
+    img.src=`img/${player}-gameOver-3.png`;
+    img.classList.remove('top');
+
+    //borro la segunda imagen
+    document.querySelector(".game-over-img .bottom").remove();
+
+    //Borro el botón no seleccionado
+    document.getElementById('giveUp-btn').remove();
+
+    //cambio la animación del botón seleccionado
+    let boton = document.querySelector('#continue-btn');
+    boton.style = 'animation: centrar 2s ease 0s normal forwards running';
+  }
+
   //Funcion que se ejecutará cuando el gamer se rinda
   function youLose (){
     cleanContainer();
@@ -259,21 +277,6 @@ document.onload = function () {
       </div>
     `;
     crt.appendChild(auxDiv);
-  }
-
-  //Funcion que se ejecutara cuando se reinicie la phase
-  function generateResetStageHtmlContent(player){
-    //cambio la imagen
-    let img = document.querySelector(".game-over-img .top");
-    img.src=`img/${player}-gameOver-3.png`;
-    img.classList.remove('top');
-
-    //Borro el botón no seleccionado
-    document.getElementById('giveUp-btn').remove();
-
-    //cambio la animación del botón seleccionado
-    let boton = document.querySelector('#continue-btn');
-    boton.style = 'animation: centrar 2s ease 0s normal forwards running';
   }
 
   function statisticsCB(player){
