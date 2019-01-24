@@ -13,7 +13,7 @@ class Game{
     this.cb = {}; //callbacks object of main.js 
   }
 
-  gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats, liveConsum){ //cb of main
+  gameStart (pause, resume, gameOver, updateStats, statistics, removePlayerStats, liveConsum, pauseSounds){ //cb of main
     this.state = 'running';
     this.cb.pause = pause;
     this.cb.resume = resume;
@@ -22,9 +22,12 @@ class Game{
     this.cb.createStats = statistics;
     this.cb.removePlayerStats = removePlayerStats;
     this.cb.liveConsum = liveConsum;
+    this.cb.pauseSounds = pauseSounds;
     this.timer.start();
     this.newEnemyTimer.start();
     this.refresh();
+    this.music = (this.stage.name === 'slum') ? soundSlum : soundSubway;
+    this.music.play();
   }
 
   gameStatus(){
@@ -167,6 +170,7 @@ class Game{
     this.fps = window.cancelAnimationFrame(this.fps);
     this.fps = undefined;
     this.timer.start();
+    this.music.play();
     this.newEnemyTimer.reset();
     this.gameStatus();
   }
@@ -194,8 +198,11 @@ class Game{
       document.onkeydown = (e) => {
         if (e.keyCode === 32){
           if (this.fps){
+            soundPause.play();
             this.gamePause();
+            this.cb.pauseSounds();
           }else{
+            this.music.play();
             this.gameResume();
           }
         }
@@ -289,6 +296,7 @@ class Game{
               this.player.score += item.rewardPoints;
               this.player.health += item.rewardHealth;
               this.stage.removeItem();
+              soundReward.play();
             } 
           }
         }else{

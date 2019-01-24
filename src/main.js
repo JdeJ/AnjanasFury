@@ -4,14 +4,15 @@ document.onload = function () {
   const crt = document.querySelector(".crt");
   let game;
 
-  
+  soundPresents.play();
   presents();
   
   setTimeout(() => {
     intro();
-  }, 3400);
+  }, 3700);
 
   function presents(){
+    
     const presents = document.createElement('div');
     presents.setAttribute('class', 'presents');
     presents.innerHTML = `
@@ -22,7 +23,8 @@ document.onload = function () {
 
   function intro(){
     cleanContainer();
-
+    pauseSoundsCB();
+    soundIntro.play();
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'intro');
     auxDiv.innerHTML = `
@@ -37,6 +39,7 @@ document.onload = function () {
     
     document.onkeydown = (e) => {
       if (e.keyCode === 32){
+        pauseSoundsCB();
         playerSelect();
       }   
     }
@@ -46,6 +49,7 @@ document.onload = function () {
   function gameInit(player){
     //borro todo el contenido html por encima del canvas (pantalla inicio, pantalla game over...)
     cleanContainer();
+    pauseSoundsCB();
     removePlayerStatsCB();
     game = new Game(canvas, ctx, player);
     //Muestro la barra de estadísticas
@@ -53,11 +57,14 @@ document.onload = function () {
     //llamo a gameStart pasandole todos los CB necesarios para modificar el DOM
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), 
                    updateStatisticsCB.bind(this), statisticsCB.bind(this), 
-                   removePlayerStatsCB.bind(this), liveConsumCB.bind(this));
+                   removePlayerStatsCB.bind(this), liveConsumCB.bind(this),
+                   pauseSoundsCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
   function playerSelect(){
+    pauseSoundsCB();
+    soundPlayer.play();
     cleanContainer();
     generatePlayerSelectHtmlContent(false);
     //Por defecto cody seleccionado
@@ -71,11 +78,6 @@ document.onload = function () {
         generatePlayerSelectHtmlContent(true);
       }
       options = document.querySelectorAll('.player-img');
-      //Por defecto cody seleccionado
-      // options = document.querySelectorAll('.player-img');
-      // index = 0;
-      // selected = options[index];
-      // selected.style = 'background-color: rgb(94,132,199)';
 
       if ((e.keyCode >= 73)&&(e.keyCode <=76)||(e.keyCode === 32)){
         //Si pulso cualquier tecla o boton de accion (puño, patada....) retorno el player
@@ -190,6 +192,8 @@ document.onload = function () {
   function gameOverCB (player, game){
     cleanContainer();
     removePlayerStatsCB();
+    pauseSoundsCB();
+    soundContinueScreen.play();
 
     //Añado la pantalla 'gameOver' del player actual al DOM
     generateGameOverHtmlContent(player); 
@@ -210,6 +214,8 @@ document.onload = function () {
         }else{
           //cambio la imagen y detengo la animación
           generateResetStageHtmlContent(player);
+          pauseSoundsCB();
+          soundContinueSelection.play();
 
           //espero 4 segundos para reiniciar el stage, y reinicio las vidas a 3
           setTimeout(game.gameContinue.bind(game, 3), 4000);
@@ -270,6 +276,8 @@ document.onload = function () {
   function youLose (){
     cleanContainer();
     removePlayerStatsCB();
+    pauseSoundsCB();
+    soundGameOver.play();
     //Añado la pantalla 'YOU LOSE' al DOM
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'crt-content');
@@ -370,6 +378,20 @@ document.onload = function () {
     if(stats){
       crt.removeChild (stats);
     }
+  }
+
+  function pauseSoundsCB(){
+    soundPresents.pause();
+    soundIntro.pause();
+    soundPlayer.pause();
+    soundSlum.pause();
+    soundSubway.pause();
+    soundReward.pause();
+    soundPause.pause();
+    soundStart.pause();
+    soundGameOver.pause();
+    soundContinueSelection.pause();
+    soundContinueScreen.pause();
   }
   
 }();
