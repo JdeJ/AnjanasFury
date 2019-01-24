@@ -26,6 +26,9 @@ document.onload = function () {
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'intro');
     auxDiv.innerHTML = `
+      <div class="title">  
+        <img src="img/main-logo.png" alt="">
+      </div>
       <div class="options"> 
         <p id="start-button" class="options-btn">START</p>
       </div>
