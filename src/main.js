@@ -4,7 +4,8 @@ document.onload = function () {
   const crt = document.querySelector(".crt");
   let game;
 
-  soundPresents.play();
+  
+  let promise = soundPresents.play();
   presents();
   
   setTimeout(() => {
@@ -12,7 +13,6 @@ document.onload = function () {
   }, 3700);
 
   function presents(){
-    
     const presents = document.createElement('div');
     presents.setAttribute('class', 'presents');
     presents.innerHTML = `
@@ -23,7 +23,6 @@ document.onload = function () {
 
   function intro(){
     cleanContainer();
-    pauseSoundsCB();
     soundIntro.play();
     let auxDiv = document.createElement('div');
     auxDiv.setAttribute('class', 'intro');

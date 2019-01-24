@@ -10,7 +10,7 @@ class Player{
     this.sprites = sprites; //object with all player sprites
     this.direction = 'right'; //default direction
     this.sprite = this.sprites.stillRight; // default sprite
-    this.lives = 1; //default lives
+    this.lives = 3; //default lives
     this.score = 0; //default score
     this.spriteBlocked = false; //blocks sprite for some animations
   }
@@ -36,6 +36,7 @@ class Player{
     let x = this.x + this.vel;
     if(stage.canMoveX(x, this.sprite)){
       this.x += this.vel * delta / 16.6;
+      this.x += this.vel;
       this.direction = 'right';
       this.changeSprite('go');
     }
@@ -45,6 +46,7 @@ class Player{
     let x = this.x - this.vel;
     if(stage.canMoveX(x, this.sprite)){
       this.x -= this.vel * delta / 16.6;
+      this.x -= this.vel;
       this.direction = 'left';
       this.changeSprite('go');
     }

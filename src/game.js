@@ -27,6 +27,7 @@ class Game{
     this.newEnemyTimer.start();
     this.refresh();
     this.music = (this.stage.name === 'slum') ? soundSlum : soundSubway;
+    this.cb.pauseSounds();
     this.music.play();
   }
 
@@ -54,6 +55,8 @@ class Game{
               this.gameChangePhase(this.player.lives);
             }else if (this.stage.name === 'slum'){
               this.stage = this.createStage('subway');
+              this.music.pause();
+              this.music = soundSubway;
               this.gameChangePhase(this.player.lives);
             }else{
               this.youWin();
@@ -154,6 +157,7 @@ class Game{
     this.cb.resume();
     this.cb.createStats(this.player.name);
     this.gameChangePhase(lives);
+    this.gameStatus();
   }
 
   gameChangePhase (lives){
@@ -172,7 +176,6 @@ class Game{
     this.timer.start();
     this.music.play();
     this.newEnemyTimer.reset();
-    this.gameStatus();
   }
 
   gameOver (){
@@ -198,10 +201,12 @@ class Game{
       document.onkeydown = (e) => {
         if (e.keyCode === 32){
           if (this.fps){
+            this.cb.pauseSounds();
             soundPause.play();
             this.gamePause();
             this.cb.pauseSounds();
           }else{
+            this.cb.pauseSounds();
             this.music.play();
             this.gameResume();
           }
@@ -528,7 +533,7 @@ class Game{
           damageRight: new Sprite('img/axel.png',{x:297,y:198},{width:57, height:101},{width:125, height:222},0,1,false),
           damageLeft: new Sprite('img/axel.png',{x:297,y:299},{width:57, height:101},{width:125, height:222},0,1,false),
         };
-        enemy = new Enemy('axel', 4000, 400, 9, 13000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('axel', 4000, 100, 9, 13000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
       
       case 'j':
@@ -545,7 +550,7 @@ class Game{
           damageRight: new Sprite('img/j.png',{x:536,y:0},{width:50, height:93},{width:118, height:222},0,1,false),
           damageLeft: new Sprite('img/j.png',{x:536,y:93},{width:50, height:93},{width:118, height:222},0,1,false),
         };
-        enemy = new Enemy('j', 3000, 200, 11, 12500, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('j', 3000, 50, 11, 12500, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
 
       case 'oriber':
@@ -562,7 +567,7 @@ class Game{
           damageRight: new Sprite('img/oriber.png',{x:267,y:194},{width:77, height:84},{width:203, height:222},0,1,false),
           damageLeft: new Sprite('img/oriber.png',{x:267,y:278},{width:77, height:84},{width:203, height:222},0,1,false),
         };
-        enemy = new Enemy('oriber', 5000, 500, 11, 16000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
+        enemy = new Enemy('oriber', 5000, 200, 11, 16000, enemySprites, this.stage.phases[this.stage.currentPhase].x, this.stage.phases[this.stage.currentPhase].y);
         break;
     }
 

@@ -44,68 +44,57 @@ const availableEnemies ={
 //Stage phase pass object
 const phasePass = {
   'slum':{
-    0: {x: 760, stageX: -1880, minY: 255, maxY: 355},
-    1: {x: 800, stageX: -426, minY: 270, maxY: 280},
-    2: {x: 700, stageX: -1079, minY: 250, maxY: 310},
+    0: {x: 740, stageX: -1880, minY: 255, maxY: 355},
+    1: {x: 790, stageX: -426, minY: 270, maxY: 280},
+    2: {x: 670, stageX: -1079, minY: 250, maxY: 310},
   },
   'subway':{
-    0: {x: 765, stageX: -4870, minY: 233, maxY: 363},
-    1: {x: 760, stageX: -4590, minY: 232, maxY: 362},
+    0: {x: 755, stageX: -4870, minY: 233, maxY: 363},
+    1: {x: 750, stageX: -4590, minY: 232, maxY: 362},
   }
 };
 
 //Game sounds
 var soundPresents = new Audio(); 
   soundPresents.src = 'sounds/presents.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundPresents.loop = false;
 
 var soundIntro = new Audio(); 
   soundIntro.src = 'sounds/intro.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundIntro.loop = true;
 
 var soundPlayer = new Audio(); 
   soundPlayer.src = 'sounds/player-select.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundPlayer.loop = true;
 
 var soundSlum = new Audio(); 
   soundSlum.src = 'sounds/slum.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundSlum.loop = true;
 
 var soundSubway = new Audio(); 
   soundSubway.src = 'sounds/subway.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundSubway.loop = true;
 
 var soundReward = new Audio(); 
   soundReward.src = 'sounds/reward.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundReward.loop = false;
 
 var soundPause = new Audio(); 
   soundPause.src = 'sounds/pause.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundPause.loop = false;
 
 var soundStart = new Audio(); 
   soundStart.src = 'sounds/game-start.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundStart.loop = false;
 
 var soundGameOver = new Audio(); 
   soundGameOver.src = 'sounds/game-over.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundGameOver.loop = false;
 
 var soundContinueSelection = new Audio(); 
   soundContinueSelection.src = 'sounds/continue.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundContinueSelection.loop = false;
 
 var soundContinueScreen = new Audio(); 
   soundContinueScreen.src = 'sounds/continue-screen.mp3'; 
-  //soundIntro.volume -= 0.8; 
   soundContinueScreen.loop = true;
