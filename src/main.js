@@ -31,7 +31,7 @@ document.onload = function () {
         <img src="img/main-logo.png" alt="">
       </div>
       <div class="options"> 
-        <p id="start-button" class="options-btn">START</p>
+        <p id="start-button" class="options-btn">INSERT COIN</p>
       </div>
     `;
     crt.appendChild(auxDiv);
