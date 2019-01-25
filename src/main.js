@@ -57,7 +57,7 @@ document.onload = function () {
     game.gameStart(pauseCB.bind(this), resumeCB.bind(this), gameOverCB.bind(this), 
                    updateStatisticsCB.bind(this), statisticsCB.bind(this), 
                    removePlayerStatsCB.bind(this), liveConsumCB.bind(this),
-                   pauseSoundsCB.bind(this));
+                   pauseSoundsCB.bind(this), youWinCB.bind(this));
   }
 
   //funcion que manipula el DOM para seleccionar el jugador
@@ -284,6 +284,23 @@ document.onload = function () {
       <div class='you-lose'>
         <p>GAME</p>
         <p>OVER</p>
+      </div>
+    `;
+    crt.appendChild(auxDiv);
+  }
+
+  //Funcion que se ejecutará cuando el gamer gane
+  function youWinCB (){
+    cleanContainer();
+    removePlayerStatsCB();
+    pauseSoundsCB();
+    //Añado la pantalla 'YOU WIN' al DOM
+    let auxDiv = document.createElement('div');
+    auxDiv.setAttribute('class', 'crt-content');
+    auxDiv.innerHTML = `
+      <div class='you-lose'>
+        <p>YOU</p>
+        <p>WIN</p>
       </div>
     `;
     crt.appendChild(auxDiv);

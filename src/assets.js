@@ -31,22 +31,22 @@ const players = ['cody', 'haggar', 'anjana'];
 
 //Stage timeouts object
 const timeouts ={
-  'slum':{0: 99, 1: 30, 2: 45},
+  'slum':{0: 60, 1: 30, 2: 45},
   'subway':{0: 80, 1: 99},
 };
 
 //Phase available enemies object
 const availableEnemies ={
-  'slum':{0: 3, 1: 2, 2: 6},
+  'slum':{0: 2, 1: 2, 2: 6},
   'subway':{0: 7, 1: 10},
 };
 
 //Stage phase pass object
 const phasePass = {
   'slum':{
-    0: {x: 740, stageX: -1880, minY: 255, maxY: 355},
+    0: {x: 740, stageX: -1870, minY: 255, maxY: 355},
     1: {x: 790, stageX: -426, minY: 270, maxY: 280},
-    2: {x: 670, stageX: -1079, minY: 250, maxY: 310},
+    2: {x: 640, stageX: -1059, minY: 240, maxY: 310},
   },
   'subway':{
     0: {x: 755, stageX: -4870, minY: 233, maxY: 363},
