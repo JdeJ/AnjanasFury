@@ -3,9 +3,6 @@
 ## Description
 A beat ‘em up game (based on Final Fight a 1989 arcade game) made with DOM manipulation, JavaScript and Canvas. If you press ‘select’ on character screen you will receive a surprise (my daughter Anjana).
 
-This is my Ironhack first module project.
-
-
 ## Data structure
 - Class Game - controls game logic (Start, Pause, Game Over, Characters collisions...)
   - Properties: canvas, ctx, stage, player, timer, newEnemyTimer, enemies, controlsPressed, fps, state, cb
@@ -79,8 +76,6 @@ This is my Ironhack first module project.
     - updateSprite (updates sprite to make the move)
     - drawSprite (draw any sprite)
 
-
-
 ## States y States Transitions
 
 - **Start screen**: show logo, then intro with music and pressing any valid key, shows character select screen
@@ -88,11 +83,8 @@ This is my Ironhack first module project.
 - **Game Over screen**: shows player game over animation with DOM, and two buttons with **restart** and **resume** options.
 - **You Win screen**: shows player happy!!!
 
-
 ### [Deploy](https://jdej.github.io/AnjanasFury/)
 
-
 ### [Trello](https://trello.com/invite/b/OvucErTG/3226cb0fe22c1e9d01ebe6b6e9d76459/anjanas-fury)
-
 
 ### [Slides](https://slides.com/jdej/deck)
