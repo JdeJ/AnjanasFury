@@ -1,7 +1,7 @@
 # Anjana's Fury
 
 ## Description
-A beat ‘em up game (based on Final Fight a 1989 arcade game) made with DOM manipulation, JavaScript and Canvas. If you press ‘select’ on character screen you will receive a surprise.
+A beat ‘em up game (based on Final Fight a 1989 arcade game) made with DOM manipulation, JavaScript and Canvas. If you press ‘select’ on character screen you will receive a surprise (my daughter Anjana).
 
 This is my Ironhack first module project.
 
