@@ -89,14 +89,10 @@ This is my Ironhack first module project.
 - **You Win screen**: shows player happy!!!
 
 
-### Trello
-- [Anjana's Fury](https://trello.com/invite/b/OvucErTG/3226cb0fe22c1e9d01ebe6b6e9d76459/anjanas-fury)
+### [Deploy](https://jdej.github.io/AnjanasFury/)
 
 
-### Git
-- [Anjana's Fury - Repo](https://github.com/JdeJ/AnjanasFury)
-- [Anjana's Fury - Deploy](https://jdej.github.io/AnjanasFury/)
+### [Trello](https://trello.com/invite/b/OvucErTG/3226cb0fe22c1e9d01ebe6b6e9d76459/anjanas-fury)
 
 
-### Slides
-- [Anjana's Fury - Slides](https://slides.com/jdej/deck)
+### [Slides](https://slides.com/jdej/deck)
