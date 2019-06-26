@@ -1,57 +1,92 @@
 # Anjana's Fury
 
 ## Description
-Anjana es una niña con poco respeto por la autoridad y ninguno por las pertenencias ajenas.
+A beat ‘em up game (based on Final Fight a 1989 arcade game) made with DOM manipulation, JavaScript and Canvas. If you press ‘select’ on character screen you will receive a surprise.
 
-Mientras pasea por el mundo, destruye todo lo que encuentra a su paso sin importarle su tamaño y mucho menos su valor.
-
-También pelea con cualquier persona que intente ponerle el pijama, bañarla o darle de comer, sin importarle si es su madre, padre o abuela.
-
-Sólo tiene apego a sus dos gatos y a su primo, a los que abraza como loca cuando se los encuentra, para que le den energia y vitalidad.
-
-Su diversión acaba cuando alguien consigue detenerla vistiendola, sentandola en la trona para darle de comer...
-
-
-## MVP (DOM - CANVAS)
-Juego programado en HTML5 usando Canvas y Javascript.
-
-
-## Backlog
+This is my Ironhack first module project.
 
 
 ## Data structure
-- Class Game - Controla la lógica de la partida
-- Class Stage - Define cada pantalla del juego
-- Class Character - Define como serán los personajes en el juego
-  - Class Anjana - Crea el protagonista del juego
-  - Class Enemy - Define como seran los enemigos de Anjana
-    - Class mom - Crea el enemigo Mom
-    - Class dad - Crea el enemigo Dad
-    - Class yaya - Crea el enemigo Yaya
-- Class thing - Define como serán los objetos del juego
-  - Class goodThing - Define como serán los objetos buenos del juego
-    - Class shushi - Crea el gato sushi
-    - Class lola - Crea el gato lola
-    - Class cousin - Crea el primo
-  - Class badThing - Define como serán los objetos malos del juego
-    - Class tv - Crea televisiones
-    - Class pc - Crea ordenadores
-    - Class phone - Crea moviles
-    - Class ctree - Crea árboles de navidad
+- Class Game - controls game logic (Start, Pause, Game Over, Characters collisions...)
+  - Properties: canvas, ctx, stage, player, timer, newEnemyTimer, enemies, controlsPressed, fps, state, cb
+  - Methods:
+    - gameStart (create the stage)
+    - gamestatus (check when the game is over)
+    - clear (clear canvas)
+    - drawElements (draw player, enemies, items, stage...)
+    - refresh (clear and draw canvas)
+    - gamePause
+    - gameResume
+    - gameContinue
+    - gameChangePhase
+    - gameOver
+    - youWin
+    - moveEnemies
+    - generateControls
+    - checkCollisions (checks all collisions)
+    - checkItemCollisions
+    - checkEnemyCollisions
+    - collisions (check side collisions)
+    - createPlayer
+    - createStage
+    - createEnemy
+- Class Stage - Define each Stage of the game
+  - Properties: name, phases, currentPhase, position (x, y), item, timeout, totalEnemiesLeft
+  - Methods:
+    - createItem
+    - updateTimeout
+    - drawStage
+    - parallax (creates parallax effect to the background)
+    - canMoveX (controls x axis limits)
+    - canmoveY (controls y axis limits)
+    - removeItem (when taken by player)
+- Class Player - Define the character choosen by the player
+  - Properties: name, health, strength, speed, sprites, initial position (x, y)
+  - Methods:
+    - drawPlayer (draw the player on the canvas)
+    - changeSprite (change the sprite: walking, idle...)
+    - moveRight
+    - moveLeft
+    - moveUp
+    - moveDown
+    - punch
+    - kick
+    - hook
+    - take
+    - receiveDamage
+    - isDead
+- Class Enemy - Define the random enemy created by game
+  - Properties: name, health, strength, speed, reward, sprites, initial position (x, y).
+  - Methods:
+    - drawEnemy (draw the enemy on the canvas)
+    - changeSprite (change the sprite: walking, idle...)
+    - move
+    - chasePlayer (method to chase Player along the stage)
+    - checkDirection (method to turn enemies to face to player)
+    - attack
+    - receiveDamage
+    - isDead
+- Class Item - Define como serán los objetos del juego
+  - Properties: phaseXLimits, phaseYLimits, rewardPoints, rewardHealth, obstacleSprite, rewardSprite, sprite, position (x, y), health.
+  - Methods:
+    - randomSprite (select one random reward item)
+    - randomPosition (draw item randomly on stage)
+    - receiveDamage
+    - checkStatus (show reward when item is broken)
+- Class Sprite - This class defines how the sprites will be drawn on canvas
+  - Properties: url, src, sSize, dSize, speed, frames, currentFrame, framesCount, loop.
+  - Methods:
+    - updateSprite (updates sprite to make the move)
+    - drawSprite (draw any sprite)
+
 
 
 ## States y States Transitions
 
-- **Pantalla de inicio**: mostrará el logotipo del juego y un botón **START**. Si no se pulsa en un tiempo, mostrará los créditos.
-- **Pantalla de juego**: mostrará el Stage, barras con el número de vidas y la salud actual.
-- **Pantalla de game over**: mostrará una pantalla distinta dependiendo qué enemigo ha vencido a Anjana y un botón de **RESTART**.
-- **Pantalla de victoria**: mostrará a Anjana feliz por haber evitado a todos los enemigos.
-
-
-## Task
-
-
-## Links
+- **Start screen**: show logo, then intro with music and pressing any valid key, shows character select screen
+- **Game screen**: shows the Stage with player, enemies and rewards drawn on the canvas. Also shows player and stage stats on DOM.
+- **Game Over screen**: shows player game over animation with DOM, and two buttons with **restart** and **resume** options.
+- **You Win screen**: shows player happy!!!
 
 
 ### Trello
