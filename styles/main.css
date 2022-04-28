@@ -6,27 +6,32 @@ body {
   color: whitesmoke;
 }
 
+.main-container{
+  background-image: linear-gradient(0deg, black, rgb(78,79,83));
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 700px 1fr;
+}
+
 .main-header{
   height: 150px;
   display: flex;
   flex-flow: row;
   justify-content: space-around;
   align-items: center;
-  background-color: whitesmoke;
-  background-image: linear-gradient(0deg, black, rgb(78,79,83));
 }
 
 .container{
   display: flex;
   flex-flow: row;
   justify-content: space-evenly;
-  background-color: rgb(78,79,83);
   padding: 10px 0;
   align-content: center;
   align-items: stretch;
 }
 
-.keysettings{
+.key-settings{
   padding: 10px;
   width: 100px;
   height: 66px;
@@ -36,11 +41,11 @@ body {
   width: 100%;
 }
 
-.keysettings ul{
+.key-settings ul{
   padding: 10px 0;
 }
 
-.keysettings ul li{
+.key-settings ul li{
   display: flex;
   flex-flow: row;
   justify-content: space-between;
@@ -48,17 +53,17 @@ body {
   padding: 2px 0;
 }
 
-.keysettings ul li img{
+.key-settings ul li img{
   width: 100%;
 }
 
-.keysettings ul li span{
+.key-settings ul li span{
   text-align: left;
   align-self: center;
   font-size: 14px;
 }
 
-.keysettings ul li p{
+.key-settings ul li p{
   font-size: 14px;
 }
 
@@ -113,8 +118,8 @@ body {
 }
 
 .main-footer{
-  padding: 20px 0;
-  background-color: black;
+  display: flex;
+  align-items: center;
 }
 
 .main-footer>p{
